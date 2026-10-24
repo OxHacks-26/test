@@ -1,6 +1,6 @@
-# OxHack '26 — HRT
+# OxHack '26 
 
-**Best use of Data for Predictions & Decision making**
+**Topic of Time**
 
 Time is the subject. A row of numbers does not say what to do; the sequence does. This project reads how something has changed over time, predicts the next stretch, and turns that into a decision: act now, wait, or look closer.
 
