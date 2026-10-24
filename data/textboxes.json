@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Three sourced display facts for each living sea turtle species. Population status uses global IUCN Red List assessments. Regional nesting estimates are not total wild population counts.",
+  "population_count_note": "A complete global count of all wild turtles is not available for most species. Where a regional nesting count is shown, it refers only to nesting females at the named site or region, not every turtle alive.",
+  "species": [
+    {
+      "species_id": "green",
+      "common_name": "Green turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Green turtles live in tropical and subtropical waters worldwide. Adults commonly forage in shallow coastal seagrass beds and other nearshore waters.",
+          "source_ids": ["noaa-green"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Least Concern (2025 assessment). The total number of wild green turtles has not been reliably counted; the assessment reports an increasing population trend but no global mature-individual total.",
+          "source_ids": ["iucn-green"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "Green turtles may live for at least 70 years.",
+          "source_ids": ["noaa-green"]
+        }
+      ]
+    },
+    {
+      "species_id": "loggerhead",
+      "common_name": "Loggerhead turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Loggerheads use open-ocean waters as juveniles and coastal and oceanic habitats as they grow; adults often feed in coastal waters and nest on sandy beaches.",
+          "source_ids": ["noaa-loggerhead"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Vulnerable (assessed 2015). A reliable global headcount is unavailable; NOAA reports about 500 female loggerheads nest each year in the South Pacific, a regional nesting estimate rather than the total wild population.",
+          "source_ids": ["iucn-loggerhead", "noaa-loggerhead"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "Loggerheads can live for 80 years or more.",
+          "source_ids": ["noaa-loggerhead"]
+        }
+      ]
+    },
+    {
+      "species_id": "leatherback",
+      "common_name": "Leatherback turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Leatherbacks travel through oceanic and coastal waters worldwide, including cooler waters, and nest on tropical and subtropical beaches.",
+          "source_ids": ["noaa-leatherback"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Vulnerable (assessed 2013). No reliable global headcount is available; NOAA estimates the global population declined about 40% over the past three generations.",
+          "source_ids": ["iucn-leatherback", "noaa-leatherback"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "Leatherback lifespan is uncertain; estimates suggest 45 to 50 years or more.",
+          "source_ids": ["noaa-leatherback"]
+        }
+      ]
+    },
+    {
+      "species_id": "hawksbill",
+      "common_name": "Hawksbill turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Hawksbills mainly live in warm nearshore waters, especially coral reefs, but also use mangrove estuaries, rocky areas, and open-ocean habitat when young.",
+          "source_ids": ["noaa-hawksbill"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Critically Endangered (assessed 2008). A reliable global headcount is unavailable; NOAA reports around 6,000 to 8,000 hawksbills nest annually near Australia's Great Barrier Reef, a regional nesting estimate.",
+          "source_ids": ["iucn-hawksbill", "noaa-hawksbill"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "Hawksbills are estimated to live around 50 to 60 years, although their life expectancy has not been confirmed.",
+          "source_ids": ["noaa-hawksbill"]
+        }
+      ]
+    },
+    {
+      "species_id": "kemps-ridley",
+      "common_name": "Kemp's ridley turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Kemp's ridleys mainly live in the Gulf of Mexico and nearby Atlantic waters. Adults forage in shallow coastal areas over sandy or muddy bottoms.",
+          "source_ids": ["noaa-kemps"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Critically Endangered (assessed 2019). The IUCN estimate is 22,341 mature individuals; this counts mature turtles, not all ages, and is not a live census.",
+          "source_ids": ["iucn-kemps-ridley"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "Kemp's ridleys are estimated to live at least 30 years, but their exact lifespan is not known.",
+          "source_ids": ["noaa-kemps"]
+        }
+      ]
+    },
+    {
+      "species_id": "olive-ridley",
+      "common_name": "Olive ridley turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Olive ridleys are found in tropical waters of the Atlantic, Pacific, and Indian oceans. They mostly live in the open ocean but also use coastal waters.",
+          "source_ids": ["noaa-olive"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Vulnerable (assessed 2008). A reliable global headcount is unavailable; NOAA estimates around 450,000 nesting females at La Escobilla, Mexico, a single-site estimate rather than the total wild population.",
+          "source_ids": ["iucn-olive-ridley", "noaa-olive"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "The exact lifespan of olive ridleys is not known, but they are thought to live for decades.",
+          "source_ids": ["noaa-olive"]
+        }
+      ]
+    },
+    {
+      "species_id": "flatback",
+      "common_name": "Flatback turtle",
+      "textboxes": [
+        {
+          "topic": "Habitat",
+          "text": "Flatback turtles live in shallow coastal waters around northern Australia and nearby regions, often over soft seabeds; they nest on Australian beaches.",
+          "source_ids": ["dcceew-flatback"]
+        },
+        {
+          "topic": "Population and extinction risk",
+          "text": "IUCN global status: Data Deficient (assessed 1996). This means there is not enough information to determine its extinction risk; the assessment provides no global mature-individual count.",
+          "source_ids": ["iucn-flatback"]
+        },
+        {
+          "topic": "Life expectancy",
+          "text": "The IUCN assessment does not give a life-expectancy estimate for flatback turtles, so their lifespan is listed as unknown.",
+          "source_ids": ["iucn-flatback"]
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,10 @@
 
 `species.json` contains all seven living species, display colours, geographic summaries,
 published depth examples, species facts, regional nesting months and citation IDs.
+`textboxes.json` contains three concise, cited display facts for each species: habitat,
+global conservation status and available population information, and life expectancy.
+Wild population totals are not known for most species; regional nesting figures are
+labelled as such and must not be presented as total numbers of turtles.
 `sources.json` resolves those IDs to source titles, links and the claims they support.
 `animation_sightings.json` supplies a four-year selector, seven species options and
 year/month availability metadata. It does **not** contain the four requested annual

@@ -14,10 +14,21 @@ def main():
     sightings = json.loads((root / "animation_sightings.json").read_text(encoding="utf-8"))
     depth_profiles = json.loads((root / "animation_depth_profiles.json").read_text(encoding="utf-8"))
     predictions = json.loads((root / "animation_species_predictions.json").read_text(encoding="utf-8"))
+    textboxes = json.loads((root / "textboxes.json").read_text(encoding="utf-8"))
     source_ids = {source["id"] for source in sources}
     species_ids = {item["id"] for item in species}
     assert len(species) == len(species_ids) == 7
     assert len(source_ids) == len(sources)
+    assert {item["species_id"] for item in textboxes["species"]} == species_ids
+    assert len(textboxes["species"]) == len(species_ids)
+    required_textbox_topics = {"Habitat", "Population and extinction risk", "Life expectancy"}
+    for item in textboxes["species"]:
+        assert len(item["textboxes"]) == 3
+        assert {textbox["topic"] for textbox in item["textboxes"]} == required_textbox_topics
+        for textbox in item["textboxes"]:
+            assert textbox["text"]
+            assert textbox["source_ids"]
+            assert set(textbox["source_ids"]) <= source_ids
     assert len({item["colour"] for item in species}) == 7
     for item in species:
         assert re.fullmatch(r"#[0-9A-Fa-f]{6}", item["colour"])
@@ -103,7 +114,8 @@ def main():
     print(
         f"Valid: {len(species)} species, 7 demo routes, 84 demo positions, "
         f"{len(sightings['sightings'])} CC0 sighting markers, "
-        f"{len(depth_profiles['species'])} depth profiles, {len(sources)} sources."
+        f"{len(depth_profiles['species'])} depth profiles, "
+        f"{len(textboxes['species'])} textbox records, {len(sources)} sources."
     )
 
 

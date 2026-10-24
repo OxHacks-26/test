@@ -6,42 +6,42 @@
       "title": "NOAA Fisheries: Green turtle",
       "url": "https://www.fisheries.noaa.gov/species/green-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Taxonomy and distribution."
+      "supports": "Taxonomy, distribution, habitat, population status and lifespan."
     },
     {
       "id": "noaa-loggerhead",
       "title": "NOAA Fisheries: Loggerhead turtle",
       "url": "https://www.fisheries.noaa.gov/species/loggerhead-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Taxonomy and distribution."
+      "supports": "Taxonomy, distribution, habitat, regional nesting estimates and lifespan."
     },
     {
       "id": "noaa-leatherback",
       "title": "NOAA Fisheries: Leatherback turtle",
       "url": "https://www.fisheries.noaa.gov/species/leatherback-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Taxonomy, distribution and shell characteristics."
+      "supports": "Taxonomy, distribution, habitat, population trends, shell characteristics and lifespan."
     },
     {
       "id": "noaa-hawksbill",
       "title": "NOAA Fisheries: Hawksbill turtle",
       "url": "https://www.fisheries.noaa.gov/species/hawksbill-turtle?page=0",
       "accessed_on": "2026-10-24",
-      "supports": "Distribution and anatomy."
+      "supports": "Distribution, habitat, regional nesting estimates, anatomy and lifespan."
     },
     {
       "id": "noaa-kemps",
       "title": "NOAA Fisheries: Kemp's ridley turtle",
       "url": "https://www.fisheries.noaa.gov/species/kemps-ridley-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Distribution, April–July nesting and daytime arribadas."
+      "supports": "Distribution, habitat, regional population information, April–July nesting, daytime arribadas and lifespan."
     },
     {
       "id": "noaa-olive",
       "title": "NOAA Fisheries: Olive ridley turtle",
       "url": "https://www.fisheries.noaa.gov/species/olive-ridley-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Distribution and arribada nesting."
+      "supports": "Distribution, habitat, regional nesting estimates, population trends, arribada nesting and lifespan."
     },
     {
       "id": "dcceew-flatback",
@@ -168,6 +168,55 @@
       "url": "https://www.fisheries.noaa.gov/inport/item/30696",
       "accessed_on": "2026-10-24",
       "supports": "Potential actual telemetry source for two species. Catalog inspected; files not downloaded."
+    },
+    {
+      "id": "iucn-green",
+      "title": "IUCN Red List: Green Turtle (2025 assessment)",
+      "url": "https://www.iucnredlist.org/species/4615/285108125",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Least Concern assessment published in 2025; assessed 9 December 2024; population trend increasing; no mature-individual count provided."
+    },
+    {
+      "id": "iucn-loggerhead",
+      "title": "IUCN Red List: Loggerhead Turtle (2017 publication)",
+      "url": "https://www.iucnredlist.org/species/3897/119333622",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Vulnerable assessment; assessed 23 August 2015; population trend decreasing; no mature-individual count provided."
+    },
+    {
+      "id": "iucn-leatherback",
+      "title": "IUCN Red List: Leatherback Turtle (2013 assessment)",
+      "url": "https://www.iucnredlist.org/species/6494/43526147",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Vulnerable assessment; assessed 21 June 2013; population trend decreasing; no mature-individual count provided."
+    },
+    {
+      "id": "iucn-hawksbill",
+      "title": "IUCN Red List: Hawksbill Turtle (2008 assessment)",
+      "url": "https://www.iucnredlist.org/species/8005/12881238",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Critically Endangered assessment; assessed 30 June 2008; population trend decreasing; no mature-individual count provided."
+    },
+    {
+      "id": "iucn-kemps-ridley",
+      "title": "IUCN Red List: Kemp's Ridley (2019 assessment)",
+      "url": "https://www.iucnredlist.org/species/11533/155057916",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Critically Endangered assessment; assessed 14 January 2019; estimated 22,341 mature individuals; population trend unknown."
+    },
+    {
+      "id": "iucn-olive-ridley",
+      "title": "IUCN Red List: Olive Ridley (2008 assessment)",
+      "url": "https://www.iucnredlist.org/species/11534/3292503",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Vulnerable assessment; assessed 30 June 2008; population trend decreasing; no mature-individual count provided."
+    },
+    {
+      "id": "iucn-flatback",
+      "title": "IUCN Red List: Flatback (1996 assessment)",
+      "url": "https://www.iucnredlist.org/species/14363/210612474",
+      "accessed_on": "2026-10-24",
+      "supports": "Global Data Deficient assessment; assessed 1 September 1996; no mature-individual count or life-expectancy estimate provided. The assessment is old and needs updating."
     }
   ]
 }

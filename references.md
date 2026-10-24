@@ -16,11 +16,32 @@ Ampela, K. and Bacon, C. (2019b) ‘HRC SCC Aerial-Based Monitoring Survey Febru
 Australian Government Department of Climate Change, Energy, the Environment and Water (DCCEEW) (n.d.) ‘Flatback turtle’. Available at: https://www.dcceew.gov.au/environment/marine/marine-species/marine-turtles/flatback (Accessed: 24 October 2026).  
 *Source ID: `dcceew-flatback`. Supports distribution, Australian breeding sites and soft-bottom habitats.*
 
+Abreu-Grobois, A. and Plotkin, P. (IUCN SSC Marine Turtle Specialist Group) (2008) ‘Lepidochelys olivacea’. *The IUCN Red List of Threatened Species 2008*, e.T11534A3292503. Available at: https://www.iucnredlist.org/species/11534/3292503 (Accessed: 24 October 2026).
+*Source ID: `iucn-olive-ridley`. Global Vulnerable assessment, assessed 30 June 2008; population trend decreasing. No global mature-individual count is provided.*
+
+Casale, P. and Tucker, A.D. (2017) ‘Caretta caretta’ (amended version of 2015 assessment). *The IUCN Red List of Threatened Species 2017*, e.T3897A119333622. Available at: https://www.iucnredlist.org/species/3897/119333622 (Accessed: 24 October 2026).
+*Source ID: `iucn-loggerhead`. Global Vulnerable assessment, assessed 23 August 2015; population trend decreasing. No global mature-individual count is provided.*
+
 Gaos et al. (2012) ‘Dive behaviour of adult hawksbills in the eastern Pacific Ocean’. Available at: https://www.conservationecologylab.com/uploads/1/9/7/6/19763887/gaos_et_al_2012_hawksbill_dive_behaviour.pdf (Accessed: 24 October 2026).  
 *Source ID: `hawksbill-diving`. Supports study-specific shallow depth use, mostly within 10 m; not a universal species limit.*
 
 Hays et al. (2000) ‘The diving behaviour of green turtles at Ascension Island’. Available at: https://doi.org/10.1006/anbe.1999.1326 (Accessed: 24 October 2026).  
 *Source ID: `green-diving`. Supports routine resting dive depths of 18–20 m in six inter-nesting females.*
+
+Wibbels, T. and Bevan, E. (2019) ‘Lepidochelys kempii’ (errata version published in 2019). *The IUCN Red List of Threatened Species 2019*, e.T11533A155057916. Available at: https://www.iucnredlist.org/species/11533/155057916 (Accessed: 24 October 2026).
+*Source ID: `iucn-kemps-ridley`. Global Critically Endangered assessment, assessed 14 January 2019; estimated 22,341 mature individuals. This is an assessment estimate of mature turtles, not a live census of all ages.*
+
+Mortimer, J.A. and Donnelly, M. (IUCN SSC Marine Turtle Specialist Group) (2008) ‘Eretmochelys imbricata’. *The IUCN Red List of Threatened Species 2008*, e.T8005A12881238. Available at: https://www.iucnredlist.org/species/8005/12881238 (Accessed: 24 October 2026).
+*Source ID: `iucn-hawksbill`. Global Critically Endangered assessment, assessed 30 June 2008; population trend decreasing. No global mature-individual count is provided.*
+
+Wallace, B.P. and Broderick, A.C. (2025) ‘Chelonia mydas’. *The IUCN Red List of Threatened Species 2025*, e.T4615A285108125. Available at: https://www.iucnredlist.org/species/4615/285108125 (Accessed: 24 October 2026).
+*Source ID: `iucn-green`. Global Least Concern assessment published in 2025 and assessed 9 December 2024; population trend increasing. No global mature-individual count is provided.*
+
+Red List Standards & Petitions Subcommittee (1996) ‘Natator depressus’ (errata version published in 2022). *The IUCN Red List of Threatened Species 1996*, e.T14363A210612474. Available at: https://www.iucnredlist.org/species/14363/210612474 (Accessed: 24 October 2026).
+*Source ID: `iucn-flatback`. Global Data Deficient assessment, assessed 1 September 1996; no mature-individual count is provided. The assessment needs updating and does not provide a life-expectancy estimate.*
+
+Wallace, B.P., Tiwari, M. and Girondot, M. (2013) ‘Dermochelys coriacea’. *The IUCN Red List of Threatened Species 2013*, e.T6494A43526147. Available at: https://www.iucnredlist.org/species/6494/43526147 (Accessed: 24 October 2026).
+*Source ID: `iucn-leatherback`. Global Vulnerable assessment, assessed 21 June 2013; population trend decreasing. No global mature-individual count is provided.*
 
 Josephson, B. and Palka, D. (2019) ‘NEFSC Aerial Circle-Back Abundance Survey 2006’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/1889.
 *Source ID: `obis-seamap-dataset-1889`. CC0 dataset; four July 2006 point observations labelled unidentified turtle (Chelonioidea) are included as separate sighting markers in `data/animation_sightings.json`.*
@@ -35,22 +56,22 @@ Pool, M. and de Boer, M. (2021) ‘SeaTurtle surveys on Braamspunt by Green Heri
 *Source ID: `obis-seamap-dataset-2127`. CC-BY-NC nest observations; cited for archive coverage only. Coordinates are not redistributed and nest locations are not turtle swimming tracks.*
 
 NOAA Fisheries (n.d.) ‘Green turtle’. Available at: https://www.fisheries.noaa.gov/species/green-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-green`. Supports taxonomy and distribution.*
+*Source ID: `noaa-green`. Supports taxonomy, distribution, habitat, population status and lifespan.*
 
 NOAA Fisheries (n.d.) ‘Hawksbill turtle’. Available at: https://www.fisheries.noaa.gov/species/hawksbill-turtle?page=0 (Accessed: 24 October 2026).  
-*Source ID: `noaa-hawksbill`. Supports distribution and anatomy.*
+*Source ID: `noaa-hawksbill`. Supports distribution, habitat, regional nesting estimates, anatomy and lifespan.*
 
 NOAA Fisheries (n.d.) ‘Kemp’s ridley turtle’. Available at: https://www.fisheries.noaa.gov/species/kemps-ridley-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-kemps`. Supports distribution, April–July nesting and daytime arribadas.*
+*Source ID: `noaa-kemps`. Supports distribution, habitat, regional population information, April–July nesting, daytime arribadas and lifespan.*
 
 NOAA Fisheries (n.d.) ‘Leatherback turtle’. Available at: https://www.fisheries.noaa.gov/species/leatherback-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-leatherback`. Supports taxonomy, distribution and shell characteristics.*
+*Source ID: `noaa-leatherback`. Supports taxonomy, distribution, habitat, population trends, shell characteristics and lifespan.*
 
 NOAA Fisheries (n.d.) ‘Loggerhead turtle’. Available at: https://www.fisheries.noaa.gov/species/loggerhead-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-loggerhead`. Supports taxonomy and distribution.*
+*Source ID: `noaa-loggerhead`. Supports taxonomy, distribution, habitat, regional nesting estimates and lifespan.*
 
 NOAA Fisheries (n.d.) ‘Olive ridley turtle’. Available at: https://www.fisheries.noaa.gov/species/olive-ridley-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-olive`. Supports distribution and arribada nesting.*
+*Source ID: `noaa-olive`. Supports distribution, habitat, regional nesting estimates, population trends, arribada nesting and lifespan.*
 
 NOAA InPort (n.d.) ‘Kemps Ridley and Loggerhead Tracking data in GOM’. Available at: https://www.fisheries.noaa.gov/inport/item/30696 (Accessed: 24 October 2026).  
 *Source ID: `noaa-tracking-catalog`. Potential source for actual telemetry data for Kemp’s ridley and loggerhead turtles; catalog inspected, files not downloaded.*
