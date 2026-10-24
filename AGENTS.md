@@ -30,6 +30,16 @@ Rules for every AI coding agent (and human) working in this repo. Several people
 - Add new Python dependencies to `backend/requirements.txt` (dev-only ones to `requirements-dev.txt`) with pinned versions.
 - Before pushing, run from `backend/`: `ruff format . && ruff check . && pytest`. CI runs the same checks.
 
+## Data format (`data/`)
+
+The app maps sea turtle migrations over time. All data lives in `data/` as plain JSON so the backend can serve it and the frontend can draw it. Keep these shapes stable; if you must change them, update `backend/tests/test_data.py` and tell the team.
+
+- `data/species.json` — array of the 7 species: `id` (slug, e.g. `loggerhead`), `common_name`, `scientific_name`, `color` (hex, used for map lines), `depth_range_m: {typical_max, record_max}`, `iucn_status`, `blurb`, `sources: [{title, url}]`.
+- `data/migrations.geojson` — GeoJSON `FeatureCollection` of `LineString` routes (coordinates are `[lon, lat]`). Each feature's `properties`: `id`, `species` (a species `id`), `name`, `ocean` (an ocean `id`), `life_stage`, `start`/`end` (ISO dates — the years the route is known to be active), `months` (1–12, when the migration happens each year), `depth_m: {min, max}`, `confidence` (`documented` or `illustrative`), `notes`, `sources`.
+- `data/oceans.json` — array of `id`, `name`, `bbox` `[minLon, minLat, maxLon, maxLat]` (Pacific crosses the antimeridian, so minLon > maxLon), `center` `[lon, lat]`.
+
+Time filtering rule: a route is shown for a selected time window if its `start`–`end` span overlaps the window **and** at least one of its `months` falls inside the window.
+
 ## Do
 
 - Read `README.md`, this file, and `CONTRIBUTING.md` before making changes.
