@@ -3,7 +3,9 @@
 import importlib.util
 from datetime import date
 from pathlib import Path
+from typing import Annotated
 
+from fastapi import Query
 from fastapi.staticfiles import StaticFiles
 from nicegui import app, ui
 
@@ -37,8 +39,25 @@ def api_species() -> list[dict]:
 
 
 @app.get("/api/migrations")
-def api_migrations() -> dict:
-    return turtle_data.load_json("migrations.geojson")
+def api_migrations(
+    from_: Annotated[date | None, Query(alias="from")] = None,
+    to: Annotated[date | None, Query()] = None,
+    species: Annotated[str | None, Query()] = None,
+    ocean: Annotated[str | None, Query()] = None,
+    year: Annotated[int | None, Query()] = None,
+) -> dict:
+    start, end = from_, to
+    if year is not None:
+        year_start, year_end = date(year, 1, 1), date(year, 12, 31)
+        start = year_start if start is None else max(start, year_start)
+        end = year_end if end is None else min(end, year_end)
+    species_ids = {part.strip() for part in species.split(",") if part.strip()} if species else None
+    return turtle_data.migrations(
+        start=start,
+        end=end,
+        species_ids=species_ids or None,
+        ocean=ocean,
+    )
 
 
 app.mount("/map", StaticFiles(directory=REPO_ROOT / "map", html=True), name="map")
@@ -369,7 +388,7 @@ def home() -> None:
                     # The Leaflet migration map (map/) fills the #map node through an iframe.
                     with ui.element("div").classes("map-scroll w-full mt-3"):
                         with ui.element("div").props('id=map role=application aria-label="Sea turtle migration map"').classes("ocean-map"):
-                            ui.element("iframe").props('id=map-frame src="/map/?embed=1" title="Sea turtle migration map"')
+                            ui.element("iframe").props('id=map-frame src="/map/?embed=1&year=2006" title="Sea turtle migration map"')
                         with ui.row().classes("map-tools items-center gap-2"):
                             ui.button("+").props("id=map-zoom-in no-caps unelevated").classes("map-tool-button").tooltip("Zoom in")
                             ui.button("-").props("id=map-zoom-out no-caps unelevated").classes("map-tool-button").tooltip("Zoom out")
@@ -627,6 +646,7 @@ def home() -> None:
         changed = value != state.date
         state.date = value
         date_input.value = value.year
+        ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('year', {{year: {value.year}}})")
         date_slider.value = slider_index
         if value.year >= MAX_YEAR:
             date_label.text = f"{MAX_YEAR} - Latest data"

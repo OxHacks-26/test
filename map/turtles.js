@@ -312,25 +312,57 @@ function sideShellPath(id) {
   return "M36 50 C34 30, 62 18, 94 18 C116 18, 128 32, 122 48 C118 58, 100 62, 80 62 C58 62, 38 60, 36 50 Z";
 }
 
+// One route per species is drawn for the selected sample year. The other
+// years stay off the map so the four versions of a corridor do not stack.
+const MIGRATION_YEARS = [2006, 2010, 2015, 2020];
+
+function migrationYearFromPage() {
+  const requested = Number(new URLSearchParams(window.location.search).get("year"));
+  return MIGRATION_YEARS.includes(requested) ? requested : 2020;
+}
+
+let migrationYear = migrationYearFromPage();
+window.migrationYear = migrationYear;
+
+window.setMigrationYear = (year) => {
+  const next = Number(year);
+  if (!MIGRATION_YEARS.includes(next) || next === migrationYear) {
+    return;
+  }
+  migrationYear = next;
+  window.migrationYear = next;
+  if (window.__refreshMigrationYear) {
+    window.__refreshMigrationYear();
+  }
+};
+
 function mountTurtles(map) {
   const monthLabel = document.getElementById("turtle-month");
   const layer = L.layerGroup().addTo(map);
   loadTurtles(map, layer, monthLabel);
 }
 
+function routesForYear(features, year) {
+  const seen = new Set();
+  return features.filter((feature) => {
+    const props = feature.properties || {};
+    const speciesId = props.species_id;
+    if (Number(props.year) !== year || !speciesId || seen.has(speciesId)) {
+      return false;
+    }
+    seen.add(speciesId);
+    return true;
+  });
+}
+
 async function loadTurtles(map, layer, monthLabel) {
   let speciesPayload;
-  let migrations;
   try {
-    const [speciesResponse, migrationResponse] = await Promise.all([
-      fetch("/api/species"),
-      fetch("/api/migrations"),
-    ]);
-    if (!speciesResponse.ok || !migrationResponse.ok) {
+    const speciesResponse = await fetch("/api/species");
+    if (!speciesResponse.ok) {
       return;
     }
     speciesPayload = await speciesResponse.json();
-    migrations = await migrationResponse.json();
   } catch (error) {
     return;
   }
@@ -340,9 +372,29 @@ async function loadTurtles(map, layer, monthLabel) {
     : speciesPayload.species || [];
   const byId = new Map(species.map((item) => [item.id, item]));
   const animate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const turtles = [];
+  let turtles = [];
+  let requestToken = 0;
 
-  (migrations.features || []).forEach((feature) => {
+  async function showYear() {
+    const token = ++requestToken;
+    const year = migrationYear;
+    let features = [];
+    try {
+      const response = await fetch(`/api/migrations?year=${year}`);
+      if (!response.ok || token !== requestToken) {
+        return;
+      }
+      const payload = await response.json();
+      features = routesForYear(payload.features || [], year);
+    } catch (error) {
+      return;
+    }
+    if (token !== requestToken) {
+      return;
+    }
+    layer.clearLayers();
+    turtles = [];
+    features.forEach((feature) => {
     const props = feature.properties || {};
     const kind = byId.get(props.species_id);
     const look = TURTLE_LOOK[props.species_id];
@@ -381,7 +433,7 @@ async function loadTurtles(map, layer, monthLabel) {
       title: `${kind.common_name}. Illustrative route, not observed tracking.`,
     }).addTo(layer);
 
-    const card = turtleCard(kind, props.region, look, animate);
+    const card = turtleCard(kind, props.region, look, animate, props.year);
     marker.bindTooltip(card, {
       className: "turtle-tip",
       direction: "top",
@@ -423,7 +475,13 @@ async function loadTurtles(map, layer, monthLabel) {
       svg: rot.querySelector("svg"),
       heading: 0,
     });
-  });
+    });
+  }
+
+  window.__refreshMigrationYear = () => {
+    showYear();
+  };
+  await showYear();
 
   // Painting the trails rebuilds SVG paths, which is the costly part. The markers move
   // every frame; the trails only need to catch up a few times a second.
@@ -530,10 +588,6 @@ async function loadTurtles(map, layer, monthLabel) {
   map.on("moveend", () => paintTurtles(progress));
   showMonth(progress);
   paintTurtles(progress);
-
-  if (turtles.length === 0) {
-    return;
-  }
 
   function frame(now) {
     if (playing) {
@@ -646,13 +700,15 @@ function routeBearing(start, end, fallback) {
   return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
 }
 
-function turtleCard(species, region, look, animate) {
+function turtleCard(species, region, look, animate, year) {
   const place = region ? `<span>${escapeHtml(region)}</span>` : "";
+  const when = year ? `<span>${escapeHtml(year)}</span>` : "";
   return `<div class="turtle-card">
     <div class="turtle-swim" style="--stroke:${look.stroke}">${turtleSvg(look, animate)}</div>
     <div class="turtle-card-copy">
       <strong>${escapeHtml(species.common_name)}</strong>
       <em>${escapeHtml(species.scientific_name)}</em>
+      ${when}
       ${place}
       <span>Illustrative route — not observed tracking</span>
     </div>

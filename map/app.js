@@ -346,6 +346,7 @@ function placeFish(depth) {
 }
 
 let migrationRoutes = null;
+let migrationRoutesYear = null;
 const DIVE_TURTLE_NEAR_KM = 300;
 
 function seaDistance(lat1, lng1, lat2, lng2) {
@@ -358,13 +359,17 @@ function seaDistance(lat1, lng1, lat2, lng2) {
 }
 
 async function closestSpecies(lat, lng) {
-  if (!migrationRoutes) {
-    const response = await fetch("/api/migrations");
+  const year = window.migrationYear || 2020;
+  if (!migrationRoutes || migrationRoutesYear !== year) {
+    const response = await fetch(`/api/migrations?year=${year}`);
     if (!response.ok) {
       return null;
     }
     const payload = await response.json();
-    migrationRoutes = payload.features || [];
+    migrationRoutes = (payload.features || []).filter(
+      (feature) => Number(feature.properties && feature.properties.year) === year,
+    );
+    migrationRoutesYear = year;
   }
   let bestId = null;
   let best = Infinity;
@@ -1194,8 +1199,11 @@ if (EMBEDDED) {
     if (event.origin !== window.location.origin || !event.data || event.data.type !== "tt-map") {
       return;
     }
-    const { action, ocean } = event.data;
-    if (action === "zoomIn") {
+    const { action, ocean, year } = event.data;
+    if (action === "year") {
+      window.setMigrationYear(year);
+      migrationRoutes = null;
+    } else if (action === "zoomIn") {
       map.zoomIn();
     } else if (action === "zoomOut") {
       map.zoomOut();
