@@ -1,8 +1,6 @@
 """Run the Turtle Tide demo with ``python ui/app.py``."""
 
-import json
 from datetime import date
-from pathlib import Path
 
 from nicegui import ui
 
@@ -13,7 +11,6 @@ else:  # Support direct execution from the repository root.
     from state import state
     from theme import COLORS, CSS
 
-SPECIES = json.loads((Path(__file__).resolve().parents[1] / "data" / "species.json").read_text(encoding="utf-8"))
 OCEANS = ["Pacific", "Atlantic", "Indian", "Southern", "Arctic"]
 GRANULARITIES = ["Weeks", "Months", "Years", "Decades"]
 MIN_DAY = date(2000, 1, 1).toordinal()
@@ -32,7 +29,7 @@ def home() -> None:
                     ui.label("Turtle Tide").classes("text-3xl font-black text-[#21465b]")
                     ui.label("A little time travel for a big blue planet").classes("text-sm text-[#70909a]")
             with ui.row().classes("items-center gap-2"):
-                xp_label = ui.label(f"✨ {state.xp} XP").classes("rounded-full bg-[#fff0b9] px-4 py-2 font-black text-[#9b6a15]")
+                ui.label(f"✨ {state.xp} XP").classes("rounded-full bg-[#fff0b9] px-4 py-2 font-black text-[#9b6a15]")
                 ui.label("🔥 4 day streak").classes("rounded-full bg-[#ffe1d4] px-4 py-2 font-black text-[#b75c37]")
                 ui.label("❤️ ❤️ ❤️").classes("rounded-full bg-white px-4 py-2 text-lg")
 
@@ -96,19 +93,9 @@ def home() -> None:
     def draw_species() -> None:
         species_list.clear()
         with species_list:
-            for turtle in SPECIES:
-                discovered = turtle["id"] in state.discovered
-                icon = "✅" if discovered else "🔒"
-                with ui.card().classes("species-card w-full cursor-pointer border-2 p-3").style(
-                    f"border-color: {turtle['color']}55"
-                ).on("click", lambda _, item=turtle: open_species(item)):
-                    with ui.row().classes("w-full items-center gap-2 no-wrap"):
-                        ui.label("🐢").classes("text-2xl")
-                        with ui.column().classes("min-w-0 flex-1 gap-0"):
-                            ui.label(turtle["name"]).classes("font-black text-[#21465b]")
-                            low, high = turtle["depth_range"]
-                            ui.label(f"{low}–{high} m depth").classes("text-xs text-[#7a9ba2]")
-                        ui.label(icon).classes("text-lg")
+            ui.label("Species cards will appear here when the migration data is ready.").classes(
+                "rounded-2xl bg-[#f2f8f7] p-3 text-sm leading-6 text-[#70909a]"
+            )
 
     def draw_info(title: str, body: str, extra: str = "") -> None:
         info_panel.clear()
@@ -121,19 +108,6 @@ def home() -> None:
             ui.label(body).classes("mt-2 text-sm leading-6 text-[#58727e]")
             if extra:
                 ui.label(extra).classes("mt-4 rounded-xl bg-[#f1f8f5] p-3 text-xs text-[#6e8d88]")
-
-    def open_species(turtle: dict) -> None:
-        first_discovery = turtle["id"] not in state.discovered
-        state.focused_species = turtle["id"]
-        state.selected_species.add(turtle["id"])
-        if first_discovery:
-            state.discovered.add(turtle["id"])
-            state.xp += 10
-            xp_label.text = f"✨ {state.xp} XP"
-            ui.notify(f"🎉✨ New turtle discovered! +10 XP ✨🎉", type="positive", position="top")
-        draw_species()
-        low, high = turtle["depth_range"]
-        draw_info(turtle["name"], turtle["fun_fact"], f"Typical depth: {low}–{high} m  ·  Source: {turtle['citation']}")
 
     def open_ocean(name: str) -> None:
         state.selected_ocean = name
