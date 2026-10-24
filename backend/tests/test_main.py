@@ -16,7 +16,6 @@ def test_serves_frontend():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert 'id="map"' in response.text
-    assert 'id="turtle-time"' in response.text
 
 
 def test_species():

@@ -652,3 +652,8 @@ body {
     animation: none;
   }
 }
+
+/* Embedded in the Turtle Tide page: the page owns the zoom buttons. */
+.embed .leaflet-control-zoom {
+  display: none;
+}
