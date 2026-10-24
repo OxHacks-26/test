@@ -105,13 +105,154 @@ map.getPane("oceans").style.zIndex = 350;
 const oceanLayer = L.layerGroup().addTo(map);
 const routeLayer = L.layerGroup().addTo(map);
 
-const tiles = L.tileLayer(
-  "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}",
+const OCEAN_TILES =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}";
+
+const tiles = L.tileLayer(OCEAN_TILES, {
+  attribution: "Tiles &copy; Esri, GEBCO, NOAA, National Geographic, and others",
+  maxZoom: 10,
+}).addTo(map);
+
+// bbox is [minLon, minLat, maxLon, maxLat]. Pacific crosses the date line, so minLon > maxLon.
+const SEA_REGIONS = [
   {
-    attribution: "Tiles &copy; Esri, GEBCO, NOAA, National Geographic, and others",
-    maxZoom: 10,
+    id: "southern",
+    bbox: [-180, -90, 180, -60],
   },
-).addTo(map);
+  {
+    id: "arctic",
+    bbox: [-180, 65, 180, 90],
+  },
+  {
+    id: "indian",
+    bbox: [20, -60, 120, 30],
+  },
+  {
+    id: "atlantic",
+    bbox: [-80, -60, 20, 65],
+  },
+  {
+    id: "pacific",
+    bbox: [120, -60, -70, 60],
+  },
+];
+
+function seaAt(latlng) {
+  const lat = latlng.lat;
+  const lon = wrapLng(latlng.lng);
+  return SEA_REGIONS.find((region) => {
+    const [minLon, minLat, maxLon, maxLat] = region.bbox;
+    if (lat < minLat || lat > maxLat) {
+      return false;
+    }
+    if (minLon <= maxLon) {
+      return lon >= minLon && lon <= maxLon;
+    }
+    return lon >= minLon || lon <= maxLon;
+  });
+}
+
+const seaWindow = document.getElementById("sea-window");
+const seaCard = seaWindow.querySelector(".sea-window-card");
+const seaVisual = document.getElementById("sea-visual");
+const seaWindowClose = document.getElementById("sea-window-close");
+const seaDepthMeters = document.getElementById("sea-depth-meters");
+const seaDepthZone = document.getElementById("sea-depth-zone");
+
+const DIVE_STOPS = [
+  { p: 0, m: 0, zone: "Surface" },
+  { p: 0.22, m: 30, zone: "Sunlit" },
+  { p: 0.42, m: 200, zone: "Twilight" },
+  { p: 0.64, m: 1000, zone: "Midnight" },
+  { p: 1, m: 4000, zone: "Abyss" },
+];
+
+let diveMap = null;
+
+function renderDive(progress) {
+  const p = Math.min(1, Math.max(0, progress));
+  seaCard.style.setProperty("--dive", p.toFixed(3));
+  let index = 0;
+  while (index < DIVE_STOPS.length - 2 && p > DIVE_STOPS[index + 1].p) {
+    index += 1;
+  }
+  const from = DIVE_STOPS[index];
+  const to = DIVE_STOPS[index + 1];
+  const span = to.p - from.p;
+  const t = span === 0 ? 0 : (p - from.p) / span;
+  const meters = Math.round(from.m + (to.m - from.m) * t);
+  seaDepthMeters.textContent = meters === 0 ? "Surface" : `${meters.toLocaleString("en-GB")} m`;
+  seaDepthZone.textContent = meters === 0 ? "Open water" : t < 0.45 ? from.zone : to.zone;
+}
+
+function diveProgress() {
+  const range = seaVisual.scrollHeight - seaVisual.clientHeight;
+  return range <= 0 ? 0 : seaVisual.scrollTop / range;
+}
+
+function ensureDiveMap(latlng) {
+  const holder = document.getElementById("sea-dive-map");
+  if (!diveMap) {
+    diveMap = L.map(holder, {
+      zoomControl: false,
+      attributionControl: false,
+      dragging: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false,
+      touchZoom: false,
+    });
+    L.tileLayer(OCEAN_TILES, { maxZoom: 10 }).addTo(diveMap);
+  }
+  diveMap.setView([latlng.lat, latlng.lng], 5, { animate: false });
+  requestAnimationFrame(() => diveMap.invalidateSize());
+}
+
+function openSeaWindow(region, latlng) {
+  seaVisual.dataset.region = region.id;
+  seaVisual.scrollTop = 0;
+  renderDive(0);
+  seaWindow.hidden = false;
+  ensureDiveMap(latlng);
+  seaWindowClose.focus();
+  window.dispatchEvent(
+    new CustomEvent("sea-open", {
+      detail: {
+        id: region.id,
+        lat: latlng.lat,
+        lng: latlng.lng,
+        visual: seaVisual,
+      },
+    }),
+  );
+}
+
+function closeSeaWindow() {
+  seaWindow.hidden = true;
+  seaVisual.scrollTop = 0;
+  renderDive(0);
+  delete seaVisual.dataset.region;
+}
+
+seaVisual.addEventListener("scroll", () => {
+  renderDive(diveProgress());
+}, { passive: true });
+
+seaWindowClose.addEventListener("click", closeSeaWindow);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !seaWindow.hidden) {
+    closeSeaWindow();
+  }
+});
+
+map.on("click", (event) => {
+  const region = seaAt(event.latlng);
+  if (!region) {
+    return;
+  }
+  openSeaWindow(region, event.latlng);
+});
 
 let tilesFailed = false;
 tiles.on("tileerror", () => {

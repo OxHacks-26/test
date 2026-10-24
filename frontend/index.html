@@ -5,11 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sea turtle migrations · OxHack '26</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <div id="map" role="application" aria-label="World ocean map"></div>
+  <div id="sea-window" class="sea-window" hidden>
+    <div class="sea-window-card" role="dialog" aria-modal="true" aria-label="Sea visual">
+      <button type="button" id="sea-window-close" aria-label="Close">Close</button>
+      <div class="dive-skylight" aria-hidden="true"></div>
+      <div id="sea-visual" tabindex="0">
+        <div class="dive-column">
+          <div class="dive-surface">
+            <div id="sea-dive-map"></div>
+            <div class="dive-surface-veil" aria-hidden="true"></div>
+            <div class="dive-caustics" aria-hidden="true"></div>
+          </div>
+          <div class="dive-water" aria-hidden="true">
+            <div class="dive-rays"></div>
+            <div class="dive-snow"></div>
+            <div class="dive-glow"></div>
+          </div>
+          <ol class="dive-marks">
+            <li style="--mark: 22%">30 m</li>
+            <li style="--mark: 42%">200 m</li>
+            <li style="--mark: 64%">1,000 m</li>
+            <li style="--mark: 88%">4,000 m</li>
+          </ol>
+        </div>
+      </div>
+      <p class="dive-hint">Scroll to dive</p>
+      <div class="dive-hud" id="sea-depth">
+        <span id="sea-depth-meters">Surface</span>
+        <span id="sea-depth-zone">Open water</span>
+      </div>
+    </div>
+  </div>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
