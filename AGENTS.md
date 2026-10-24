@@ -23,6 +23,13 @@ Rules for every AI coding agent (and human) working in this repo. Several people
    ```
 6. **Open a PR using the template** in `.github/pull_request_template.md` and fill in every section.
 
+## Project conventions
+
+- Backend: Python 3.12 + FastAPI in `backend/`. Add API routes under the `/api` prefix in `backend/app/` and tests in `backend/tests/`.
+- Frontend: plain HTML/CSS/JS in `frontend/` (no build step), served by the backend at `/`. Call the backend with `fetch("/api/...")`.
+- Add new Python dependencies to `backend/requirements.txt` (dev-only ones to `requirements-dev.txt`) with pinned versions.
+- Before pushing, run from `backend/`: `ruff format . && ruff check . && pytest`. CI runs the same checks.
+
 ## Do
 
 - Read `README.md`, this file, and `CONTRIBUTING.md` before making changes.
