@@ -158,36 +158,171 @@ const seaVisual = document.getElementById("sea-visual");
 const seaWindowClose = document.getElementById("sea-window-close");
 const seaDepthMeters = document.getElementById("sea-depth-meters");
 const seaDepthZone = document.getElementById("sea-depth-zone");
+const seaDepthSource = document.getElementById("sea-depth-source");
+const diveMarks = document.querySelector(".dive-marks");
+const diveWater = document.querySelector(".dive-water");
 
-const DIVE_STOPS = [
-  { p: 0, m: 0, zone: "Surface" },
-  { p: 0.22, m: 30, zone: "Sunlit" },
-  { p: 0.42, m: 200, zone: "Twilight" },
-  { p: 0.64, m: 1000, zone: "Midnight" },
-  { p: 1, m: 4000, zone: "Abyss" },
+// Pelagic light zones, in metres. The seafloor itself comes from GMRT.
+const LIGHT_ZONES = [
+  { downTo: 200, name: "Sunlit", color: "var(--sun)" },
+  { downTo: 1000, name: "Twilight", color: "var(--sun-2)" },
+  { downTo: 4000, name: "Midnight", color: "var(--twilight)" },
+  { downTo: 6000, name: "Abyss", color: "var(--midnight)" },
+  { downTo: Infinity, name: "Hadal", color: "var(--abyss)" },
 ];
 
 let diveMap = null;
+let seafloorM = null;
+let depthRequest = 0;
 
-function renderDive(progress) {
-  const p = Math.min(1, Math.max(0, progress));
-  seaCard.style.setProperty("--dive", p.toFixed(3));
-  let index = 0;
-  while (index < DIVE_STOPS.length - 2 && p > DIVE_STOPS[index + 1].p) {
-    index += 1;
-  }
-  const from = DIVE_STOPS[index];
-  const to = DIVE_STOPS[index + 1];
-  const span = to.p - from.p;
-  const t = span === 0 ? 0 : (p - from.p) / span;
-  const meters = Math.round(from.m + (to.m - from.m) * t);
-  seaDepthMeters.textContent = meters === 0 ? "Surface" : `${meters.toLocaleString("en-GB")} m`;
-  seaDepthZone.textContent = meters === 0 ? "Open water" : t < 0.45 ? from.zone : to.zone;
+function formatMeters(meters) {
+  return `${Math.round(meters).toLocaleString("en-GB")} m`;
 }
 
-function diveProgress() {
+function lightZone(meters) {
+  return LIGHT_ZONES.find((zone) => meters <= zone.downTo) || LIGHT_ZONES[LIGHT_ZONES.length - 1];
+}
+
+function diveFraction() {
   const range = seaVisual.scrollHeight - seaVisual.clientHeight;
-  return range <= 0 ? 0 : seaVisual.scrollTop / range;
+  if (range <= 0) {
+    return 0;
+  }
+  return Math.min(1, Math.max(0, seaVisual.scrollTop / range));
+}
+
+function renderDive() {
+  const progress = diveFraction();
+  seaCard.style.setProperty("--progress", progress.toFixed(3));
+  const meters = seafloorM == null ? 0 : progress >= 0.995 ? seafloorM : Math.round(progress * seafloorM);
+  const lightLoss = seafloorM == null ? 0 : Math.min(1, meters / 1000);
+  seaCard.style.setProperty("--dive", lightLoss.toFixed(3));
+  if (seafloorM == null) {
+    return;
+  }
+  const atFloor = progress >= 0.995;
+  seaDepthMeters.textContent = meters === 0 ? "Surface" : formatMeters(meters);
+  seaDepthZone.textContent = atFloor ? "Seafloor" : meters === 0 ? "Open water" : lightZone(meters).name;
+}
+
+function depthGradient(depth) {
+  const blend = Math.min(80, depth * 0.04);
+  const edges = [
+    { at: 200, from: "var(--sun)", to: "var(--sun-2)" },
+    { at: 1000, from: "var(--sun-2)", to: "var(--twilight)" },
+    { at: 4000, from: "var(--twilight)", to: "var(--midnight)" },
+    { at: 6000, from: "var(--midnight)", to: "var(--abyss)" },
+  ];
+  const stops = [
+    "transparent 0px",
+    "color-mix(in srgb, var(--sun) 50%, transparent) 80px",
+    "var(--sun) 170px",
+  ];
+  const push = (meters, color) => {
+    const clamped = Math.min(depth, Math.max(0, meters));
+    const along = (clamped / depth).toFixed(4);
+    stops.push(`${color} calc(170px + (100% - 170px) * ${along})`);
+  };
+  push(0, "var(--sun)");
+  for (const edge of edges) {
+    if (edge.at >= depth) {
+      break;
+    }
+    push(edge.at - blend, edge.from);
+    push(edge.at + blend, edge.to);
+  }
+  push(depth, lightZone(depth).color);
+  return `linear-gradient(180deg, ${stops.join(", ")})`;
+}
+
+function placeMarks(depth) {
+  diveMarks.replaceChildren();
+  const range = seaVisual.scrollHeight - seaVisual.clientHeight;
+  const columnHeight = seaVisual.scrollHeight;
+  if (range <= 0) {
+    return;
+  }
+  const add = (meters, label) => {
+    const progress = meters / depth;
+    const y = progress * range + seaVisual.clientHeight - 72;
+    const item = document.createElement("li");
+    item.style.top = `${Math.min(columnHeight - 28, Math.max(0, y))}px`;
+    item.textContent = label;
+    diveMarks.appendChild(item);
+  };
+  for (const zone of LIGHT_ZONES) {
+    if (zone.downTo < depth - 1) {
+      add(zone.downTo, formatMeters(zone.downTo));
+    }
+  }
+  add(depth, `Seafloor ${formatMeters(depth)}`);
+}
+
+function applySeafloor(depth) {
+  seafloorM = depth;
+  const viewHeight = seaVisual.clientHeight || window.innerHeight;
+  const column = Math.round(Math.min(viewHeight * 4, Math.max(viewHeight * 0.9, depth * 0.42)));
+  diveWater.style.height = `${column}px`;
+  diveWater.style.background = depthGradient(depth);
+  seaDepthSource.textContent = `Seafloor ${formatMeters(depth)} · GMRT`;
+  requestAnimationFrame(() => {
+    placeMarks(depth);
+    renderDive();
+  });
+}
+
+function clearDepthScale() {
+  seafloorM = null;
+  diveWater.style.removeProperty("height");
+  diveWater.style.removeProperty("background");
+  diveMarks.replaceChildren();
+  seaCard.style.setProperty("--dive", "0");
+}
+
+async function readElevation(latlng) {
+  const params = new URLSearchParams({
+    latitude: String(latlng.lat),
+    longitude: String(wrapLng(latlng.lng)),
+    format: "json",
+  });
+  const response = await fetch(`https://www.gmrt.org/services/PointServer?${params}`);
+  if (!response.ok) {
+    throw new Error(`GMRT ${response.status}`);
+  }
+  const payload = await response.json();
+  const elevation = Number(payload.elevation);
+  if (!Number.isFinite(elevation)) {
+    throw new Error("GMRT returned no elevation");
+  }
+  return elevation;
+}
+
+async function loadSeafloor(latlng) {
+  const request = ++depthRequest;
+  clearDepthScale();
+  seaDepthMeters.textContent = "Reading depth";
+  seaDepthZone.textContent = "";
+  seaDepthSource.textContent = "";
+  try {
+    const elevation = await readElevation(latlng);
+    if (request !== depthRequest) {
+      return;
+    }
+    if (elevation >= 0) {
+      diveWater.style.height = "0px";
+      seaDepthMeters.textContent = "Above sea level";
+      seaDepthZone.textContent = "No water column";
+      return;
+    }
+    applySeafloor(Math.round(Math.abs(elevation)));
+  } catch {
+    if (request !== depthRequest) {
+      return;
+    }
+    seaDepthMeters.textContent = "Depth unavailable";
+    seaDepthZone.textContent = "";
+    seaDepthSource.textContent = "";
+  }
 }
 
 function ensureDiveMap(latlng) {
@@ -212,9 +347,9 @@ function ensureDiveMap(latlng) {
 function openSeaWindow(region, latlng) {
   seaVisual.dataset.region = region.id;
   seaVisual.scrollTop = 0;
-  renderDive(0);
   seaWindow.hidden = false;
   ensureDiveMap(latlng);
+  loadSeafloor(latlng);
   seaWindowClose.focus();
   window.dispatchEvent(
     new CustomEvent("sea-open", {
@@ -229,15 +364,25 @@ function openSeaWindow(region, latlng) {
 }
 
 function closeSeaWindow() {
+  depthRequest += 1;
   seaWindow.hidden = true;
   seaVisual.scrollTop = 0;
-  renderDive(0);
+  clearDepthScale();
+  seaDepthMeters.textContent = "Surface";
+  seaDepthZone.textContent = "Open water";
+  seaDepthSource.textContent = "";
   delete seaVisual.dataset.region;
 }
 
 seaVisual.addEventListener("scroll", () => {
-  renderDive(diveProgress());
+  renderDive();
 }, { passive: true });
+
+window.addEventListener("resize", () => {
+  if (seafloorM != null && !seaWindow.hidden) {
+    applySeafloor(seafloorM);
+  }
+});
 
 seaWindowClose.addEventListener("click", closeSeaWindow);
 document.addEventListener("keydown", (event) => {

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sea turtle migrations · OxHack '26</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <div id="map" role="application" aria-label="World ocean map"></div>
@@ -25,22 +25,18 @@
             <div class="dive-snow"></div>
             <div class="dive-glow"></div>
           </div>
-          <ol class="dive-marks">
-            <li style="--mark: 22%">30 m</li>
-            <li style="--mark: 42%">200 m</li>
-            <li style="--mark: 64%">1,000 m</li>
-            <li style="--mark: 88%">4,000 m</li>
-          </ol>
+          <ol class="dive-marks"></ol>
         </div>
       </div>
       <p class="dive-hint">Scroll to dive</p>
       <div class="dive-hud" id="sea-depth">
         <span id="sea-depth-meters">Surface</span>
         <span id="sea-depth-zone">Open water</span>
+        <span id="sea-depth-source"></span>
       </div>
     </div>
   </div>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

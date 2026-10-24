@@ -193,7 +193,7 @@ body {
 .dive-water {
   position: relative;
   z-index: 1;
-  height: 240vh;
+  height: 72vh;
   margin-top: -180px;
   background: linear-gradient(
     180deg,
@@ -363,7 +363,7 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(236, 248, 252, 0.84);
-  opacity: calc(1 - var(--dive) * 5);
+  opacity: calc(1 - var(--progress, 0) * 5);
 }
 
 .dive-hud {
@@ -386,11 +386,17 @@ body {
   letter-spacing: 0.03em;
 }
 
-#sea-depth-zone {
+#sea-depth-zone,
+#sea-depth-source {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(214, 236, 244, 0.72);
+}
+
+#sea-depth-source {
+  letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .sea-window-card::after {
