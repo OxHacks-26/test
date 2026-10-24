@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0.0",
+  "sources": [
+    {
+      "id": "noaa-green",
+      "title": "NOAA Fisheries: Green turtle",
+      "url": "https://www.fisheries.noaa.gov/species/green-turtle",
+      "accessed_on": "2026-10-24",
+      "supports": "Taxonomy, distribution and diet."
+    },
+    {
+      "id": "noaa-loggerhead",
+      "title": "NOAA Fisheries: Loggerhead turtle",
+      "url": "https://www.fisheries.noaa.gov/species/loggerhead-turtle",
+      "accessed_on": "2026-10-24",
+      "supports": "Taxonomy, distribution and feeding biology."
+    },
+    {
+      "id": "noaa-leatherback",
+      "title": "NOAA Fisheries: Leatherback turtle",
+      "url": "https://www.fisheries.noaa.gov/species/leatherback-turtle",
+      "accessed_on": "2026-10-24",
+      "supports": "Taxonomy, distribution and shell characteristics."
+    },
+    {
+      "id": "noaa-hawksbill",
+      "title": "NOAA Fisheries: Hawksbill turtle",
+      "url": "https://www.fisheries.noaa.gov/species/hawksbill-turtle?page=0",
+      "accessed_on": "2026-10-24",
+      "supports": "Distribution, diet and anatomy."
+    },
+    {
+      "id": "noaa-kemps",
+      "title": "NOAA Fisheries: Kemp's ridley turtle",
+      "url": "https://www.fisheries.noaa.gov/species/kemps-ridley-turtle",
+      "accessed_on": "2026-10-24",
+      "supports": "Distribution, April–July nesting and daytime arribadas."
+    },
+    {
+      "id": "noaa-olive",
+      "title": "NOAA Fisheries: Olive ridley turtle",
+      "url": "https://www.fisheries.noaa.gov/species/olive-ridley-turtle",
+      "accessed_on": "2026-10-24",
+      "supports": "Distribution and arribada nesting."
+    },
+    {
+      "id": "dcceew-flatback",
+      "title": "Australian Government DCCEEW: Flatback turtle",
+      "url": "https://www.dcceew.gov.au/environment/marine/marine-species/marine-turtles/flatback",
+      "accessed_on": "2026-10-24",
+      "supports": "Distribution, Australian breeding sites and soft-bottom habitats."
+    },
+    {
+      "id": "qld-seasons",
+      "title": "Queensland Government: Sea turtle nesting areas mapping",
+      "url": "https://environment.qld.gov.au/management/planning-guidelines/sea-turtle-nesting-areas-mapping",
+      "accessed_on": "2026-10-24",
+      "supports": "Regional nesting calendars; based on Marine Turtle Breeding and Migration Atlas Project (2021). Nesting months are not migration dates."
+    },
+    {
+      "id": "green-diving",
+      "title": "Hays et al. (2000): The diving behaviour of green turtles at Ascension Island",
+      "url": "https://doi.org/10.1006/anbe.1999.1326",
+      "accessed_on": "2026-10-24",
+      "supports": "Six inter-nesting females; routine resting dive depths of 18–20 m. Surface-to-20 m band in species.json is an editorial summary."
+    },
+    {
+      "id": "loggerhead-diving",
+      "title": "Iverson et al. (2019): Loggerhead sea turtle diving changes with productivity, behavioral mode, and sea surface temperature",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220372",
+      "accessed_on": "2026-10-24",
+      "supports": "26 adult female tracks, northern Gulf of Mexico; approximately 80% of time at 0–30 m; study maximum 160 m."
+    },
+    {
+      "id": "leatherback-diving",
+      "title": "Witt et al. (2011): Tracking leatherback turtles from the world's largest rookery",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3119016/",
+      "accessed_on": "2026-10-24",
+      "supports": "Gabon post-nesting dispersal; predominantly surface–200 m; maximum recorded 1080 m. No coordinates extracted from figures."
+    },
+    {
+      "id": "hawksbill-diving",
+      "title": "Gaos et al. (2012): Dive behaviour of adult hawksbills in the eastern Pacific Ocean",
+      "url": "https://www.conservationecologylab.com/uploads/1/9/7/6/19763887/gaos_et_al_2012_hawksbill_dive_behaviour.pdf",
+      "accessed_on": "2026-10-24",
+      "supports": "Study-specific shallow depth use, mostly within 10 m; not a universal species limit."
+    },
+    {
+      "id": "kemps-diving",
+      "title": "Sasso and Witzell (2006): Diving behaviour of an immature Kemp's ridley turtle from Gullivan Bay",
+      "url": "https://www.cambridge.org/core/journals/journal-of-the-marine-biological-association-of-the-united-kingdom/article/abs/diving-behaviour-of-an-immature-kemps-ridley-turtle-lepidochelys-kempii-from-gullivan-bay-ten-thousand-islands-southwest-florida/879520E492C367F1D7E40073D1D123F5",
+      "accessed_on": "2026-10-24",
+      "supports": "Single immature turtle; normal bottom-associated behaviour in 2–3 m water. Not a population estimate."
+    },
+    {
+      "id": "olive-diving",
+      "title": "McMahon et al. (2007): Satellite tracking reveals unusual diving characteristics for the olive ridley turtle",
+      "url": "https://digital.library.adelaide.edu.au/items/b793bd15-af51-42be-93f9-72dbe03759b2",
+      "accessed_on": "2026-10-24",
+      "supports": "Northern Australia; individual mean maximum depths 20.1–46.7 m; recorded maximum 200 ± 20 m. Means and dive ranges are different statistics."
+    },
+    {
+      "id": "flatback-diving",
+      "title": "Sperling et al. (2010): Diving behaviour in two distinct populations of gravid Flatback turtles",
+      "url": "https://doi.org/10.7882/AZ.2010.018",
+      "accessed_on": "2026-10-24",
+      "supports": "Inter-nesting TDR study: maximum 29 m at Curtis Island, 44 m at Bare Sand Island."
+    },
+    {
+      "id": "swot",
+      "title": "SWOT: Online Map & Sea Turtle Database",
+      "url": "https://www.seaturtlestatus.org/online-map-data",
+      "accessed_on": "2026-10-24",
+      "supports": "Discovery source only. Nesting and telemetry records hosted at OBIS-SEAMAP; data reuse subject to SWOT terms and requests. No raw tracks downloaded."
+    },
+    {
+      "id": "obis-access",
+      "title": "OBIS: Access OBIS data",
+      "url": "https://portal.obis.org/data/access/",
+      "accessed_on": "2026-10-24",
+      "supports": "Occurrence access and field definitions. Bathymetry is seabed depth, not measured turtle depth. No raw records downloaded in this session."
+    },
+    {
+      "id": "noaa-tracking-catalog",
+      "title": "NOAA InPort: Kemps Ridley and Loggerhead Tracking data in GOM",
+      "url": "https://www.fisheries.noaa.gov/inport/item/30696",
+      "accessed_on": "2026-10-24",
+      "supports": "Potential actual telemetry source for two species. Catalog inspected; files not downloaded."
+    }
+  ]
+}

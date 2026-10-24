@@ -1,11 +1,17 @@
 import json
-from datetime import date
+import re
+from datetime import date, datetime
 from functools import lru_cache
 from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
-# Years with an observable migration pattern for the seven species.
+# Used when the sightings file has not been merged yet.
 OBSERVATION_YEARS = (2006, 2010, 2015, 2020)
+_DIET_RE = re.compile(
+    r"\b(eats?|eaten|diet|foods?|prey|krill|jellyfish|algae|seagrasses?|sponges?|crabs?)\b",
+    re.IGNORECASE,
+)
+_DIET_KEYS = {"diet", "diets", "food", "foods", "prey", "food_icons", "diet_icons"}
 
 
 @lru_cache
@@ -13,60 +19,65 @@ def load_json(name: str):
     return json.loads((DATA_DIR / name).read_text())
 
 
+def load_optional(name: str):
+    path = DATA_DIR / name
+    if not path.is_file():
+        return None
+    return json.loads(path.read_text())
+
+
 def species() -> list[dict]:
     """Species records for the map and the per-species depth panel.
 
-    `facts` fills the info textboxes. A `facts` list on the file wins; otherwise
-    the panel gets one overview fact from `blurb`. `depth_marks` are the depths
-    at which that species is drawn.
+    Textboxes are the depth-window facts. Diet and food fields are omitted.
     """
-    return [_with_depth_panel(item) for item in load_json("species.json")]
-
-
-def _with_depth_panel(item: dict) -> dict:
-    presented = dict(item)
-    presented["facts"] = _facts(item)
-    presented["depth_marks"] = _depth_marks(item)
-    return presented
-
-
-def _facts(item: dict) -> list[dict]:
-    supplied = item.get("facts")
-    if isinstance(supplied, list):
-        facts = []
-        for index, fact in enumerate(supplied, start=1):
-            if not isinstance(fact, dict):
-                continue
-            text = str(fact.get("text") or "").strip()
-            if not text:
-                continue
-            facts.append({"id": str(fact.get("id") or f"fact-{index}"), "text": text})
-        if facts:
-            return facts
-    blurb = str(item.get("blurb") or "").strip()
-    if blurb:
-        return [{"id": "overview", "text": blurb}]
-    return []
-
-
-def _depth_marks(item: dict) -> list[dict]:
-    depth = item.get("depth_range_m") or {}
-    typical = depth.get("typical_max")
-    record = depth.get("record_max")
-    marks = []
-    if isinstance(typical, int | float) and not isinstance(typical, bool):
-        marks.append({"id": "typical", "label": "Typical depth", "depth_m": typical})
-    if isinstance(record, int | float) and not isinstance(record, bool) and record != typical:
-        marks.append({"id": "record", "label": "Record depth", "depth_m": record})
-    return marks
+    payload = load_json("species.json")
+    records = payload["species"] if isinstance(payload, dict) else payload
+    boxes = _textboxes_by_species()
+    return [_for_panel(item, boxes) for item in records]
 
 
 def oceans() -> list[dict]:
-    return load_json("oceans.json")
+    payload = load_json("oceans.json")
+    if isinstance(payload, dict):
+        return payload.get("oceans", [])
+    return payload
 
 
 def observation_years() -> list[int]:
+    sightings = load_optional("animation_sightings.json")
+    years = sightings.get("years") if isinstance(sightings, dict) else None
+    if years:
+        return [int(year) for year in years]
     return list(OBSERVATION_YEARS)
+
+
+def predictions() -> dict:
+    """Predicted species labels joined to the sample sightings, when that data is present."""
+    payload = load_optional("animation_species_predictions.json")
+    if not isinstance(payload, dict):
+        return {"data_status": "unavailable", "predictions": []}
+    sightings = load_optional("animation_sightings.json") or {}
+    by_id = {item["observation_id"]: item for item in sightings.get("sightings", [])}
+    rows = []
+    for prediction in payload.get("predictions", []):
+        sighting = by_id.get(prediction.get("observation_id"), {})
+        rows.append(
+            {
+                **prediction,
+                "coordinates": sighting.get("coordinates"),
+                "observed_at_local": sighting.get("observed_at_local"),
+                "month": sighting.get("month"),
+            }
+        )
+    return {**payload, "predictions": rows}
+
+
+def depth_profiles() -> dict:
+    payload = load_optional("animation_depth_profiles.json")
+    if not isinstance(payload, dict):
+        return {"data_status": "unavailable", "species": []}
+    return payload
 
 
 def months_in_window(start: date, end: date) -> set[int]:
@@ -94,11 +105,11 @@ def migrations(
     species_ids: set[str] | None = None,
     ocean: str | None = None,
 ) -> dict:
-    """GeoJSON FeatureCollection of routes matching the optional filters.
+    """GeoJSON routes matching the optional filters.
 
-    A route is in a time window when its start-end span overlaps the window,
-    at least one of its months falls inside the window, and the window contains
-    an observation year (2006, 2010, 2015, or 2020) that the route also covers.
+    A dated route is included when one of its positions falls in the window and
+    that position's month falls in the window. Older routes that only have
+    start/end use the same overlap rule.
     """
     collection = load_json("migrations.geojson")
     if start is not None and end is not None and start > end:
@@ -118,6 +129,75 @@ def migrations(
     return {**collection, "features": features}
 
 
+def _for_panel(item: dict, boxes: dict[str, list[dict]]) -> dict:
+    presented = {key: value for key, value in item.items() if key not in _DIET_KEYS}
+    textboxes = boxes.get(item["id"])
+    if textboxes is None:
+        textboxes = _textboxes_from_facts(item.get("facts"))
+    presented["textboxes"] = textboxes
+    presented["facts"] = [
+        fact
+        for fact in presented.get("facts", [])
+        if isinstance(fact, str) and fact.strip() and not _is_diet(fact)
+    ]
+    presented["depth_marks"] = _depth_marks(item)
+    return presented
+
+
+def _textboxes_by_species() -> dict[str, list[dict]]:
+    payload = load_optional("textboxes.json")
+    if not isinstance(payload, dict):
+        return {}
+    found = {}
+    for item in payload.get("species", []):
+        boxes = []
+        for box in item.get("textboxes", []):
+            text = str(box.get("text") or "").strip()
+            if not text:
+                continue
+            boxes.append(
+                {
+                    "topic": box.get("topic") or "Fact",
+                    "text": text,
+                    "source_ids": list(box.get("source_ids") or []),
+                }
+            )
+        if boxes:
+            found[item["species_id"]] = boxes
+    return found
+
+
+def _textboxes_from_facts(facts) -> list[dict]:
+    boxes = []
+    for fact in facts or []:
+        if isinstance(fact, str):
+            text, topic = fact.strip(), "Fact"
+        elif isinstance(fact, dict):
+            text = str(fact.get("text") or "").strip()
+            topic = str(fact.get("topic") or fact.get("id") or "Fact")
+        else:
+            continue
+        if text and not _is_diet(text):
+            boxes.append({"topic": topic, "text": text, "source_ids": []})
+    return boxes
+
+
+def _is_diet(text: str) -> bool:
+    return _DIET_RE.search(text) is not None
+
+
+def _depth_marks(item: dict) -> list[dict]:
+    depth = item.get("depth_range_m") or {}
+    shallow = depth.get("min", depth.get("typical_max"))
+    deep = depth.get("max", depth.get("record_max"))
+    marks = []
+    if isinstance(shallow, int | float) and not isinstance(shallow, bool):
+        marks.append({"id": "shallow", "label": "Shallow", "depth_m": shallow})
+    if isinstance(deep, int | float) and not isinstance(deep, bool) and deep != shallow:
+        marks.append({"id": "deep", "label": "Deep", "depth_m": deep})
+    return marks
+
+
 def _time_window(start: date | None, end: date | None) -> tuple[date, date, set[int]] | None:
     if start is None and end is None:
         return None
@@ -133,31 +213,36 @@ def _route_matches(
     species_ids: set[str] | None,
     ocean: str | None,
 ) -> bool:
-    if species_ids and props["species"] not in species_ids:
+    species_id = props.get("species_id") or props.get("species")
+    if species_ids and species_id not in species_ids:
         return False
-    if ocean and props["ocean"] != ocean:
+    if ocean and props.get("ocean") != ocean:
         return False
     if window is None:
         return True
     window_start, window_end, months = window
-    route_start = date.fromisoformat(props["start"])
-    route_end = date.fromisoformat(props["end"])
+    points = _dated_points(props)
+    if points is not None:
+        return any(window_start <= day <= window_end and month in months for day, month in points)
+    if "start" not in props or "end" not in props:
+        return False
+    route_start = date.fromisoformat(str(props["start"])[:10])
+    route_end = date.fromisoformat(str(props["end"])[:10])
     if route_start > window_end or route_end < window_start:
         return False
-    if not _covered_observation_years(route_start, route_end, window_start, window_end):
-        return False
-    return bool(months & set(props["months"]))
+    return bool(months & set(props.get("months") or []))
 
 
-def _covered_observation_years(
-    route_start: date, route_end: date, window_start: date, window_end: date
-) -> bool:
-    """True when an observation year falls in both the route span and the window."""
-    for year in OBSERVATION_YEARS:
-        year_start = date(year, 1, 1)
-        year_end = date(year, 12, 31)
-        in_window = year_start <= window_end and year_end >= window_start
-        in_route = year_start <= route_end and year_end >= route_start
-        if in_window and in_route:
-            return True
-    return False
+def _dated_points(props: dict) -> list[tuple[date, int]] | None:
+    raw_dates = props.get("dates")
+    if not isinstance(raw_dates, list):
+        return None
+    months = props.get("months") or []
+    points = []
+    for index, value in enumerate(raw_dates):
+        if not value:
+            continue
+        stamp = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        month = months[index] if index < len(months) else stamp.month
+        points.append((stamp.date(), int(month)))
+    return points

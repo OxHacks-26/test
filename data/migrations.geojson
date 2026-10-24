@@ -1,69 +1,808 @@
 {
   "type": "FeatureCollection",
+  "schema_version": "1.0.0",
+  "metadata": {
+    "data_status": "illustrative_not_observed",
+    "notice": "Hand-authored animation fixtures. Coordinates and dates are invented, not satellite telemetry, reconstructed tracks, or predictions. Sources support broad geography only. Do not use for scientific analysis.",
+    "coordinate_reference_system": "WGS84",
+    "coordinate_order": "longitude,latitude",
+    "time_basis": "2025 is an arbitrary display year; month positions are invented.",
+    "depth_notice": "No measured per-position dive depths are available; null means unknown."
+  },
   "features": [
     {
       "type": "Feature",
+      "id": "green-demo",
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [140.0, 35.0],
-          [160.0, 36.0],
-          [-180.0, 37.0],
-          [-160.0, 35.0],
-          [-140.0, 32.0],
-          [-125.0, 29.0],
-          [-114.5, 27.5]
+          [
+            144,
+            -13
+          ],
+          [
+            144,
+            -13.5
+          ],
+          [
+            144.5,
+            -14
+          ],
+          [
+            145,
+            -14.5
+          ],
+          [
+            145.5,
+            -15
+          ],
+          [
+            145.8,
+            -15.5
+          ],
+          [
+            145.8,
+            -15.5
+          ],
+          [
+            145.5,
+            -15
+          ],
+          [
+            145,
+            -14.5
+          ],
+          [
+            144.5,
+            -14
+          ],
+          [
+            144,
+            -13.5
+          ],
+          [
+            144,
+            -13
+          ]
         ]
       },
       "properties": {
-        "id": "loggerhead-north-pacific-japan-baja",
-        "species": "loggerhead",
-        "name": "North Pacific: Japan to Baja California",
-        "ocean": "pacific",
-        "life_stage": "juvenile",
-        "start": "1990-01-01",
-        "end": "2030-12-31",
-        "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        "depth_m": { "min": 0, "max": 100 },
-        "confidence": "documented",
-        "notes": "Juveniles hatched in Japan cross the North Pacific to forage off Baja California, then return to Japan to breed.",
-        "sources": [
-          {
-            "title": "Nichols et al. 2000, Transpacific migration of a loggerhead turtle monitored by satellite telemetry",
-            "url": "https://doi.org/10.5343/bms.2000.67.3.937"
-          }
+        "species_id": "green",
+        "route_id": "green-demo",
+        "region": "Northern Great Barrier Reef (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "noaa-green",
+          "qld-seasons"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       }
     },
     {
       "type": "Feature",
+      "id": "loggerhead-demo",
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-35.0, -5.0],
-          [-30.0, -6.0],
-          [-25.0, -7.0],
-          [-20.0, -7.5],
-          [-14.4, -7.9]
+          [
+            153,
+            -24
+          ],
+          [
+            153.5,
+            -24.5
+          ],
+          [
+            154,
+            -25
+          ],
+          [
+            154.5,
+            -26
+          ],
+          [
+            154.5,
+            -27
+          ],
+          [
+            154.5,
+            -28
+          ],
+          [
+            154.5,
+            -28
+          ],
+          [
+            154.5,
+            -27
+          ],
+          [
+            154.5,
+            -26
+          ],
+          [
+            154,
+            -25
+          ],
+          [
+            153.5,
+            -24.5
+          ],
+          [
+            153,
+            -24
+          ]
         ]
       },
       "properties": {
-        "id": "green-south-atlantic-brazil-ascension",
-        "species": "green",
-        "name": "South Atlantic: Brazilian coast to Ascension Island",
-        "ocean": "atlantic",
-        "life_stage": "adult",
-        "start": "1990-01-01",
-        "end": "2030-12-31",
-        "months": [11, 12, 1, 2, 3],
-        "depth_m": { "min": 0, "max": 40 },
-        "confidence": "documented",
-        "notes": "Adults feeding off Brazil swim ~2,200 km to nest on Ascension Island between December and March.",
-        "sources": [
-          {
-            "title": "Luschi et al. 1998, The navigational feats of green sea turtles migrating from Ascension Island investigated by satellite telemetry",
-            "url": "https://doi.org/10.1098/rspb.1998.0571"
-          }
+        "species_id": "loggerhead",
+        "route_id": "loggerhead-demo",
+        "region": "Eastern Queensland (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "noaa-loggerhead",
+          "qld-seasons"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "leatherback-demo",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9,
+            -2
+          ],
+          [
+            8,
+            -3
+          ],
+          [
+            6,
+            -5
+          ],
+          [
+            3,
+            -8
+          ],
+          [
+            0,
+            -11
+          ],
+          [
+            -3,
+            -14
+          ],
+          [
+            -6,
+            -17
+          ],
+          [
+            -9,
+            -20
+          ],
+          [
+            -12,
+            -23
+          ],
+          [
+            -15,
+            -26
+          ],
+          [
+            -18,
+            -29
+          ],
+          [
+            -20,
+            -30
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "leatherback",
+        "route_id": "leatherback-demo",
+        "region": "South Atlantic, offshore Gabon (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "leatherback-diving"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hawksbill-demo",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            143.5,
+            -11
+          ],
+          [
+            143.6,
+            -11.2
+          ],
+          [
+            143.8,
+            -11.5
+          ],
+          [
+            144,
+            -12
+          ],
+          [
+            144.2,
+            -12.5
+          ],
+          [
+            144.4,
+            -13
+          ],
+          [
+            144.4,
+            -13
+          ],
+          [
+            144.2,
+            -12.5
+          ],
+          [
+            144,
+            -12
+          ],
+          [
+            143.8,
+            -11.5
+          ],
+          [
+            143.6,
+            -11.2
+          ],
+          [
+            143.5,
+            -11
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "hawksbill",
+        "route_id": "hawksbill-demo",
+        "region": "Northern Queensland (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "noaa-hawksbill",
+          "qld-seasons"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kemps-ridley-demo",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -94,
+            28
+          ],
+          [
+            -95,
+            27
+          ],
+          [
+            -96,
+            25
+          ],
+          [
+            -97,
+            23.5
+          ],
+          [
+            -97,
+            23.5
+          ],
+          [
+            -97,
+            23.5
+          ],
+          [
+            -97,
+            23.5
+          ],
+          [
+            -96,
+            25
+          ],
+          [
+            -95,
+            27
+          ],
+          [
+            -94,
+            28
+          ],
+          [
+            -93,
+            28.5
+          ],
+          [
+            -94,
+            28
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "kemps-ridley",
+        "route_id": "kemps-ridley-demo",
+        "region": "Western Gulf of Mexico (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "noaa-kemps"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "olive-ridley-demo",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            139,
+            -13
+          ],
+          [
+            140,
+            -13
+          ],
+          [
+            141,
+            -13
+          ],
+          [
+            141.3,
+            -13
+          ],
+          [
+            141.4,
+            -12.8
+          ],
+          [
+            141.5,
+            -12.5
+          ],
+          [
+            141.5,
+            -12
+          ],
+          [
+            141.4,
+            -12.5
+          ],
+          [
+            141.3,
+            -13
+          ],
+          [
+            141,
+            -13
+          ],
+          [
+            140,
+            -13
+          ],
+          [
+            139,
+            -13
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "olive-ridley",
+        "route_id": "olive-ridley-demo",
+        "region": "Gulf of Carpentaria (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "noaa-olive",
+          "qld-seasons"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flatback-demo",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            152,
+            -23.5
+          ],
+          [
+            152.3,
+            -23
+          ],
+          [
+            152,
+            -22.5
+          ],
+          [
+            151.5,
+            -22
+          ],
+          [
+            151,
+            -21.5
+          ],
+          [
+            150.5,
+            -21
+          ],
+          [
+            150.5,
+            -21
+          ],
+          [
+            151,
+            -21.5
+          ],
+          [
+            151.5,
+            -22
+          ],
+          [
+            152,
+            -22.5
+          ],
+          [
+            152.3,
+            -23
+          ],
+          [
+            152,
+            -23.5
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "flatback",
+        "route_id": "flatback-demo",
+        "region": "Eastern Queensland (demo)",
+        "data_status": "illustrative_not_observed",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "hand_authored_demo",
+        "date_source": "arbitrary_monthly_animation_fixture",
+        "source_ids": [
+          "dcceew-flatback",
+          "qld-seasons"
+        ],
+        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "dates": [
+          "2025-01-15T00:00:00Z",
+          "2025-02-15T00:00:00Z",
+          "2025-03-15T00:00:00Z",
+          "2025-04-15T00:00:00Z",
+          "2025-05-15T00:00:00Z",
+          "2025-06-15T00:00:00Z",
+          "2025-07-15T00:00:00Z",
+          "2025-08-15T00:00:00Z",
+          "2025-09-15T00:00:00Z",
+          "2025-10-15T00:00:00Z",
+          "2025-11-15T00:00:00Z",
+          "2025-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
         ]
       }
     }
