@@ -1,0 +1,72 @@
+[
+  {
+    "id": "loggerhead",
+    "common_name": "Loggerhead",
+    "scientific_name": "Caretta caretta",
+    "color": "#c0392b",
+    "depth_range_m": { "typical_max": 100, "record_max": 233 },
+    "iucn_status": "Vulnerable",
+    "blurb": "TODO (data): one or two sentences on range and migration habits.",
+    "sources": []
+  },
+  {
+    "id": "green",
+    "common_name": "Green turtle",
+    "scientific_name": "Chelonia mydas",
+    "color": "#27ae60",
+    "depth_range_m": { "typical_max": 40, "record_max": 150 },
+    "iucn_status": "Endangered",
+    "blurb": "TODO (data)",
+    "sources": []
+  },
+  {
+    "id": "leatherback",
+    "common_name": "Leatherback",
+    "scientific_name": "Dermochelys coriacea",
+    "color": "#2c3e50",
+    "depth_range_m": { "typical_max": 250, "record_max": 1280 },
+    "iucn_status": "Vulnerable",
+    "blurb": "TODO (data)",
+    "sources": []
+  },
+  {
+    "id": "hawksbill",
+    "common_name": "Hawksbill",
+    "scientific_name": "Eretmochelys imbricata",
+    "color": "#e67e22",
+    "depth_range_m": { "typical_max": 30, "record_max": 100 },
+    "iucn_status": "Critically Endangered",
+    "blurb": "TODO (data)",
+    "sources": []
+  },
+  {
+    "id": "kemps-ridley",
+    "common_name": "Kemp's ridley",
+    "scientific_name": "Lepidochelys kempii",
+    "color": "#8e44ad",
+    "depth_range_m": { "typical_max": 50, "record_max": 50 },
+    "iucn_status": "Critically Endangered",
+    "blurb": "TODO (data)",
+    "sources": []
+  },
+  {
+    "id": "olive-ridley",
+    "common_name": "Olive ridley",
+    "scientific_name": "Lepidochelys olivacea",
+    "color": "#7f8c8d",
+    "depth_range_m": { "typical_max": 150, "record_max": 290 },
+    "iucn_status": "Vulnerable",
+    "blurb": "TODO (data)",
+    "sources": []
+  },
+  {
+    "id": "flatback",
+    "common_name": "Flatback",
+    "scientific_name": "Natator depressus",
+    "color": "#16a085",
+    "depth_range_m": { "typical_max": 60, "record_max": 70 },
+    "iucn_status": "Data Deficient",
+    "blurb": "TODO (data)",
+    "sources": []
+  }
+]

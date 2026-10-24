@@ -18,6 +18,15 @@ def test_serves_frontend():
     assert 'id="map"' in response.text
 
 
+def test_species():
+    response = client.get("/api/species")
+    assert response.status_code == 200
+    species = response.json()
+    assert len(species) == 7
+    assert {s["id"] for s in species} >= {"loggerhead", "green", "leatherback"}
+    assert all({"common_name", "scientific_name", "color"} <= s.keys() for s in species)
+
+
 def test_stub_routes_cover_every_species():
     species = client.get("/data/species.json").json()["species"]
     routes = client.get("/data/migrations.geojson").json()
