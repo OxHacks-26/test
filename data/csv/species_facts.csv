@@ -1,15 +1,14 @@
 species_id,fact_index,fact
-green,1,Adults eat mainly seagrasses and algae.
-green,2,Feeding and breeding grounds can be separated by long migrations.
-loggerhead,1,Strong jaws help crush hard-shelled prey.
-loggerhead,2,Depth use changes with habitat and behaviour.
+green,1,Adults and juveniles can use different habitats.
+green,2,Populations can migrate long distances between habitats.
+loggerhead,1,Depth use changes with habitat and behaviour.
 leatherback,1,The largest living turtle species.
 leatherback,2,Its flexible shell differs from the hard shells of other sea turtles.
-hawksbill,1,A narrow pointed beak helps reach food in reef crevices.
-hawksbill,2,Sponges are an important food source.
+hawksbill,1,"The narrow, pointed beak distinguishes the species."
+hawksbill,2,It is strongly associated with coral reef habitats.
 kemps-ridley,1,Females can nest together in large groups called arribadas.
 kemps-ridley,2,This species routinely nests during daylight.
 olive-ridley,1,Some populations nest in synchronized arribadas.
-olive-ridley,2,Individuals can forage in both shallow and deeper waters.
+olive-ridley,2,Individuals use both shallow and deeper waters.
 flatback,1,Prefers shallow habitats with soft seabeds.
 flatback,2,Nesting seasons differ between Australian breeding populations.
