@@ -21,8 +21,8 @@ cd test
 ## Pull requests
 
 - **Small PRs.** One task per PR. If it's getting big, split it.
-- **Never push directly to `main`.** `main` is protected; every change goes through a PR.
-- **Reviews.** At least one other teammate must approve before merging. Code owners (see `.github/CODEOWNERS`) are requested automatically.
+- **Never push directly to `main`.** Every change goes through a PR so there's a record and a place to catch conflicts. (`main` isn't technically protected — we rely on everyone following this.)
+- **Merging.** You can merge your own PR once you've checked it (and your agent's output). Reviews are optional — ask a teammate to look if you're touching shared code or aren't sure.
 - **Keep it green.** Make sure tests/builds pass (once we have them) before requesting review.
 - **Merge.** Prefer "Squash and merge" to keep `main` history clean. Delete your branch after merging.
 

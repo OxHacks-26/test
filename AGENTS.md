@@ -14,7 +14,7 @@ Rules for every AI coding agent (and human) working in this repo. Several people
    git checkout -b <your-name>/<short-task-description>
    # e.g. tarun/add-login-page
    ```
-3. **Never push to `main`.** All changes go through a pull request. Do not force-push to `main`, and do not merge your own PR without a review unless the team agrees.
+3. **Never push to `main`.** All changes go through a pull request. Never force-push to `main`. The author may merge their own PR after checking it; reviews are optional.
 4. **Keep PRs small.** One logical change per PR — aim for a diff someone can review in a few minutes. Split large features into several PRs.
 5. **Sync before opening/updating a PR.** If `main` has moved, rebase or merge it into your branch and fix conflicts locally:
    ```bash
