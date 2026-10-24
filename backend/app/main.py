@@ -5,7 +5,9 @@ from fastapi.staticfiles import StaticFiles
 
 from app import data
 
-FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+MAP_DIR = REPO_ROOT / "map"
+FRONTEND_DATA_DIR = REPO_ROOT / "frontend" / "data"
 
 app = FastAPI(title="OxHacks API")
 
@@ -21,4 +23,7 @@ def list_species() -> list[dict]:
 
 
 # Must be mounted last so /api routes take precedence.
-app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+# The map page lives in map/ and is served at /. The stub JSON stays in
+# frontend/data and is served at /data.
+app.mount("/data", StaticFiles(directory=FRONTEND_DATA_DIR), name="frontend-data")
+app.mount("/", StaticFiles(directory=MAP_DIR, html=True), name="map")

@@ -1,7 +1,7 @@
 // Map frontend for the sea-turtle year.
 //
-// Prefers the shared API once it exists, and falls back to the stub files in
-// frontend/data so this page can be demoed on its own.
+// Prefers the shared API once it exists, and falls back to the stub files
+// served from frontend/data at /data.
 //
 //   GET /api/species     -> { species: [...] } or an array
 //   GET /api/migrations  -> GeoJSON FeatureCollection of LineStrings
@@ -61,34 +61,40 @@ const ui = {
 const OCEAN_SOUTH = -56;
 const OCEAN_NORTH = 72;
 
-const MIN_ZOOM = 1;
-
 const map = L.map("map", {
   worldCopyJump: true,
-  minZoom: MIN_ZOOM,
+  minZoom: 1,
   zoomControl: false,
   attributionControl: true,
 }).setView(HOME.center, HOME.zoom);
 
-// The ocean tiles turn into a flat gray band past these latitudes.
-// Open inside the coloured water, then let the user zoom out further.
-let oceanFramed = false;
-
+// The ocean tiles turn into a flat band past these latitudes.
+// Furthest zoom is the last level where that band stays outside the window.
 function frameOcean() {
-  map.setMinZoom(MIN_ZOOM);
-  if (oceanFramed) {
-    return;
-  }
-  oceanFramed = true;
   const limits = L.latLngBounds(
     [OCEAN_SOUTH, -180],
     [OCEAN_NORTH, 180],
   );
-  const coverZoom = map.getBoundsZoom(limits, true);
+  const snap = map.options.zoomSnap;
+  const currentZoom = map.getZoom();
   const center = map.getCenter();
+  map.options.zoomSnap = 0;
+  map.setMinZoom(0);
+  let edgeZoom = map.getBoundsZoom(limits, true, L.point(0, 8));
+  map.setView(center, edgeZoom, { animate: false });
+  for (let step = 0; step < 12; step += 1) {
+    const view = map.getBounds();
+    if (view.getNorth() <= OCEAN_NORTH && view.getSouth() >= OCEAN_SOUTH) {
+      break;
+    }
+    edgeZoom += 0.05;
+    map.setZoom(edgeZoom, { animate: false });
+  }
+  map.options.zoomSnap = snap;
+  map.setMinZoom(edgeZoom);
   const lat = Math.min(OCEAN_NORTH, Math.max(OCEAN_SOUTH, center.lat));
-  const zoom = Math.max(map.getZoom(), coverZoom);
-  if (lat !== center.lat || zoom !== map.getZoom()) {
+  const zoom = Math.max(currentZoom, edgeZoom);
+  if (Math.abs(lat - center.lat) > 0.01 || Math.abs(zoom - map.getZoom()) > 0.001) {
     map.setView([lat, center.lng], zoom, { animate: false });
   }
 }
