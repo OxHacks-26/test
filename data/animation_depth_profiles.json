@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Published sea turtle dive-depth examples",
+  "data_status": "study_specific_depth_examples_not_monthly_tracks",
+  "depth_unit": "m",
+  "depth_direction": "positive_down_from_surface",
+  "description": "Depth information comes from separate, cited diving studies, not the OBIS-SEAMAP occurrence export. These metrics differ in population, behavior, and statistical meaning; they are not species-wide average swimming depths and are not synchronized with sighting dates or locations.",
+  "chart_axes": {
+    "x": null,
+    "y": "depth_m",
+    "animation_ready": false,
+    "distance_note": "No distance is supplied. Calculate distance only from consecutive valid locations belonging to one identified telemetry track.",
+    "depth_note": "Display the cited metric as a labeled study example or band. Do not animate an individual turtle at an invented fixed depth or attach these values to sighting locations."
+  },
+  "species": [
+    {
+      "species_id": "green",
+      "common_name": "Green turtle",
+      "study_examples": [
+        {
+          "metric": "routine resting dive depth",
+          "depth_min_m": 18,
+          "depth_max_m": 20,
+          "sample_context": "Six nesting females at Ascension Island; deeper resting dives were rare.",
+          "source_id": "green-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "loggerhead",
+      "common_name": "Loggerhead turtle",
+      "study_examples": [
+        {
+          "metric": "depth band occupied for approximately 80% of tracked time",
+          "depth_min_m": 0,
+          "depth_max_m": 30,
+          "sample_context": "26 adult female tracks in the northern Gulf of Mexico; study-specific time use.",
+          "source_id": "loggerhead-diving"
+        },
+        {
+          "metric": "study maximum dive depth",
+          "depth_min_m": null,
+          "depth_max_m": 160,
+          "sample_context": "Maximum reported in the cited study; not a typical depth.",
+          "source_id": "loggerhead-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "leatherback",
+      "common_name": "Leatherback turtle",
+      "study_examples": [
+        {
+          "metric": "predominant depth band",
+          "depth_min_m": 0,
+          "depth_max_m": 200,
+          "sample_context": "Post-nesting females tracked from Gabon predominantly occupied the upper 200 m.",
+          "source_id": "leatherback-diving"
+        },
+        {
+          "metric": "study maximum dive depth",
+          "depth_min_m": null,
+          "depth_max_m": 1080,
+          "sample_context": "Maximum recorded in the cited study; not a typical depth.",
+          "source_id": "leatherback-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "hawksbill",
+      "common_name": "Hawksbill turtle",
+      "study_examples": [
+        {
+          "metric": "shallow depth-use band",
+          "depth_min_m": 0,
+          "depth_max_m": 10,
+          "sample_context": "Adult eastern Pacific hawksbills spent nearly all their time in the upper 10 m; other populations may differ.",
+          "source_id": "hawksbill-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "kemps-ridley",
+      "common_name": "Kemp's ridley turtle",
+      "study_examples": [
+        {
+          "metric": "water depth during bottom-associated behavior",
+          "depth_min_m": 2,
+          "depth_max_m": 3,
+          "sample_context": "One immature turtle at Gullivan Bay, southwest Florida. This is local water depth, not a species-level dive-depth distribution.",
+          "source_id": "kemps-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "olive-ridley",
+      "common_name": "Olive ridley turtle",
+      "study_examples": [
+        {
+          "metric": "range of individual mean maximum dive depths",
+          "depth_min_m": 20.1,
+          "depth_max_m": 46.7,
+          "sample_context": "Northern Australia telemetry study; these are individual means of maximum depths, not a range of all dives.",
+          "source_id": "olive-diving"
+        },
+        {
+          "metric": "study maximum dive depth",
+          "depth_min_m": null,
+          "depth_max_m": 200,
+          "uncertainty_m": 20,
+          "sample_context": "Reported as 200 ± 20 m in the cited study; ±20 m is the study's reported uncertainty, not a population depth range.",
+          "source_id": "olive-diving"
+        }
+      ]
+    },
+    {
+      "species_id": "flatback",
+      "common_name": "Flatback turtle",
+      "study_examples": [
+        {
+          "metric": "study maximum dive depth at Curtis Island",
+          "depth_min_m": null,
+          "depth_max_m": 29,
+          "sample_context": "Inter-nesting females; local study maximum, not a physiological limit.",
+          "source_id": "flatback-diving"
+        },
+        {
+          "metric": "study maximum dive depth at Bare Sand Island",
+          "depth_min_m": null,
+          "depth_max_m": 44,
+          "sample_context": "Inter-nesting females; local study maximum, not a physiological limit.",
+          "source_id": "flatback-diving"
+        }
+      ]
+    }
+  ]
+}

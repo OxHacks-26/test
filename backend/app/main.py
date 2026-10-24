@@ -1,6 +1,8 @@
+from datetime import date
 from pathlib import Path
+from typing import Annotated
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.staticfiles import StaticFiles
 
 from app import data
@@ -22,9 +24,52 @@ def list_species() -> list[dict]:
     return data.species()
 
 
+@app.get("/api/oceans")
+def list_oceans() -> list[dict]:
+    return data.oceans()
+
+
+@app.get("/api/years")
+def list_years() -> list[int]:
+    return data.observation_years()
+
+
+@app.get("/api/predictions")
+def list_predictions(
+    species: Annotated[str | None, Query(description="Species id")] = None,
+    year: Annotated[int | None, Query(description="Calendar year")] = None,
+) -> dict:
+    return data.predictions(species_id=species, year=year)
+
+
+@app.get("/api/depth-profiles")
+def list_depth_profiles() -> dict:
+    return data.depth_profiles()
+
+
 @app.get("/api/migrations")
-def list_migrations() -> dict:
-    return data.load_json("migrations.geojson")
+def list_migrations(
+    from_: Annotated[
+        date | None,
+        Query(alias="from", description="Window start (ISO date)"),
+    ] = None,
+    to: Annotated[date | None, Query(description="Window end (ISO date)")] = None,
+    species: Annotated[str | None, Query(description="Comma-separated species ids")] = None,
+    ocean: Annotated[str | None, Query(description="Ocean id")] = None,
+    year: Annotated[int | None, Query(description="Calendar year")] = None,
+) -> dict:
+    start, end = from_, to
+    if year is not None:
+        year_start, year_end = date(year, 1, 1), date(year, 12, 31)
+        start = year_start if start is None else max(start, year_start)
+        end = year_end if end is None else min(end, year_end)
+    species_ids = {part.strip() for part in species.split(",") if part.strip()} if species else None
+    return data.migrations(
+        start=start,
+        end=end,
+        species_ids=species_ids or None,
+        ocean=ocean,
+    )
 
 
 # Must be mounted last so /api routes take precedence.

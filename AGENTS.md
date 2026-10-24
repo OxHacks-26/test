@@ -34,11 +34,13 @@ Rules for every AI coding agent (and human) working in this repo. Several people
 
 The app maps sea turtle migrations over time. All data lives in `data/` as plain JSON so the backend can serve it and the frontend can draw it. Keep these shapes stable; if you must change them, update `backend/tests/test_data.py` and tell the team.
 
-- `data/species.json` — array of the 7 species: `id` (slug, e.g. `loggerhead`), `common_name`, `scientific_name`, `color` (hex, used for map lines), `depth_range_m: {typical_max, record_max}`, `iucn_status`, `blurb`, `sources: [{title, url}]`.
-- `data/migrations.geojson` — GeoJSON `FeatureCollection` of `LineString` routes (coordinates are `[lon, lat]`). Each feature's `properties`: `id`, `species` (a species `id`), `name`, `ocean` (an ocean `id`), `life_stage`, `start`/`end` (ISO dates — the years the route is known to be active), `months` (1–12, when the migration happens each year), `depth_m: {min, max}`, `confidence` (`documented` or `illustrative`), `notes`, `sources`.
+- `data/species.json` — object with a `species` array of the 7 species: `id`, `common_name`, `scientific_name`, `colour`, `depth_range_m: {min, max}`, `facts` (short strings), `source_ids`. `GET /api/species` returns that array plus `textboxes` for the depth panel and `depth_marks` for where to draw the turtle. Diet and food fields are not served.
+- `data/textboxes.json` — three sourced textboxes per species (`Habitat`, `Population and extinction risk`, `Life expectancy`), shown when that species is clicked.
+- `data/migrations.geojson` — GeoJSON `FeatureCollection` of illustrative `LineString` routes. There is one sample route per species for 2006, 2010, 2015, and 2020. Each feature's `properties` include `species_id`, `route_id`, `year`, `ocean`, `dates` (ISO timestamps, one per position), `months`, and `depth_m` (parallel to the positions). `GET /api/migrations` accepts `year` as that whole calendar year.
+- `data/animation_sightings.json` and `data/animation_species_predictions.json` — two example positions per species per year, taken from those routes, plus a year status for every species. `GET /api/years` returns the years. `GET /api/predictions` returns the positions with coordinates. `species` and `year` each limit the rows.
 - `data/oceans.json` — array of `id`, `name`, `bbox` `[minLon, minLat, maxLon, maxLat]` (Pacific crosses the antimeridian, so minLon > maxLon), `center` `[lon, lat]`.
 
-Time filtering rule: a route is shown for a selected time window if its `start`–`end` span overlaps the window **and** at least one of its `months` falls inside the window.
+Time filtering rule: a route is shown for a selected time window when one of its dated positions falls inside the window **and** that position's month falls inside the window. Routes that only have `start`/`end` match when that span overlaps the window and at least one listed month falls inside it.
 
 ## Do
 

@@ -1,0 +1,5 @@
+year,status,sample_position_count,archive_record_count,available_months,species_specific_tracks,note,dataset_source_ids
+2006,sample_routes_available,14,,1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,true,Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track.,
+2010,sample_routes_available,14,,1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,true,Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track.,
+2015,sample_routes_available,14,,1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,true,Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track.,
+2020,sample_routes_available,14,,1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12,true,Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track.,
