@@ -12,7 +12,51 @@ def load_json(name: str):
 
 
 def species() -> list[dict]:
-    return load_json("species.json")
+    """Species records for the map and the per-species depth panel.
+
+    `facts` fills the info textboxes. A `facts` list on the file wins; otherwise
+    the panel gets one overview fact from `blurb`. `depth_marks` are the depths
+    at which that species is drawn.
+    """
+    return [_with_depth_panel(item) for item in load_json("species.json")]
+
+
+def _with_depth_panel(item: dict) -> dict:
+    presented = dict(item)
+    presented["facts"] = _facts(item)
+    presented["depth_marks"] = _depth_marks(item)
+    return presented
+
+
+def _facts(item: dict) -> list[dict]:
+    supplied = item.get("facts")
+    if isinstance(supplied, list):
+        facts = []
+        for index, fact in enumerate(supplied, start=1):
+            if not isinstance(fact, dict):
+                continue
+            text = str(fact.get("text") or "").strip()
+            if not text:
+                continue
+            facts.append({"id": str(fact.get("id") or f"fact-{index}"), "text": text})
+        if facts:
+            return facts
+    blurb = str(item.get("blurb") or "").strip()
+    if blurb:
+        return [{"id": "overview", "text": blurb}]
+    return []
+
+
+def _depth_marks(item: dict) -> list[dict]:
+    depth = item.get("depth_range_m") or {}
+    typical = depth.get("typical_max")
+    record = depth.get("record_max")
+    marks = []
+    if isinstance(typical, int | float) and not isinstance(typical, bool):
+        marks.append({"id": "typical", "label": "Typical depth", "depth_m": typical})
+    if isinstance(record, int | float) and not isinstance(record, bool) and record != typical:
+        marks.append({"id": "record", "label": "Record depth", "depth_m": record})
+    return marks
 
 
 def oceans() -> list[dict]:
@@ -43,13 +87,11 @@ def migrations(
     end: date | None = None,
     species_ids: set[str] | None = None,
     ocean: str | None = None,
-    depth: float | None = None,
 ) -> dict:
     """GeoJSON FeatureCollection of routes matching the optional filters.
 
     A route is in a time window when its start-end span overlaps the window
-    and at least one of its months falls inside the window. A depth matches
-    when depth_m.min <= depth <= depth_m.max.
+    and at least one of its months falls inside the window.
     """
     collection = load_json("migrations.geojson")
     if start is not None and end is not None and start > end:
@@ -64,7 +106,6 @@ def migrations(
             window=window,
             species_ids=species_ids,
             ocean=ocean,
-            depth=depth,
         )
     ]
     return {**collection, "features": features}
@@ -84,13 +125,10 @@ def _route_matches(
     window: tuple[date, date, set[int]] | None,
     species_ids: set[str] | None,
     ocean: str | None,
-    depth: float | None,
 ) -> bool:
     if species_ids and props["species"] not in species_ids:
         return False
     if ocean and props["ocean"] != ocean:
-        return False
-    if depth is not None and not (props["depth_m"]["min"] <= depth <= props["depth_m"]["max"]):
         return False
     if window is None:
         return True

@@ -37,7 +37,6 @@ def list_migrations(
     to: Annotated[date | None, Query(description="Window end (ISO date)")] = None,
     species: Annotated[str | None, Query(description="Comma-separated species ids")] = None,
     ocean: Annotated[str | None, Query(description="Ocean id")] = None,
-    depth: Annotated[float | None, Query(ge=0, description="Depth in metres")] = None,
 ) -> dict:
     species_ids = {part.strip() for part in species.split(",") if part.strip()} if species else None
     return data.migrations(
@@ -45,7 +44,6 @@ def list_migrations(
         end=to,
         species_ids=species_ids or None,
         ocean=ocean,
-        depth=depth,
     )
 
 

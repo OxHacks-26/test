@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from app.data import months_in_window
+from app.data import _facts, months_in_window
 from app.main import app
 
 client = TestClient(app)
@@ -34,6 +34,34 @@ def test_species():
     assert len(species) == 7
     assert {s["id"] for s in species} >= {"loggerhead", "green", "leatherback"}
     assert all({"common_name", "scientific_name", "color"} <= s.keys() for s in species)
+
+
+def test_species_depth_panel():
+    file_species = {item["id"]: item for item in load("species.json")}
+    for item in client.get("/api/species").json():
+        source = file_species[item["id"]]
+        assert item["blurb"] == source["blurb"]
+        assert item["depth_range_m"] == source["depth_range_m"]
+        assert item["facts"] == [{"id": "overview", "text": source["blurb"]}]
+        marks = {mark["id"]: mark["depth_m"] for mark in item["depth_marks"]}
+        depth = source["depth_range_m"]
+        assert marks["typical"] == depth["typical_max"]
+        if depth["record_max"] == depth["typical_max"]:
+            assert "record" not in marks
+        else:
+            assert marks["record"] == depth["record_max"]
+
+
+def test_explicit_species_facts_override_blurb():
+    assert _facts(
+        {
+            "blurb": "Overview",
+            "facts": [{"id": "range", "text": "Nests in summer."}, {"text": "  "}],
+        }
+    ) == [{"id": "range", "text": "Nests in summer."}]
+    assert _facts({"blurb": "Overview", "facts": [{"text": "  "}]}) == [
+        {"id": "overview", "text": "Overview"}
+    ]
 
 
 def test_stub_routes_cover_every_species():
@@ -201,26 +229,13 @@ def test_migrations_open_ended_and_inverted_windows():
     assert route_ids({"from": "2015-08-01", "to": "2015-01-01"}) == set()
 
 
-def test_migrations_rejects_bad_dates_and_depth():
+def test_migrations_rejects_bad_dates():
     assert client.get("/api/migrations", params={"from": "not-a-date"}).status_code == 422
     assert client.get("/api/migrations", params={"to": "2015-13-01"}).status_code == 422
-    assert client.get("/api/migrations", params={"depth": -1}).status_code == 422
-    assert client.get("/api/migrations", params={"depth": "deep"}).status_code == 422
 
 
-def test_migrations_filter_by_depth():
-    file_features = load("migrations.geojson")["features"]
-    for depth in (0, 40, 40.1, 80, 100, 100.1):
-        expected = {
-            feature["properties"]["id"]
-            for feature in file_features
-            if feature["properties"]["depth_m"]["min"]
-            <= depth
-            <= feature["properties"]["depth_m"]["max"]
-        }
-        assert route_ids({"depth": depth}) == expected
-    assert LOGGERHEAD in route_ids({"depth": 80})
-    assert GREEN not in route_ids({"depth": 80})
+def test_migrations_does_not_filter_by_depth():
+    assert route_ids({"depth": 4100}) == route_ids()
 
 
 def test_migrations_filters_are_combined():
@@ -229,7 +244,6 @@ def test_migrations_filters_are_combined():
         "ocean": "atlantic",
         "from": "2015-01-01",
         "to": "2015-01-31",
-        "depth": 20,
     }
     assert GREEN in route_ids(params)
     assert LOGGERHEAD not in route_ids(params)
@@ -237,12 +251,10 @@ def test_migrations_filters_are_combined():
         props = feature["properties"]
         assert props["species"] in {"green", "loggerhead"}
         assert props["ocean"] == "atlantic"
-        assert props["depth_m"]["min"] <= 20 <= props["depth_m"]["max"]
         assert props["start"] <= "2015-01-31"
         assert props["end"] >= "2015-01-01"
         assert 1 in props["months"]
     assert route_ids({"species": "green", "ocean": "pacific"}) == set()
-    assert GREEN not in route_ids({"species": "green", "depth": 80})
 
 
 def test_filtered_routes_keep_file_properties():
@@ -256,7 +268,7 @@ def test_filtered_routes_keep_file_properties():
 def test_migrations_query_parameter_names():
     schema = client.get("/openapi.json").json()
     params = schema["paths"]["/api/migrations"]["get"]["parameters"]
-    assert {param["name"] for param in params} == {"from", "to", "species", "ocean", "depth"}
+    assert {param["name"] for param in params} == {"from", "to", "species", "ocean"}
     assert all(not param["required"] for param in params)
 
 
