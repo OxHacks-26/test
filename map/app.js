@@ -155,9 +155,31 @@ const SEA_REGIONS = [
   },
 ];
 
+// The Gulf of Mexico and the Caribbean sit west of 80°W but belong to the
+// Atlantic. The western edge follows the Central American isthmus; [lon, lat].
+const ATLANTIC_GULF_CARIBBEAN = [
+  [-80, 9.2], [-83.5, 10.2], [-85, 11.5], [-88, 14.5], [-90.5, 15.2],
+  [-92, 16.5], [-94.5, 17], [-98, 18.5], [-98, 31], [-80, 31],
+];
+
+function insidePolygon(lon, lat, polygon) {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i, i += 1) {
+    const [xi, yi] = polygon[i];
+    const [xj, yj] = polygon[j];
+    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
 function seaAt(latlng) {
   const lat = latlng.lat;
   const lon = wrapLng(latlng.lng);
+  if (insidePolygon(lon, lat, ATLANTIC_GULF_CARIBBEAN)) {
+    return SEA_REGIONS.find((region) => region.id === "atlantic");
+  }
   return SEA_REGIONS.find((region) => {
     const [minLon, minLat, maxLon, maxLat] = region.bbox;
     if (lat < minLat || lat > maxLat) {
@@ -180,6 +202,7 @@ const seaDepthZone = document.getElementById("sea-depth-zone");
 const seaDepthSource = document.getElementById("sea-depth-source");
 const diveMarks = document.querySelector(".dive-marks");
 const diveWater = document.querySelector(".dive-water");
+const diveFish = document.getElementById("dive-fish");
 
 // Pelagic light zones, in metres. The seafloor itself comes from GMRT.
 const LIGHT_ZONES = [
@@ -192,6 +215,7 @@ const LIGHT_ZONES = [
 
 let diveMap = null;
 let seafloorM = null;
+let divePlace = null;
 let depthRequest = 0;
 
 function formatMeters(meters) {
@@ -277,12 +301,130 @@ function placeMarks(depth) {
   add(depth, `Seafloor ${formatMeters(depth)}`);
 }
 
+// Species per ocean live in fish.js. Each is an illustration of a well-known
+// fish for that ocean, kept inside its typical depth range and the real water
+// column. Schooling species are drawn as a small school.
+const seaFishList = document.getElementById("sea-fish");
+const FISH_LANES = [["8%", "64%"], ["70%", "16%"], ["18%", "60%"], ["62%", "12%"], ["14%", "66%"]];
+
+function placeFish(depth) {
+  diveFish.replaceChildren();
+  const picks = fishForPlace(divePlace, depth);
+  const margin = Math.max(8, depth * 0.04);
+  const names = [];
+  picks.forEach((pick, index) => {
+    const fish = FISH[pick.id];
+    names.push(fish.name);
+    const copies = fish.school || 1;
+    for (let copy = 0; copy < copies; copy += 1) {
+      const lane = FISH_LANES[(index + copy) % FISH_LANES.length];
+      const spread = (copy - (copies - 1) / 2) * Math.min(18, Math.max(3, pick.depth * 0.08));
+      const meters = Math.min(depth - margin, Math.max(2, pick.depth + (fish.floor ? 0 : spread)));
+      const width = Math.round(fish.w * (1 - copy * 0.1));
+      const height = Math.round(width * (fish.kind === "lantern" ? 32 / 78 : 0.4));
+      const swimmer = document.createElement("div");
+      swimmer.className = `fish fish-${fish.kind}`;
+      swimmer.title = `${fish.name} (${fish.latin})`;
+      swimmer.style.top = `calc(240px + (100% - 280px) * ${meters / depth})`;
+      swimmer.style.width = `${width}px`;
+      swimmer.style.height = `${height}px`;
+      swimmer.style.marginTop = `${Math.round(height / -2)}px`;
+      swimmer.style.setProperty("--fish-scale", "1");
+      swimmer.style.setProperty("--from", lane[0]);
+      swimmer.style.setProperty("--to", lane[1]);
+      swimmer.style.setProperty("--face", Number.parseFloat(lane[0]) < Number.parseFloat(lane[1]) ? "1" : "-1");
+      swimmer.style.setProperty("--swim", `${(fish.swim || 20) + index * 2 + copy * 1.5}s`);
+      swimmer.style.setProperty("--delay", `${-(index * 5 + copy * 2.3)}s`);
+      swimmer.innerHTML = fishSvg(pick.id);
+      diveFish.appendChild(swimmer);
+    }
+  });
+  seaFishList.textContent = names.length ? `Illustrated: ${names.join(" · ")}` : "";
+  seaFishList.hidden = names.length === 0;
+}
+
+let migrationRoutes = null;
+
+function seaDistance(lat1, lng1, lat2, lng2) {
+  const toRad = (degrees) => (degrees * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.min(1, Math.sqrt(a)));
+}
+
+async function closestSpecies(lat, lng) {
+  if (!migrationRoutes) {
+    const response = await fetch("/api/migrations");
+    if (!response.ok) {
+      return null;
+    }
+    const payload = await response.json();
+    migrationRoutes = payload.features || [];
+  }
+  let bestId = null;
+  let best = Infinity;
+  migrationRoutes.forEach((feature) => {
+    const id = feature.properties && feature.properties.species_id;
+    const coords = feature.geometry && feature.geometry.coordinates;
+    if (!id || !coords) {
+      return;
+    }
+    coords.forEach(([lon, la]) => {
+      const distance = seaDistance(lat, lng, la, lon);
+      if (distance < best) {
+        best = distance;
+        bestId = id;
+      }
+    });
+  });
+  return bestId;
+}
+
+function placeDiveTurtles(depth, request) {
+  const place = divePlace;
+  if (!place) {
+    return;
+  }
+  closestSpecies(place.lat, place.lng).then((id) => {
+    if (request !== depthRequest || !divePlace || !id) {
+      return;
+    }
+    const look = turtleAppearance(id);
+    if (!look) {
+      return;
+    }
+    diveFish.querySelectorAll(".column-turtle").forEach((node) => node.remove());
+    const meters = Math.min(id === "leatherback" ? 140 : 36, depth * 0.45);
+    if (meters < 8) {
+      return;
+    }
+    const swimmer = document.createElement("div");
+    const wide = id === "leatherback" ? 246 : 216;
+    const high = Math.round(wide * 96 / 180);
+    swimmer.className = "column-turtle";
+    swimmer.dataset.species = id;
+    swimmer.style.top = `calc(240px + (100% - 280px) * ${meters / depth})`;
+    swimmer.style.width = `${wide}px`;
+    swimmer.style.height = `${high}px`;
+    swimmer.style.marginTop = `${Math.round(high / -2)}px`;
+    const travel = Math.round((diveFish.clientWidth || window.innerWidth) + 240 + wide);
+    swimmer.style.setProperty("--travel", `${travel}px`);
+    swimmer.style.setProperty("--delay", "-8s");
+    swimmer.innerHTML = `<div class="turtle-swim" style="--stroke:${look.stroke}">${sideTurtleSvg(id)}</div>`;
+    diveFish.appendChild(swimmer);
+  });
+}
+
 function applySeafloor(depth) {
   seafloorM = depth;
   const viewHeight = seaVisual.clientHeight || window.innerHeight;
   const column = Math.round(Math.min(viewHeight * 4, Math.max(viewHeight * 0.9, depth * 0.42)));
   diveWater.style.height = `${column}px`;
   diveWater.style.background = depthGradient(depth);
+  placeFish(depth);
+  placeDiveTurtles(depth, depthRequest);
   seaDepthSource.textContent = `Seafloor ${formatMeters(depth)} · GMRT`;
   requestAnimationFrame(() => {
     placeMarks(depth);
@@ -295,6 +437,8 @@ function clearDepthScale() {
   diveWater.style.removeProperty("height");
   diveWater.style.removeProperty("background");
   diveMarks.replaceChildren();
+  diveFish.replaceChildren();
+  seaFishList.hidden = true;
   seaCard.style.setProperty("--dive", "0");
 }
 
@@ -329,6 +473,8 @@ async function loadSeafloor(latlng) {
     }
     if (elevation >= 0) {
       diveWater.style.height = "0px";
+      diveFish.replaceChildren();
+      seaFishList.hidden = true;
       seaDepthMeters.textContent = "Above sea level";
       seaDepthZone.textContent = "No water column";
       return;
@@ -364,6 +510,7 @@ function ensureDiveMap(latlng) {
 }
 
 function openSeaWindow(region, latlng) {
+  divePlace = { id: region.id, lat: latlng.lat, lng: wrapLng(latlng.lng) };
   seaVisual.dataset.region = region.id;
   seaWindowName.textContent = region.name;
   seaCard.setAttribute("aria-label", region.name);
@@ -385,6 +532,7 @@ function openSeaWindow(region, latlng) {
 }
 
 function closeSeaWindow() {
+  divePlace = null;
   depthRequest += 1;
   seaWindow.hidden = true;
   seaVisual.scrollTop = 0;
@@ -436,10 +584,11 @@ tiles.on("tileerror", () => {
   }).addTo(map);
 });
 
-// The page is the ocean map only until species data and the tracker UI exist.
+mountTurtles(map);
+
+// The sidebar tracker stays dormant until its own controls exist.
+// Swimming turtles are drawn separately from /api/species and /api/migrations.
 // Those controls use #month, #depth, #play, #oceans, #legend, and #dive-chart.
-// When that markup is on the page, this wires the routes up. It does not call
-// the API on its own, and it does not draw the placeholder species.
 if (ui.month && ui.depth && ui.play && ui.oceans && ui.legend && ui.diveChart) {
   ui.month.addEventListener("input", () => {
     stopPlayback();

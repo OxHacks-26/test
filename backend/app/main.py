@@ -22,6 +22,11 @@ def list_species() -> list[dict]:
     return data.species()
 
 
+@app.get("/api/migrations")
+def list_migrations() -> dict:
+    return data.load_json("migrations.geojson")
+
+
 # Must be mounted last so /api routes take precedence.
 # The map page lives in map/ and is served at /. The stub JSON stays in
 # frontend/data and is served at /data.

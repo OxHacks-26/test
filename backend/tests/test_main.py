@@ -16,6 +16,7 @@ def test_serves_frontend():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert 'id="map"' in response.text
+    assert 'id="turtle-time"' in response.text
 
 
 def test_species():
@@ -24,7 +25,19 @@ def test_species():
     species = response.json()
     assert len(species) == 7
     assert {s["id"] for s in species} >= {"loggerhead", "green", "leatherback"}
-    assert all({"common_name", "scientific_name", "color"} <= s.keys() for s in species)
+    assert all({"common_name", "scientific_name", "colour"} <= s.keys() for s in species)
+
+
+def test_migrations():
+    response = client.get("/api/migrations")
+    assert response.status_code == 200
+    routes = response.json()
+    assert routes["type"] == "FeatureCollection"
+    assert len(routes["features"]) == 7
+    assert all(
+        feature["properties"]["data_status"] == "illustrative_not_observed"
+        for feature in routes["features"]
+    )
 
 
 def test_stub_routes_cover_every_species():
