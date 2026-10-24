@@ -4,11 +4,12 @@
 published depth examples, facts, regional nesting months and citation IDs.
 `sources.json` resolves those IDs to source titles, links and the claims they support.
 
-**`migrations.geojson` is stub data, not downloaded telemetry.** It contains seven
-hand-authored LineStrings with twelve invented monthly positions each. The 2025 dates
-are arbitrary animation timestamps. Show an **Illustrative route — not observed tracking**
-label wherever these routes appear. They are suitable for developing the month slider,
-not for predicting turtle positions or reporting conservation results.
+**`migrations.geojson` is sample data, not downloaded telemetry.** It contains one
+hand-authored LineString per species for 2006, 2010, 2015, and 2020, with a position
+on the 15th of each month. The paths follow published corridors and then shift a
+little by year. Show an **Illustrative route — not observed tracking** label wherever
+these routes appear. They are suitable for the year and month controls, not for
+reporting conservation results.
 
 ## Data contract
 

@@ -10,12 +10,12 @@
       "common_name": "Green turtle",
       "scientific_name": "Chelonia mydas",
       "colour": "#22C55E",
-      "distribution": "Atlantic, Pacific and Indian oceans and the Mediterranean; adults commonly use coastal feeding grounds.",
+      "distribution": "Atlantic, Pacific and Indian oceans and the Mediterranean; adults commonly use coastal habitats.",
       "depth_range_m": {"min": 0, "max": 20},
       "depth_context": "Illustrative surface-to-routine-resting-depth band. Six nesting females at Ascension Island routinely reached 18–20 m on resting dives; deeper resting dives were rare. Not a maximum diving capability or a global typical range.",
       "depth_source_ids": ["green-diving"],
       "seasonality": [{"region": "Northern Great Barrier Reef, Australia", "activity": "nesting", "months": [10, 11, 12, 1, 2, 3], "source_ids": ["qld-seasons"]}],
-      "facts": ["Adults eat mainly seagrasses and algae.", "Feeding and breeding grounds can be separated by long migrations."],
+      "facts": ["Adults and juveniles can use different habitats.", "Populations can migrate long distances between habitats."],
       "source_ids": ["noaa-green", "green-diving", "qld-seasons"]
     },
     {
@@ -29,7 +29,7 @@
       "study_max_dive_m": 160,
       "depth_source_ids": ["loggerhead-diving"],
       "seasonality": [{"region": "Eastern Queensland, Australia", "activity": "nesting", "months": [10, 11, 12, 1, 2, 3], "source_ids": ["qld-seasons"]}],
-      "facts": ["Strong jaws help crush hard-shelled prey.", "Depth use changes with habitat and behaviour."],
+      "facts": ["Depth use changes with habitat and behaviour."],
       "source_ids": ["noaa-loggerhead", "loggerhead-diving", "qld-seasons"]
     },
     {
@@ -37,7 +37,7 @@
       "common_name": "Leatherback turtle",
       "scientific_name": "Dermochelys coriacea",
       "colour": "#A855F7",
-      "distribution": "Oceanic and coastal waters worldwide, extending into cooler feeding regions.",
+      "distribution": "Oceanic and coastal waters worldwide, including cooler waters.",
       "depth_range_m": {"min": 0, "max": 200},
       "depth_context": "Post-nesting females tracked from Gabon predominantly occupied the upper 200 m. Deep dives also occurred. This is not a maximum diving capability or a measurement for the demo route.",
       "study_max_dive_m": 1080,
@@ -56,7 +56,7 @@
       "depth_context": "Adult eastern Pacific hawksbills in Gaos et al. spent nearly all their time in the upper 10 m. Other populations use deeper habitats; this is not a universal range.",
       "depth_source_ids": ["hawksbill-diving"],
       "seasonality": [{"region": "Torres Strait and northern Queensland, Australia", "activity": "nesting", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "peak_months": [12, 1, 2], "source_ids": ["qld-seasons"]}],
-      "facts": ["A narrow pointed beak helps reach food in reef crevices.", "Sponges are an important food source."],
+      "facts": ["The narrow, pointed beak distinguishes the species.", "It is strongly associated with coral reef habitats."],
       "source_ids": ["noaa-hawksbill", "hawksbill-diving", "qld-seasons"]
     },
     {
@@ -84,7 +84,7 @@
       "study_max_dive_uncertainty_m": 20,
       "depth_source_ids": ["olive-diving"],
       "seasonality": [{"region": "Western Cape York, Queensland, Australia", "activity": "nesting", "months": [3, 4, 5, 6, 7, 8, 9, 10], "peak_months": [7], "source_ids": ["qld-seasons"]}],
-      "facts": ["Some populations nest in synchronized arribadas.", "Individuals can forage in both shallow and deeper waters."],
+      "facts": ["Some populations nest in synchronized arribadas.", "Individuals use both shallow and deeper waters."],
       "source_ids": ["noaa-olive", "olive-diving", "qld-seasons"]
     },
     {

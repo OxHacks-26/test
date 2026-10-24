@@ -1,0 +1,12 @@
+species_id,common_name,metric,depth_min_m,depth_max_m,sample_context,source_id
+green,Green turtle,routine resting dive depth,18,20,Six nesting females at Ascension Island; deeper resting dives were rare.,green-diving
+loggerhead,Loggerhead turtle,depth band occupied for approximately 80% of tracked time,0,30,26 adult female tracks in the northern Gulf of Mexico; study-specific time use.,loggerhead-diving
+loggerhead,Loggerhead turtle,study maximum dive depth,,160,Maximum reported in the cited study; not a typical depth.,loggerhead-diving
+leatherback,Leatherback turtle,predominant depth band,0,200,Post-nesting females tracked from Gabon predominantly occupied the upper 200 m.,leatherback-diving
+leatherback,Leatherback turtle,study maximum dive depth,,1080,Maximum recorded in the cited study; not a typical depth.,leatherback-diving
+hawksbill,Hawksbill turtle,shallow depth-use band,0,10,Adult eastern Pacific hawksbills spent nearly all their time in the upper 10 m; other populations may differ.,hawksbill-diving
+kemps-ridley,Kemp's ridley turtle,water depth during bottom-associated behavior,2,3,"One immature turtle at Gullivan Bay, southwest Florida. This is local water depth, not a species-level dive-depth distribution.",kemps-diving
+olive-ridley,Olive ridley turtle,range of individual mean maximum dive depths,20.1,46.7,"Northern Australia telemetry study; these are individual means of maximum depths, not a range of all dives.",olive-diving
+olive-ridley,Olive ridley turtle,study maximum dive depth,,200,"Reported as 200 ± 20 m in the cited study; ±20 m is the study's reported uncertainty, not a population depth range.",olive-diving
+flatback,Flatback turtle,study maximum dive depth at Curtis Island,,29,"Inter-nesting females; local study maximum, not a physiological limit.",flatback-diving
+flatback,Flatback turtle,study maximum dive depth at Bare Sand Island,,44,"Inter-nesting females; local study maximum, not a physiological limit.",flatback-diving

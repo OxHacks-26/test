@@ -2,211 +2,110 @@
   "type": "FeatureCollection",
   "schema_version": "1.0.0",
   "metadata": {
-    "data_status": "illustrative_not_observed",
-    "notice": "Hand-authored animation fixtures. Coordinates and dates are invented, not satellite telemetry, reconstructed tracks, or predictions. Sources support broad geography only. Do not use for scientific analysis.",
+    "data_status": "illustrative_sample_prediction",
+    "notice": "Example migration paths for the animation. One route per species for 2006, 2010, 2015, and 2020. Coordinates, months, and depths are invented along published corridors. They are not satellite tracks or predictions from a fitted model.",
     "coordinate_reference_system": "WGS84",
     "coordinate_order": "longitude,latitude",
-    "time_basis": "2025 is an arbitrary display year; month positions are invented.",
-    "depth_notice": "No measured per-position dive depths are available; null means unknown."
+    "years": [
+      2006,
+      2010,
+      2015,
+      2020
+    ],
+    "time_basis": "Each route is one calendar year. Month positions are the 15th.",
+    "depth_notice": "depth_m values are sample drawing depths inside the species' stated range, shallower in nesting months. They are not measured dives."
   },
   "features": [
     {
       "type": "Feature",
-      "id": "green-demo",
+      "id": "loggerhead-2006",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            144,
-            -13
+            153.35,
+            -25.0
           ],
           [
-            144,
-            -13.5
+            153.72,
+            -24.64
           ],
           [
-            144.5,
-            -14
+            155.92,
+            -23.53
           ],
           [
-            145,
-            -14.5
+            159.05,
+            -22.43
           ],
           [
-            145.5,
-            -15
+            162.55,
+            -21.69
           ],
           [
-            145.8,
-            -15.5
+            165.68,
+            -22.06
           ],
           [
-            145.8,
-            -15.5
+            166.41,
+            -22.61
           ],
           [
-            145.5,
-            -15
+            165.12,
+            -21.88
           ],
           [
-            145,
-            -14.5
+            161.26,
+            -22.61
           ],
           [
-            144.5,
-            -14
+            157.58,
+            -23.72
           ],
           [
-            144,
-            -13.5
+            154.82,
+            -24.64
           ],
           [
-            144,
-            -13
-          ]
-        ]
-      },
-      "properties": {
-        "species_id": "green",
-        "route_id": "green-demo",
-        "region": "Northern Great Barrier Reef (demo)",
-        "data_status": "illustrative_not_observed",
-        "is_observed": false,
-        "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
-        "source_ids": [
-          "noaa-green",
-          "qld-seasons"
-        ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
-        "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
-        ],
-        "months": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12
-        ],
-        "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "loggerhead-demo",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            153,
-            -24
-          ],
-          [
-            153.5,
-            -24.5
-          ],
-          [
-            154,
-            -25
-          ],
-          [
-            154.5,
-            -26
-          ],
-          [
-            154.5,
-            -27
-          ],
-          [
-            154.5,
-            -28
-          ],
-          [
-            154.5,
-            -28
-          ],
-          [
-            154.5,
-            -27
-          ],
-          [
-            154.5,
-            -26
-          ],
-          [
-            154,
-            -25
-          ],
-          [
-            153.5,
-            -24.5
-          ],
-          [
-            153,
-            -24
+            153.53,
+            -25.1
           ]
         ]
       },
       "properties": {
         "species_id": "loggerhead",
-        "route_id": "loggerhead-demo",
-        "region": "Eastern Queensland (demo)",
-        "data_status": "illustrative_not_observed",
+        "species": "loggerhead",
+        "route_id": "loggerhead-2006",
+        "name": "Loggerhead Queensland\u2013Coral Sea sample 2006",
+        "year": 2006,
+        "ocean": "pacific",
+        "region": "Southwest Pacific, Queensland to the Coral Sea (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
           "noaa-loggerhead",
+          "loggerhead-diving",
           "qld-seasons"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -223,103 +122,958 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          3.6,
+          3.6,
+          13.5,
+          19.5,
+          25.5,
+          13.5,
+          19.5,
+          25.5,
+          13.5,
+          19.5,
+          3.6,
+          3.6
         ]
       }
     },
     {
       "type": "Feature",
-      "id": "leatherback-demo",
+      "id": "loggerhead-2010",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9,
-            -2
+            152.4,
+            -24.8
           ],
           [
-            8,
-            -3
+            152.8,
+            -24.4
           ],
           [
-            6,
-            -5
+            155.2,
+            -23.2
           ],
           [
-            3,
-            -8
+            158.6,
+            -22.0
           ],
           [
-            0,
-            -11
+            162.4,
+            -21.2
           ],
           [
-            -3,
-            -14
+            165.8,
+            -21.6
           ],
           [
-            -6,
-            -17
+            166.6,
+            -22.2
           ],
           [
-            -9,
-            -20
+            165.2,
+            -21.4
           ],
           [
-            -12,
-            -23
+            161.0,
+            -22.2
           ],
           [
-            -15,
-            -26
+            157.0,
+            -23.4
           ],
           [
-            -18,
-            -29
+            154.0,
+            -24.4
           ],
           [
-            -20,
-            -30
+            152.6,
+            -24.9
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "loggerhead",
+        "species": "loggerhead",
+        "route_id": "loggerhead-2010",
+        "name": "Loggerhead Queensland\u2013Coral Sea sample 2010",
+        "year": 2010,
+        "ocean": "pacific",
+        "region": "Southwest Pacific, Queensland to the Coral Sea (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-loggerhead",
+          "loggerhead-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          4.3,
+          4.3,
+          14.2,
+          20.2,
+          26.2,
+          14.2,
+          20.2,
+          26.2,
+          14.2,
+          20.2,
+          4.3,
+          4.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "loggerhead-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            151.35,
+            -24.55
+          ],
+          [
+            151.78,
+            -24.11
+          ],
+          [
+            154.38,
+            -22.82
+          ],
+          [
+            158.05,
+            -21.52
+          ],
+          [
+            162.15,
+            -20.66
+          ],
+          [
+            165.82,
+            -21.09
+          ],
+          [
+            166.69,
+            -21.74
+          ],
+          [
+            165.18,
+            -20.87
+          ],
+          [
+            160.64,
+            -21.74
+          ],
+          [
+            156.32,
+            -23.03
+          ],
+          [
+            153.08,
+            -24.11
+          ],
+          [
+            151.57,
+            -24.65
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "loggerhead",
+        "species": "loggerhead",
+        "route_id": "loggerhead-2015",
+        "name": "Loggerhead Queensland\u2013Coral Sea sample 2015",
+        "year": 2015,
+        "ocean": "pacific",
+        "region": "Southwest Pacific, Queensland to the Coral Sea (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-loggerhead",
+          "loggerhead-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          5.1,
+          5.1,
+          15.0,
+          21.0,
+          27.0,
+          15.0,
+          21.0,
+          27.0,
+          15.0,
+          21.0,
+          5.1,
+          5.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "loggerhead-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            152.84,
+            -24.2
+          ],
+          [
+            153.23,
+            -23.81
+          ],
+          [
+            155.55,
+            -22.64
+          ],
+          [
+            158.85,
+            -21.48
+          ],
+          [
+            162.54,
+            -20.7
+          ],
+          [
+            165.84,
+            -21.09
+          ],
+          [
+            166.61,
+            -21.67
+          ],
+          [
+            165.25,
+            -20.9
+          ],
+          [
+            161.18,
+            -21.67
+          ],
+          [
+            157.3,
+            -22.84
+          ],
+          [
+            154.39,
+            -23.81
+          ],
+          [
+            153.03,
+            -24.29
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "loggerhead",
+        "species": "loggerhead",
+        "route_id": "loggerhead-2020",
+        "name": "Loggerhead Queensland\u2013Coral Sea sample 2020",
+        "year": 2020,
+        "ocean": "pacific",
+        "region": "Southwest Pacific, Queensland to the Coral Sea (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-loggerhead",
+          "loggerhead-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          6.0,
+          6.0,
+          15.9,
+          21.9,
+          27.9,
+          15.9,
+          21.9,
+          27.9,
+          15.9,
+          21.9,
+          6.0,
+          6.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -18.62,
+            -8.61
+          ],
+          [
+            -15.58,
+            -8.33
+          ],
+          [
+            -14.84,
+            -8.33
+          ],
+          [
+            -14.94,
+            -8.43
+          ],
+          [
+            -17.05,
+            -8.79
+          ],
+          [
+            -23.68,
+            -9.81
+          ],
+          [
+            -31.5,
+            -11.65
+          ],
+          [
+            -36.74,
+            -12.84
+          ],
+          [
+            -37.84,
+            -10.73
+          ],
+          [
+            -35.64,
+            -8.43
+          ],
+          [
+            -31.04,
+            -7.69
+          ],
+          [
+            -24.14,
+            -8.06
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "green",
+        "species": "green",
+        "route_id": "green-2006",
+        "name": "Green turtle Brazil\u2013Ascension sample 2006",
+        "year": 2006,
+        "ocean": "atlantic",
+        "region": "Brazil foraging grounds to Ascension Island (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-green",
+          "green-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
+        "dates": [
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          2.4,
+          2.4,
+          2.4,
+          2.4,
+          17.0,
+          9.0,
+          13.0,
+          17.0,
+          9.0,
+          13.0,
+          17.0,
+          2.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-2010",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -18.5,
+            -8.2
+          ],
+          [
+            -15.2,
+            -7.9
+          ],
+          [
+            -14.4,
+            -7.9
+          ],
+          [
+            -14.5,
+            -8.0
+          ],
+          [
+            -16.8,
+            -8.4
+          ],
+          [
+            -24.0,
+            -9.5
+          ],
+          [
+            -32.5,
+            -11.5
+          ],
+          [
+            -38.2,
+            -12.8
+          ],
+          [
+            -39.4,
+            -10.5
+          ],
+          [
+            -37.0,
+            -8.0
+          ],
+          [
+            -32.0,
+            -7.2
+          ],
+          [
+            -24.5,
+            -7.6
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "green",
+        "species": "green",
+        "route_id": "green-2010",
+        "name": "Green turtle Brazil\u2013Ascension sample 2010",
+        "year": 2010,
+        "ocean": "atlantic",
+        "region": "Brazil foraging grounds to Ascension Island (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-green",
+          "green-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          2.9,
+          2.9,
+          2.9,
+          2.9,
+          17.5,
+          9.5,
+          13.5,
+          17.5,
+          9.5,
+          13.5,
+          17.5,
+          2.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -18.48,
+            -7.74
+          ],
+          [
+            -14.92,
+            -7.42
+          ],
+          [
+            -14.06,
+            -7.42
+          ],
+          [
+            -14.16,
+            -7.52
+          ],
+          [
+            -16.65,
+            -7.96
+          ],
+          [
+            -24.42,
+            -9.14
+          ],
+          [
+            -33.6,
+            -11.3
+          ],
+          [
+            -39.76,
+            -12.71
+          ],
+          [
+            -41.06,
+            -10.22
+          ],
+          [
+            -38.46,
+            -7.52
+          ],
+          [
+            -33.06,
+            -6.66
+          ],
+          [
+            -24.96,
+            -7.09
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "green",
+        "species": "green",
+        "route_id": "green-2015",
+        "name": "Green turtle Brazil\u2013Ascension sample 2015",
+        "year": 2015,
+        "ocean": "atlantic",
+        "region": "Brazil foraging grounds to Ascension Island (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-green",
+          "green-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          3.4,
+          3.4,
+          3.4,
+          3.4,
+          18.0,
+          10.0,
+          14.0,
+          18.0,
+          10.0,
+          14.0,
+          18.0,
+          3.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "green-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -18.46,
+            -7.67
+          ],
+          [
+            -15.26,
+            -7.38
+          ],
+          [
+            -14.49,
+            -7.38
+          ],
+          [
+            -14.58,
+            -7.48
+          ],
+          [
+            -16.81,
+            -7.87
+          ],
+          [
+            -23.8,
+            -8.93
+          ],
+          [
+            -32.04,
+            -10.87
+          ],
+          [
+            -37.57,
+            -12.13
+          ],
+          [
+            -38.74,
+            -9.9
+          ],
+          [
+            -36.41,
+            -7.48
+          ],
+          [
+            -31.56,
+            -6.7
+          ],
+          [
+            -24.28,
+            -7.09
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "green",
+        "species": "green",
+        "route_id": "green-2020",
+        "name": "Green turtle Brazil\u2013Ascension sample 2020",
+        "year": 2020,
+        "ocean": "atlantic",
+        "region": "Brazil foraging grounds to Ascension Island (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-green",
+          "green-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          18.6,
+          10.6,
+          14.6,
+          18.6,
+          10.6,
+          14.6,
+          18.6,
+          4.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "leatherback-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -58.14,
+            16.07
+          ],
+          [
+            -59.7,
+            13.31
+          ],
+          [
+            -60.62,
+            11.11
+          ],
+          [
+            -60.44,
+            11.2
+          ],
+          [
+            -60.26,
+            11.66
+          ],
+          [
+            -59.89,
+            12.85
+          ],
+          [
+            -58.6,
+            17.91
+          ],
+          [
+            -57.22,
+            27.11
+          ],
+          [
+            -58.14,
+            34.47
+          ],
+          [
+            -60.9,
+            41.37
+          ],
+          [
+            -58.6,
+            32.63
+          ],
+          [
+            -57.68,
+            21.59
           ]
         ]
       },
       "properties": {
         "species_id": "leatherback",
-        "route_id": "leatherback-demo",
-        "region": "South Atlantic, offshore Gabon (demo)",
-        "data_status": "illustrative_not_observed",
+        "species": "leatherback",
+        "route_id": "leatherback-2006",
+        "name": "Leatherback Trinidad\u2013Nova Scotia sample 2006",
+        "year": 2006,
+        "ocean": "atlantic",
+        "region": "Trinidad nesting beach to the Nova Scotia shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
-          "leatherback-diving"
+          "noaa-leatherback",
+          "leatherback-diving",
+          "qld-seasons"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -336,104 +1090,474 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          130.0,
+          170.0,
+          24.0,
+          24.0,
+          24.0,
+          24.0,
+          24.0,
+          170.0,
+          90.0,
+          130.0,
+          170.0,
+          90.0
         ]
       }
     },
     {
       "type": "Feature",
-      "id": "hawksbill-demo",
+      "id": "leatherback-2010",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            143.5,
-            -11
+            -58.5,
+            16.0
           ],
           [
-            143.6,
-            -11.2
+            -60.2,
+            13.0
           ],
           [
-            143.8,
-            -11.5
+            -61.2,
+            10.6
           ],
           [
-            144,
-            -12
+            -61.0,
+            10.7
           ],
           [
-            144.2,
-            -12.5
+            -60.8,
+            11.2
           ],
           [
-            144.4,
-            -13
+            -60.4,
+            12.5
           ],
           [
-            144.4,
-            -13
+            -59.0,
+            18.0
           ],
           [
-            144.2,
-            -12.5
+            -57.5,
+            28.0
           ],
           [
-            144,
-            -12
+            -58.5,
+            36.0
           ],
           [
-            143.8,
-            -11.5
+            -61.5,
+            43.5
           ],
           [
-            143.6,
-            -11.2
+            -59.0,
+            34.0
           ],
           [
-            143.5,
-            -11
+            -58.0,
+            22.0
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "leatherback",
+        "species": "leatherback",
+        "route_id": "leatherback-2010",
+        "name": "Leatherback Trinidad\u2013Nova Scotia sample 2010",
+        "year": 2010,
+        "ocean": "atlantic",
+        "region": "Trinidad nesting beach to the Nova Scotia shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-leatherback",
+          "leatherback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          134.6,
+          174.6,
+          28.6,
+          28.6,
+          28.6,
+          28.6,
+          28.6,
+          174.6,
+          94.6,
+          134.6,
+          174.6,
+          94.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "leatherback-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -58.96,
+            15.98
+          ],
+          [
+            -60.8,
+            12.74
+          ],
+          [
+            -61.88,
+            10.14
+          ],
+          [
+            -61.66,
+            10.25
+          ],
+          [
+            -61.44,
+            10.79
+          ],
+          [
+            -61.01,
+            12.2
+          ],
+          [
+            -59.5,
+            18.14
+          ],
+          [
+            -57.88,
+            28.94
+          ],
+          [
+            -58.96,
+            37.58
+          ],
+          [
+            -62.2,
+            45.68
+          ],
+          [
+            -59.5,
+            35.42
+          ],
+          [
+            -58.42,
+            22.46
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "leatherback",
+        "species": "leatherback",
+        "route_id": "leatherback-2015",
+        "name": "Leatherback Trinidad\u2013Nova Scotia sample 2015",
+        "year": 2015,
+        "ocean": "atlantic",
+        "region": "Trinidad nesting beach to the Nova Scotia shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-leatherback",
+          "leatherback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          140.3,
+          180.3,
+          34.3,
+          34.3,
+          34.3,
+          34.3,
+          34.3,
+          180.3,
+          100.3,
+          140.3,
+          180.3,
+          100.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "leatherback-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -58.28,
+            16.71
+          ],
+          [
+            -59.93,
+            13.8
+          ],
+          [
+            -60.9,
+            11.47
+          ],
+          [
+            -60.71,
+            11.57
+          ],
+          [
+            -60.52,
+            12.05
+          ],
+          [
+            -60.13,
+            13.31
+          ],
+          [
+            -58.77,
+            18.65
+          ],
+          [
+            -57.31,
+            28.35
+          ],
+          [
+            -58.28,
+            36.11
+          ],
+          [
+            -61.19,
+            43.38
+          ],
+          [
+            -58.77,
+            34.17
+          ],
+          [
+            -57.8,
+            22.53
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "leatherback",
+        "species": "leatherback",
+        "route_id": "leatherback-2020",
+        "name": "Leatherback Trinidad\u2013Nova Scotia sample 2020",
+        "year": 2020,
+        "ocean": "atlantic",
+        "region": "Trinidad nesting beach to the Nova Scotia shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-leatherback",
+          "leatherback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          146.0,
+          186.0,
+          40.0,
+          40.0,
+          40.0,
+          40.0,
+          40.0,
+          186.0,
+          106.0,
+          146.0,
+          186.0,
+          106.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hawksbill-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -65.24,
+            17.96
+          ],
+          [
+            -66.34,
+            18.23
+          ],
+          [
+            -68.28,
+            18.6
+          ],
+          [
+            -70.58,
+            19.34
+          ],
+          [
+            -72.88,
+            20.44
+          ],
+          [
+            -74.99,
+            21.73
+          ],
+          [
+            -76.46,
+            23.57
+          ],
+          [
+            -76.1,
+            23.94
+          ],
+          [
+            -74.44,
+            22.83
+          ],
+          [
+            -71.5,
+            20.81
+          ],
+          [
+            -68.0,
+            18.97
+          ],
+          [
+            -65.61,
+            17.87
           ]
         ]
       },
       "properties": {
         "species_id": "hawksbill",
-        "route_id": "hawksbill-demo",
-        "region": "Northern Queensland (demo)",
-        "data_status": "illustrative_not_observed",
+        "species": "hawksbill",
+        "route_id": "hawksbill-2006",
+        "name": "Hawksbill Caribbean reef sample 2006",
+        "year": 2006,
+        "ocean": "atlantic",
+        "region": "Eastern Caribbean reefs to the Bahamas (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
           "noaa-hawksbill",
+          "hawksbill-diving",
           "qld-seasons"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -450,103 +1574,473 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          6.5,
+          8.5,
+          4.5,
+          6.5,
+          8.5,
+          4.5,
+          1.2,
+          1.2,
+          1.2,
+          1.2,
+          8.5,
+          4.5
         ]
       }
     },
     {
       "type": "Feature",
-      "id": "kemps-ridley-demo",
+      "id": "hawksbill-2010",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            -94,
-            28
+            -65.2,
+            18.1
           ],
           [
-            -95,
-            27
+            -66.4,
+            18.4
           ],
           [
-            -96,
-            25
+            -68.5,
+            18.8
           ],
           [
-            -97,
-            23.5
+            -71.0,
+            19.6
           ],
           [
-            -97,
-            23.5
+            -73.5,
+            20.8
           ],
           [
-            -97,
-            23.5
+            -75.8,
+            22.2
           ],
           [
-            -97,
-            23.5
+            -77.4,
+            24.2
           ],
           [
-            -96,
-            25
+            -77.0,
+            24.6
           ],
           [
-            -95,
-            27
+            -75.2,
+            23.4
           ],
           [
-            -94,
-            28
+            -72.0,
+            21.2
           ],
           [
-            -93,
-            28.5
+            -68.2,
+            19.2
           ],
           [
-            -94,
-            28
+            -65.6,
+            18.0
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "hawksbill",
+        "species": "hawksbill",
+        "route_id": "hawksbill-2010",
+        "name": "Hawksbill Caribbean reef sample 2010",
+        "year": 2010,
+        "ocean": "atlantic",
+        "region": "Eastern Caribbean reefs to the Bahamas (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-hawksbill",
+          "hawksbill-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          6.7,
+          8.7,
+          4.7,
+          6.7,
+          8.7,
+          4.7,
+          1.4,
+          1.4,
+          1.4,
+          1.4,
+          8.7,
+          4.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hawksbill-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -65.26,
+            18.29
+          ],
+          [
+            -66.56,
+            18.62
+          ],
+          [
+            -68.82,
+            19.05
+          ],
+          [
+            -71.52,
+            19.91
+          ],
+          [
+            -74.22,
+            21.21
+          ],
+          [
+            -76.71,
+            22.72
+          ],
+          [
+            -78.44,
+            24.88
+          ],
+          [
+            -78.0,
+            25.31
+          ],
+          [
+            -76.06,
+            24.02
+          ],
+          [
+            -72.6,
+            21.64
+          ],
+          [
+            -68.5,
+            19.48
+          ],
+          [
+            -65.69,
+            18.18
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "hawksbill",
+        "species": "hawksbill",
+        "route_id": "hawksbill-2015",
+        "name": "Hawksbill Caribbean reef sample 2015",
+        "year": 2015,
+        "ocean": "atlantic",
+        "region": "Eastern Caribbean reefs to the Bahamas (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-hawksbill",
+          "hawksbill-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          7.0,
+          9.0,
+          5.0,
+          7.0,
+          9.0,
+          5.0,
+          1.7,
+          1.7,
+          1.7,
+          1.7,
+          9.0,
+          5.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hawksbill-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -65.13,
+            18.73
+          ],
+          [
+            -66.3,
+            19.02
+          ],
+          [
+            -68.33,
+            19.41
+          ],
+          [
+            -70.76,
+            20.18
+          ],
+          [
+            -73.18,
+            21.35
+          ],
+          [
+            -75.42,
+            22.71
+          ],
+          [
+            -76.97,
+            24.65
+          ],
+          [
+            -76.58,
+            25.03
+          ],
+          [
+            -74.83,
+            23.87
+          ],
+          [
+            -71.73,
+            21.74
+          ],
+          [
+            -68.04,
+            19.8
+          ],
+          [
+            -65.52,
+            18.63
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "hawksbill",
+        "species": "hawksbill",
+        "route_id": "hawksbill-2020",
+        "name": "Hawksbill Caribbean reef sample 2020",
+        "year": 2020,
+        "ocean": "atlantic",
+        "region": "Eastern Caribbean reefs to the Bahamas (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-hawksbill",
+          "hawksbill-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          7.3,
+          9.3,
+          5.3,
+          7.3,
+          9.3,
+          5.3,
+          2.0,
+          2.0,
+          2.0,
+          2.0,
+          9.3,
+          5.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kemps-ridley-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -90.22,
+            28.16
+          ],
+          [
+            -91.32,
+            27.7
+          ],
+          [
+            -93.99,
+            25.68
+          ],
+          [
+            -96.47,
+            23.66
+          ],
+          [
+            -97.02,
+            23.1
+          ],
+          [
+            -96.93,
+            23.2
+          ],
+          [
+            -96.75,
+            23.38
+          ],
+          [
+            -94.63,
+            25.13
+          ],
+          [
+            -92.06,
+            26.97
+          ],
+          [
+            -90.4,
+            28.26
+          ],
+          [
+            -89.48,
+            28.62
+          ],
+          [
+            -90.03,
+            28.35
           ]
         ]
       },
       "properties": {
         "species_id": "kemps-ridley",
-        "route_id": "kemps-ridley-demo",
-        "region": "Western Gulf of Mexico (demo)",
-        "data_status": "illustrative_not_observed",
+        "species": "kemps-ridley",
+        "route_id": "kemps-ridley-2006",
+        "name": "Kemp's ridley Gulf of Mexico sample 2006",
+        "year": 2006,
+        "ocean": "atlantic",
+        "region": "Rancho Nuevo to the northern Gulf of Mexico (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
-          "noaa-kemps"
+          "noaa-kemps",
+          "kemps-diving"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -563,104 +2057,471 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          2.6,
+          2.9,
+          2.5,
+          2.1,
+          2.1,
+          2.1,
+          2.1,
+          2.9,
+          2.5,
+          2.6,
+          2.9,
+          2.5
         ]
       }
     },
     {
       "type": "Feature",
-      "id": "olive-ridley-demo",
+      "id": "kemps-ridley-2010",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            139,
-            -13
+            -90.4,
+            28.7
           ],
           [
-            140,
-            -13
+            -91.6,
+            28.2
           ],
           [
-            141,
-            -13
+            -94.5,
+            26.0
           ],
           [
-            141.3,
-            -13
+            -97.2,
+            23.8
           ],
           [
-            141.4,
-            -12.8
+            -97.8,
+            23.2
           ],
           [
-            141.5,
-            -12.5
+            -97.7,
+            23.3
           ],
           [
-            141.5,
-            -12
+            -97.5,
+            23.5
           ],
           [
-            141.4,
-            -12.5
+            -95.2,
+            25.4
           ],
           [
-            141.3,
-            -13
+            -92.4,
+            27.4
           ],
           [
-            141,
-            -13
+            -90.6,
+            28.8
           ],
           [
-            140,
-            -13
+            -89.6,
+            29.2
           ],
           [
-            139,
-            -13
+            -90.2,
+            28.9
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "kemps-ridley",
+        "species": "kemps-ridley",
+        "route_id": "kemps-ridley-2010",
+        "name": "Kemp's ridley Gulf of Mexico sample 2010",
+        "year": 2010,
+        "ocean": "atlantic",
+        "region": "Rancho Nuevo to the northern Gulf of Mexico (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-kemps",
+          "kemps-diving"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          2.7,
+          2.9,
+          2.5,
+          2.1,
+          2.1,
+          2.1,
+          2.1,
+          2.9,
+          2.5,
+          2.7,
+          2.9,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kemps-ridley-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -90.68,
+            29.29
+          ],
+          [
+            -91.98,
+            28.75
+          ],
+          [
+            -95.11,
+            26.37
+          ],
+          [
+            -98.03,
+            23.99
+          ],
+          [
+            -98.68,
+            23.35
+          ],
+          [
+            -98.57,
+            23.45
+          ],
+          [
+            -98.35,
+            23.67
+          ],
+          [
+            -95.87,
+            25.72
+          ],
+          [
+            -92.84,
+            27.88
+          ],
+          [
+            -90.9,
+            29.39
+          ],
+          [
+            -89.82,
+            29.83
+          ],
+          [
+            -90.47,
+            29.5
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "kemps-ridley",
+        "species": "kemps-ridley",
+        "route_id": "kemps-ridley-2015",
+        "name": "Kemp's ridley Gulf of Mexico sample 2015",
+        "year": 2015,
+        "ocean": "atlantic",
+        "region": "Rancho Nuevo to the northern Gulf of Mexico (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-kemps",
+          "kemps-diving"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          2.7,
+          2.9,
+          2.5,
+          2.2,
+          2.2,
+          2.2,
+          2.2,
+          2.9,
+          2.5,
+          2.7,
+          2.9,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kemps-ridley-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -90.25,
+            29.18
+          ],
+          [
+            -91.41,
+            28.7
+          ],
+          [
+            -94.23,
+            26.56
+          ],
+          [
+            -96.85,
+            24.43
+          ],
+          [
+            -97.43,
+            23.84
+          ],
+          [
+            -97.33,
+            23.94
+          ],
+          [
+            -97.14,
+            24.14
+          ],
+          [
+            -94.91,
+            25.98
+          ],
+          [
+            -92.19,
+            27.92
+          ],
+          [
+            -90.44,
+            29.28
+          ],
+          [
+            -89.47,
+            29.66
+          ],
+          [
+            -90.06,
+            29.37
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "kemps-ridley",
+        "species": "kemps-ridley",
+        "route_id": "kemps-ridley-2020",
+        "name": "Kemp's ridley Gulf of Mexico sample 2020",
+        "year": 2020,
+        "ocean": "atlantic",
+        "region": "Rancho Nuevo to the northern Gulf of Mexico (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-kemps",
+          "kemps-diving"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          2.7,
+          2.9,
+          2.5,
+          2.2,
+          2.2,
+          2.2,
+          2.2,
+          2.9,
+          2.5,
+          2.7,
+          2.9,
+          2.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "olive-ridley-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -106.66,
+            6.04
+          ],
+          [
+            -108.96,
+            5.3
+          ],
+          [
+            -107.58,
+            7.51
+          ],
+          [
+            -102.98,
+            8.06
+          ],
+          [
+            -97.92,
+            8.8
+          ],
+          [
+            -92.86,
+            9.16
+          ],
+          [
+            -88.44,
+            9.62
+          ],
+          [
+            -86.23,
+            9.53
+          ],
+          [
+            -86.14,
+            9.26
+          ],
+          [
+            -86.79,
+            9.81
+          ],
+          [
+            -92.4,
+            8.24
+          ],
+          [
+            -99.76,
+            6.77
           ]
         ]
       },
       "properties": {
         "species_id": "olive-ridley",
-        "route_id": "olive-ridley-demo",
-        "region": "Gulf of Carpentaria (demo)",
-        "data_status": "illustrative_not_observed",
+        "species": "olive-ridley",
+        "route_id": "olive-ridley-2006",
+        "name": "Olive ridley Ostional sample 2006",
+        "year": 2006,
+        "ocean": "pacific",
+        "region": "Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
           "noaa-olive",
+          "olive-diving",
           "qld-seasons"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -677,104 +2538,111 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          37.4,
+          42.7,
+          32.1,
+          37.4,
+          42.7,
+          32.1,
+          37.4,
+          23.3,
+          23.3,
+          23.3,
+          23.3,
+          32.1
         ]
       }
     },
     {
       "type": "Feature",
-      "id": "flatback-demo",
+      "id": "olive-ridley-2010",
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            152,
-            -23.5
+            -108.0,
+            6.2
           ],
           [
-            152.3,
-            -23
+            -110.5,
+            5.4
           ],
           [
-            152,
-            -22.5
+            -109.0,
+            7.8
           ],
           [
-            151.5,
-            -22
+            -104.0,
+            8.4
           ],
           [
-            151,
-            -21.5
+            -98.5,
+            9.2
           ],
           [
-            150.5,
-            -21
+            -93.0,
+            9.6
           ],
           [
-            150.5,
-            -21
+            -88.2,
+            10.1
           ],
           [
-            151,
-            -21.5
+            -85.8,
+            10.0
           ],
           [
-            151.5,
-            -22
+            -85.7,
+            9.7
           ],
           [
-            152,
-            -22.5
+            -86.4,
+            10.3
           ],
           [
-            152.3,
-            -23
+            -92.5,
+            8.6
           ],
           [
-            152,
-            -23.5
+            -100.5,
+            7.0
           ]
         ]
       },
       "properties": {
-        "species_id": "flatback",
-        "route_id": "flatback-demo",
-        "region": "Eastern Queensland (demo)",
-        "data_status": "illustrative_not_observed",
+        "species_id": "olive-ridley",
+        "species": "olive-ridley",
+        "route_id": "olive-ridley-2010",
+        "name": "Olive ridley Ostional sample 2010",
+        "year": 2010,
+        "ocean": "pacific",
+        "region": "Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+        "data_status": "illustrative_sample_prediction",
         "is_observed": false,
         "individual_id": null,
-        "position_source": "hand_authored_demo",
-        "date_source": "arbitrary_monthly_animation_fixture",
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
         "source_ids": [
-          "dcceew-flatback",
+          "noaa-olive",
+          "olive-diving",
           "qld-seasons"
         ],
-        "source_scope": "Broad regional context only; not evidence for coordinates, timing, or a specific individual's route.",
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
         "dates": [
-          "2025-01-15T00:00:00Z",
-          "2025-02-15T00:00:00Z",
-          "2025-03-15T00:00:00Z",
-          "2025-04-15T00:00:00Z",
-          "2025-05-15T00:00:00Z",
-          "2025-06-15T00:00:00Z",
-          "2025-07-15T00:00:00Z",
-          "2025-08-15T00:00:00Z",
-          "2025-09-15T00:00:00Z",
-          "2025-10-15T00:00:00Z",
-          "2025-11-15T00:00:00Z",
-          "2025-12-15T00:00:00Z"
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
         ],
         "months": [
           1,
@@ -791,18 +2659,744 @@
           12
         ],
         "depth_m": [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null
+          38.0,
+          43.3,
+          32.7,
+          38.0,
+          43.3,
+          32.7,
+          38.0,
+          23.9,
+          23.9,
+          23.9,
+          23.9,
+          32.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "olive-ridley-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -109.44,
+            6.41
+          ],
+          [
+            -112.14,
+            5.55
+          ],
+          [
+            -110.52,
+            8.14
+          ],
+          [
+            -105.12,
+            8.79
+          ],
+          [
+            -99.18,
+            9.65
+          ],
+          [
+            -93.24,
+            10.09
+          ],
+          [
+            -88.06,
+            10.63
+          ],
+          [
+            -85.47,
+            10.52
+          ],
+          [
+            -85.36,
+            10.19
+          ],
+          [
+            -86.11,
+            10.84
+          ],
+          [
+            -92.7,
+            9.01
+          ],
+          [
+            -101.34,
+            7.28
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "olive-ridley",
+        "species": "olive-ridley",
+        "route_id": "olive-ridley-2015",
+        "name": "Olive ridley Ostional sample 2015",
+        "year": 2015,
+        "ocean": "pacific",
+        "region": "Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-olive",
+          "olive-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          38.8,
+          44.1,
+          33.4,
+          38.8,
+          44.1,
+          33.4,
+          38.8,
+          24.7,
+          24.7,
+          24.7,
+          24.7,
+          33.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "olive-ridley-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -107.42,
+            6.82
+          ],
+          [
+            -109.84,
+            6.04
+          ],
+          [
+            -108.39,
+            8.37
+          ],
+          [
+            -103.54,
+            8.95
+          ],
+          [
+            -98.2,
+            9.73
+          ],
+          [
+            -92.87,
+            10.12
+          ],
+          [
+            -88.21,
+            10.6
+          ],
+          [
+            -85.88,
+            10.51
+          ],
+          [
+            -85.78,
+            10.21
+          ],
+          [
+            -86.46,
+            10.8
+          ],
+          [
+            -92.38,
+            9.15
+          ],
+          [
+            -100.14,
+            7.6
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "olive-ridley",
+        "species": "olive-ridley",
+        "route_id": "olive-ridley-2020",
+        "name": "Olive ridley Ostional sample 2020",
+        "year": 2020,
+        "ocean": "pacific",
+        "region": "Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "noaa-olive",
+          "olive-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          39.5,
+          44.8,
+          34.2,
+          39.5,
+          44.8,
+          34.2,
+          39.5,
+          25.4,
+          25.4,
+          25.4,
+          25.4,
+          34.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flatback-2006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            115.2,
+            -21.72
+          ],
+          [
+            115.02,
+            -21.35
+          ],
+          [
+            114.56,
+            -19.88
+          ],
+          [
+            115.11,
+            -18.59
+          ],
+          [
+            116.21,
+            -17.3
+          ],
+          [
+            117.32,
+            -16.57
+          ],
+          [
+            117.87,
+            -16.2
+          ],
+          [
+            117.13,
+            -16.75
+          ],
+          [
+            115.85,
+            -18.04
+          ],
+          [
+            115.11,
+            -19.7
+          ],
+          [
+            115.02,
+            -20.98
+          ],
+          [
+            115.29,
+            -21.81
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "flatback",
+        "species": "flatback",
+        "route_id": "flatback-2006",
+        "name": "Flatback Western Australia shelf sample 2006",
+        "year": 2006,
+        "ocean": "indian",
+        "region": "Western Australia nesting beaches and nearby shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "dcceew-flatback",
+          "flatback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2006-01-15",
+        "end": "2006-12-15",
+        "dates": [
+          "2006-01-15T00:00:00Z",
+          "2006-02-15T00:00:00Z",
+          "2006-03-15T00:00:00Z",
+          "2006-04-15T00:00:00Z",
+          "2006-05-15T00:00:00Z",
+          "2006-06-15T00:00:00Z",
+          "2006-07-15T00:00:00Z",
+          "2006-08-15T00:00:00Z",
+          "2006-09-15T00:00:00Z",
+          "2006-10-15T00:00:00Z",
+          "2006-11-15T00:00:00Z",
+          "2006-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          3.5,
+          3.5,
+          13.1,
+          18.9,
+          24.7,
+          13.1,
+          18.9,
+          24.7,
+          13.1,
+          18.9,
+          3.5,
+          3.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flatback-2010",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.7,
+            -21.6
+          ],
+          [
+            114.5,
+            -21.2
+          ],
+          [
+            114.0,
+            -19.6
+          ],
+          [
+            114.6,
+            -18.2
+          ],
+          [
+            115.8,
+            -16.8
+          ],
+          [
+            117.0,
+            -16.0
+          ],
+          [
+            117.6,
+            -15.6
+          ],
+          [
+            116.8,
+            -16.2
+          ],
+          [
+            115.4,
+            -17.6
+          ],
+          [
+            114.6,
+            -19.4
+          ],
+          [
+            114.5,
+            -20.8
+          ],
+          [
+            114.8,
+            -21.7
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "flatback",
+        "species": "flatback",
+        "route_id": "flatback-2010",
+        "name": "Flatback Western Australia shelf sample 2010",
+        "year": 2010,
+        "ocean": "indian",
+        "region": "Western Australia nesting beaches and nearby shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "dcceew-flatback",
+          "flatback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2010-01-15",
+        "end": "2010-12-15",
+        "dates": [
+          "2010-01-15T00:00:00Z",
+          "2010-02-15T00:00:00Z",
+          "2010-03-15T00:00:00Z",
+          "2010-04-15T00:00:00Z",
+          "2010-05-15T00:00:00Z",
+          "2010-06-15T00:00:00Z",
+          "2010-07-15T00:00:00Z",
+          "2010-08-15T00:00:00Z",
+          "2010-09-15T00:00:00Z",
+          "2010-10-15T00:00:00Z",
+          "2010-11-15T00:00:00Z",
+          "2010-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          4.1,
+          4.1,
+          13.7,
+          19.5,
+          25.3,
+          13.7,
+          19.5,
+          25.3,
+          13.7,
+          19.5,
+          4.1,
+          4.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flatback-2015",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.1,
+            -21.43
+          ],
+          [
+            113.88,
+            -21.0
+          ],
+          [
+            113.34,
+            -19.27
+          ],
+          [
+            113.99,
+            -17.76
+          ],
+          [
+            115.29,
+            -16.25
+          ],
+          [
+            116.58,
+            -15.38
+          ],
+          [
+            117.23,
+            -14.95
+          ],
+          [
+            116.37,
+            -15.6
+          ],
+          [
+            114.85,
+            -17.11
+          ],
+          [
+            113.99,
+            -19.05
+          ],
+          [
+            113.88,
+            -20.57
+          ],
+          [
+            114.21,
+            -21.54
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "flatback",
+        "species": "flatback",
+        "route_id": "flatback-2015",
+        "name": "Flatback Western Australia shelf sample 2015",
+        "year": 2015,
+        "ocean": "indian",
+        "region": "Western Australia nesting beaches and nearby shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "dcceew-flatback",
+          "flatback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2015-01-15",
+        "end": "2015-12-15",
+        "dates": [
+          "2015-01-15T00:00:00Z",
+          "2015-02-15T00:00:00Z",
+          "2015-03-15T00:00:00Z",
+          "2015-04-15T00:00:00Z",
+          "2015-05-15T00:00:00Z",
+          "2015-06-15T00:00:00Z",
+          "2015-07-15T00:00:00Z",
+          "2015-08-15T00:00:00Z",
+          "2015-09-15T00:00:00Z",
+          "2015-10-15T00:00:00Z",
+          "2015-11-15T00:00:00Z",
+          "2015-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          5.0,
+          5.0,
+          14.5,
+          20.3,
+          26.1,
+          14.5,
+          20.3,
+          26.1,
+          14.5,
+          20.3,
+          5.0,
+          5.0
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "flatback-2020",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.97,
+            -20.96
+          ],
+          [
+            114.78,
+            -20.58
+          ],
+          [
+            114.29,
+            -19.02
+          ],
+          [
+            114.87,
+            -17.67
+          ],
+          [
+            116.04,
+            -16.31
+          ],
+          [
+            117.2,
+            -15.53
+          ],
+          [
+            117.78,
+            -15.14
+          ],
+          [
+            117.01,
+            -15.73
+          ],
+          [
+            115.65,
+            -17.08
+          ],
+          [
+            114.87,
+            -18.83
+          ],
+          [
+            114.78,
+            -20.19
+          ],
+          [
+            115.07,
+            -21.06
+          ]
+        ]
+      },
+      "properties": {
+        "species_id": "flatback",
+        "species": "flatback",
+        "route_id": "flatback-2020",
+        "name": "Flatback Western Australia shelf sample 2020",
+        "year": 2020,
+        "ocean": "indian",
+        "region": "Western Australia nesting beaches and nearby shelf (sample)",
+        "data_status": "illustrative_sample_prediction",
+        "is_observed": false,
+        "individual_id": null,
+        "position_source": "sample_prediction",
+        "date_source": "sample_year_month",
+        "source_ids": [
+          "dcceew-flatback",
+          "flatback-diving",
+          "qld-seasons"
+        ],
+        "source_scope": "Example path for the animation. Citations support the species and the broad region only, not these coordinates or dates.",
+        "start": "2020-01-15",
+        "end": "2020-12-15",
+        "dates": [
+          "2020-01-15T00:00:00Z",
+          "2020-02-15T00:00:00Z",
+          "2020-03-15T00:00:00Z",
+          "2020-04-15T00:00:00Z",
+          "2020-05-15T00:00:00Z",
+          "2020-06-15T00:00:00Z",
+          "2020-07-15T00:00:00Z",
+          "2020-08-15T00:00:00Z",
+          "2020-09-15T00:00:00Z",
+          "2020-10-15T00:00:00Z",
+          "2020-11-15T00:00:00Z",
+          "2020-12-15T00:00:00Z"
+        ],
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": [
+          5.8,
+          5.8,
+          15.4,
+          21.2,
+          27.0,
+          15.4,
+          21.2,
+          27.0,
+          15.4,
+          21.2,
+          5.8,
+          5.8
         ]
       }
     }

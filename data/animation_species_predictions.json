@@ -1,57 +1,738 @@
 {
   "schema_version": "1.0.0",
-  "title": "Exploratory species guesses for unidentified turtle sightings",
-  "data_status": "speculative_unvalidated_predictions",
-  "description": "Low-confidence geographic-prior guesses for the four 2006 survey observations. They are not species identifications, validated model outputs, or migration tracks. The original observation records remain unidentified.",
+  "title": "Sample species labels for the example migration positions",
+  "data_status": "illustrative_sample_predictions",
+  "description": "Each sample position is labelled with the species of the route it was taken from. Confidence is low because the coordinates are invented.",
   "method": {
-    "name": "regional range prior",
-    "summary": "The sightings are from the Northwest Atlantic near 40 degrees north in late July. Loggerheads are a plausible regional species, so loggerhead is selected as a single heuristic best guess for each observation.",
+    "name": "sample route position",
+    "summary": "Positions are copied from the example migration for that species and year. No classifier was trained.",
     "limitations": [
-      "The observations were recorded only as unidentified turtle (Chelonioidea).",
-      "All four points are from one survey, close in place and time, and have no species-diagnostic fields.",
-      "The documented regional range does not establish the identity of an individual sighting.",
-      "Other sea turtle species may occur in the broader Northwest Atlantic.",
-      "No training data, calibrated probabilities, or independent validation were used.",
-      "Do not use these labels as confirmed species data, species-specific migration routes, or scientific estimates."
+      "Coordinates and dates are hand-built examples.",
+      "Do not treat the labels as identifications of wild turtles.",
+      "Do not report these paths as conservation results."
     ],
-    "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+    "source_ids": []
   },
   "predictions": [
     {
-      "observation_id": "1889_107",
+      "observation_id": "loggerhead-2006-m01",
       "predicted_species_id": "loggerhead",
       "predicted_common_name": "Loggerhead turtle",
       "confidence": "low",
       "confidence_is_calibrated": false,
-      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
-      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+      "rationale": "Example nesting position on the 2006 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
     },
     {
-      "observation_id": "1889_114",
+      "observation_id": "loggerhead-2006-m07",
       "predicted_species_id": "loggerhead",
       "predicted_common_name": "Loggerhead turtle",
       "confidence": "low",
       "confidence_is_calibrated": false,
-      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
-      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+      "rationale": "Example foraging position on the 2006 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
     },
     {
-      "observation_id": "1889_7",
+      "observation_id": "loggerhead-2010-m01",
       "predicted_species_id": "loggerhead",
       "predicted_common_name": "Loggerhead turtle",
       "confidence": "low",
       "confidence_is_calibrated": false,
-      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
-      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+      "rationale": "Example nesting position on the 2010 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
     },
     {
-      "observation_id": "1889_78",
+      "observation_id": "loggerhead-2010-m07",
       "predicted_species_id": "loggerhead",
       "predicted_common_name": "Loggerhead turtle",
       "confidence": "low",
       "confidence_is_calibrated": false,
-      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
-      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+      "rationale": "Example foraging position on the 2010 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "loggerhead-2015-m01",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "loggerhead-2015-m07",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "loggerhead-2020-m01",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "loggerhead-2020-m07",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Southwest Pacific, Queensland to the Coral Sea (sample)",
+      "source_ids": [
+        "noaa-loggerhead",
+        "loggerhead-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2006-m03",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2006-m08",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2010-m03",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2010-m08",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2015-m03",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2015-m08",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2020-m03",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "green-2020-m08",
+      "predicted_species_id": "green",
+      "predicted_common_name": "Green turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Brazil foraging grounds to Ascension Island (sample)",
+      "source_ids": [
+        "noaa-green",
+        "green-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2006-m04",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2006-m10",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2010-m04",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2010-m10",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2015-m04",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2015-m10",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2020-m04",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "leatherback-2020-m10",
+      "predicted_species_id": "leatherback",
+      "predicted_common_name": "Leatherback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Trinidad nesting beach to the Nova Scotia shelf (sample)",
+      "source_ids": [
+        "noaa-leatherback",
+        "leatherback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2006-m07",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2006-m01",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2010-m07",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2010-m01",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2015-m07",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2015-m01",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2020-m07",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "hawksbill-2020-m01",
+      "predicted_species_id": "hawksbill",
+      "predicted_common_name": "Hawksbill turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Eastern Caribbean reefs to the Bahamas (sample)",
+      "source_ids": [
+        "noaa-hawksbill",
+        "hawksbill-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2006-m05",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2006-m11",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2010-m05",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2010-m11",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2015-m05",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2015-m11",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2020-m05",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "kemps-ridley-2020-m11",
+      "predicted_species_id": "kemps-ridley",
+      "predicted_common_name": "Kemp's ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Rancho Nuevo to the northern Gulf of Mexico (sample)",
+      "source_ids": [
+        "noaa-kemps",
+        "kemps-diving"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2006-m09",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2006-m02",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2010-m09",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2010-m02",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2015-m09",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2015-m02",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2020-m09",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "olive-ridley-2020-m02",
+      "predicted_species_id": "olive-ridley",
+      "predicted_common_name": "Olive ridley turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Ostional, Costa Rica to the eastern tropical Pacific (sample)",
+      "source_ids": [
+        "noaa-olive",
+        "olive-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2006-m12",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2006 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2006-m07",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2006 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2010-m12",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2010 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2010-m07",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2010 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2015-m12",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2015 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2015-m07",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2015 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2020-m12",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example nesting position on the 2020 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
+    },
+    {
+      "observation_id": "flatback-2020-m07",
+      "predicted_species_id": "flatback",
+      "predicted_common_name": "Flatback turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Example foraging position on the 2020 sample route. Western Australia nesting beaches and nearby shelf (sample)",
+      "source_ids": [
+        "dcceew-flatback",
+        "flatback-diving",
+        "qld-seasons"
+      ]
     }
   ]
 }
