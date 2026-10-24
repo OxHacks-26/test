@@ -124,6 +124,8 @@ const OCEAN_TILES =
 const tiles = L.tileLayer(OCEAN_TILES, {
   attribution: "Tiles &copy; Esri, GEBCO, NOAA, National Geographic, and others",
   maxZoom: 10,
+  updateWhenZooming: false,
+  keepBuffer: 1,
 }).addTo(map);
 
 // bbox is [minLon, minLat, maxLon, maxLat]. Pacific crosses the date line, so minLon > maxLon.

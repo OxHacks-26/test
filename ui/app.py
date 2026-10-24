@@ -107,7 +107,9 @@ ui.add_css(
     "#map-frame { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:#0c3d5c; }"
     "body.tt-dive-open .map-tools, body.tt-dive-open .map-coordinates { display:none !important; }"
     # backdrop-filter on the card would trap the enlarged (position:fixed) map inside it.
-    "body.map-modal-open .map-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }",
+    "body.map-modal-open .map-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }"
+    # The map covers the card, so blurring behind it every frame is wasted work.
+    ".map-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:rgba(10,35,65,.92) !important; }",
     shared=True,
 )
 

@@ -420,18 +420,23 @@ async function loadTurtles(map, layer, monthLabel) {
       shift,
       trail,
       rot,
+      svg: rot.querySelector("svg"),
       heading: 0,
     });
   });
 
-  function paintTurtles(u) {
+  // Painting the trails rebuilds SVG paths, which is the costly part. The markers move
+  // every frame; the trails only need to catch up a few times a second.
+  function paintTurtles(u, withTrails = true) {
     const viewLng = map.getCenter().lng;
     turtles.forEach((turtle) => {
       const next = sampleRoute(turtle.coords, u, turtle.heading);
       const shift = routeShift(turtle.coords, viewLng);
       turtle.heading = next.bearing;
       turtle.marker.setLatLng([next.latlng[0], next.latlng[1] + shift]);
-      turtle.trail.setLatLngs(next.trail.map((point) => [point[0], point[1] + shift]));
+      if (withTrails) {
+        turtle.trail.setLatLngs(next.trail.map((point) => [point[0], point[1] + shift]));
+      }
       if (turtle.shift !== shift) {
         turtle.guide.setLatLngs(turtle.coords.map((coord) => shiftedLatLng(coord, shift)));
         turtle.shift = shift;
@@ -439,6 +444,37 @@ async function loadTurtles(map, layer, monthLabel) {
       turtle.rot.style.transform = `rotate(${next.bearing}deg)`;
     });
   }
+
+  // Flipper strokes are SVG animations that repaint on the main thread, so they only
+  // run while the map is still, zoomed in far enough to see them, and not under a dive.
+  const diveWindow = document.getElementById("sea-window");
+  let interacting = false;
+  let flippersOn = true;
+  let lastTrailPaint = 0;
+
+  function setFlippers(active) {
+    if (active === flippersOn) {
+      return;
+    }
+    flippersOn = active;
+    turtles.forEach((turtle) => {
+      if (turtle.svg && turtle.svg.pauseAnimations) {
+        if (active) {
+          turtle.svg.unpauseAnimations();
+        } else {
+          turtle.svg.pauseAnimations();
+        }
+      }
+    });
+  }
+
+  map.on("movestart zoomstart", () => {
+    interacting = true;
+    setFlippers(false);
+  });
+  map.on("moveend zoomend", () => {
+    interacting = false;
+  });
 
   const slider = document.getElementById("turtle-time");
   const playButton = document.getElementById("turtle-play");
@@ -521,12 +557,22 @@ async function loadTurtles(map, layer, monthLabel) {
         slider.value = String(Math.round(progress * 1000));
       }
       showMonth(progress);
-      paintTurtles(progress);
+      const covered = diveWindow && !diveWindow.hidden;
+      if (!interacting && !covered) {
+        const trailsDue = now - lastTrailPaint >= 90 || progress >= 1;
+        paintTurtles(progress, trailsDue);
+        if (trailsDue) {
+          lastTrailPaint = now;
+        }
+      }
     }
+    const resting = !interacting && !(diveWindow && !diveWindow.hidden);
+    setFlippers(animate && resting && map.getZoom() >= 4);
     last = now;
     requestAnimationFrame(frame);
   }
   last = performance.now();
+  setFlippers(false);
   requestAnimationFrame(frame);
 }
 
