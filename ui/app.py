@@ -1,8 +1,10 @@
 """Run Turtle Tide with ``python ui/app.py``."""
 
+import importlib.util
 from datetime import date, timedelta
 from pathlib import Path
 
+from fastapi.staticfiles import StaticFiles
 from nicegui import app, ui
 
 if __package__:
@@ -14,6 +16,32 @@ else:
 
 # Serve the bundled Pixelify Sans body font and Jersey 15 logo font locally.
 app.add_static_files("/ui-assets", Path(__file__).resolve().parent / "fonts")
+
+# The migration map (Leaflet) lives in map/ and is shown inside the atlas card in an
+# iframe at /map/. It reads the same /api routes the backend serves, so they are
+# registered here too and `python ui/app.py` works on its own.
+REPO_ROOT = Path(__file__).resolve().parent.parent
+_spec = importlib.util.spec_from_file_location("turtle_data", REPO_ROOT / "backend" / "app" / "data.py")
+turtle_data = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(turtle_data)
+
+
+@app.get("/api/health")
+def api_health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.get("/api/species")
+def api_species() -> list[dict]:
+    return turtle_data.species()
+
+
+@app.get("/api/migrations")
+def api_migrations() -> dict:
+    return turtle_data.load_json("migrations.geojson")
+
+
+app.mount("/map", StaticFiles(directory=REPO_ROOT / "map", html=True), name="map")
 
 OCEANS = ["Pacific", "Atlantic", "Indian", "Southern", "Arctic"]
 DEPTH_LIMITS = {"Pacific": 4080, "Atlantic": 3646, "Indian": 3741, "Southern": 3270, "Arctic": 1205}
@@ -75,6 +103,13 @@ ACHIEVEMENTS = [
 UNLOCKED_BADGES: set[str] = set()
 VISITED_OCEANS: set[str] = set()
 ui.add_css(CSS, shared=True)
+ui.add_css(
+    "#map-frame { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:#0c3d5c; }"
+    "body.tt-dive-open .map-tools, body.tt-dive-open .map-coordinates { display:none !important; }"
+    # backdrop-filter on the card would trap the enlarged (position:fixed) map inside it.
+    "body.map-modal-open .map-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }",
+    shared=True,
+)
 
 
 def svg_icon(name: str, classes: str = ""):
@@ -147,6 +182,12 @@ def home() -> None:
           zoom = next; draw();
         };
         const resized = () => window.dispatchEvent(new CustomEvent('mapResized'));
+        // Send a command to the embedded Leaflet map (same origin, see map/app.js).
+        window.ttMapCommand = mapCommand;
+        function mapCommand(action, extra = {}) {
+          const frame = document.getElementById('map-frame');
+          if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type: 'tt-map', action, ...extra }, window.location.origin);
+        }
         const open = () => {
           if (document.body.classList.contains('map-modal-open')) return;
           document.body.classList.add('map-modal-open');
@@ -160,9 +201,20 @@ def home() -> None:
         document.addEventListener('click', event => {
           if (event.target.closest('#map-enlarge')) open();
           else if (event.target.closest('#map-modal-close') || event.target.closest('#map-modal-backdrop')) close();
-          else if (event.target.closest('#map-zoom-in')) zoomAt(zoom * 1.2, map.clientWidth / 2 + map.getBoundingClientRect().left, map.clientHeight / 2 + map.getBoundingClientRect().top);
-          else if (event.target.closest('#map-zoom-out')) zoomAt(zoom / 1.2, map.clientWidth / 2 + map.getBoundingClientRect().left, map.clientHeight / 2 + map.getBoundingClientRect().top);
-          else if (event.target.closest('#map-reset')) { stopInertia(); zoom = 1; panX = 0; panY = 0; draw(); }
+          // The real map lives in the #map-frame iframe; these buttons drive it.
+          else if (event.target.closest('#map-zoom-in')) mapCommand('zoomIn');
+          else if (event.target.closest('#map-zoom-out')) mapCommand('zoomOut');
+          else if (event.target.closest('#map-reset')) mapCommand('reset');
+        });
+        window.addEventListener('message', event => {
+          if (event.origin !== window.location.origin || !event.data) return;
+          // A dive covers the map, so the page's map buttons step aside while it is open.
+          if (event.data.type === 'tt-map-dive') document.body.classList.toggle('tt-dive-open', !!event.data.open);
+          if (event.data.type !== 'tt-map-view') return;
+          const readout = document.getElementById('map-coordinates');
+          if (!readout) return;
+          const { lat, lng, zoom: level } = event.data;
+          readout.textContent = `${Math.abs(lat).toFixed(1)}°${lat < 0 ? 'S' : 'N'} · ${Math.abs(lng).toFixed(1)}°${lng < 0 ? 'W' : 'E'} · z${level.toFixed(1)}`;
         });
         document.addEventListener('keydown', event => {
           if (event.key === 'Escape' && document.body.classList.contains('map-modal-open')) { close(); return; }
@@ -314,11 +366,12 @@ def home() -> None:
                                 with ui.column().classes("gap-0"):
                                     state_title = ui.label(title).classes("map-state-title")
                                     ui.label(description).classes("map-state-description")
-                            state_panel.set_visibility(key == "empty")
+                            state_panel.set_visibility(False)  # the live map has data; panels return for load/error states
                             map_states[key] = (state_panel, state_title)
-                    # The map layer is intentionally blank for the teammate to build.
+                    # The Leaflet migration map (map/) fills the #map node through an iframe.
                     with ui.element("div").classes("map-scroll w-full mt-3"):
-                        ui.element("div").props('id=map tabindex=0 role=application aria-label="Infinite ocean map placeholder"').classes("ocean-map")
+                        with ui.element("div").props('id=map role=application aria-label="Sea turtle migration map"').classes("ocean-map"):
+                            ui.element("iframe").props('id=map-frame src="/map/?embed=1" title="Sea turtle migration map"')
                         with ui.row().classes("map-tools items-center gap-2"):
                             ui.button("+").props("id=map-zoom-in no-caps unelevated").classes("map-tool-button").tooltip("Zoom in")
                             ui.button("-").props("id=map-zoom-out no-caps unelevated").classes("map-tool-button").tooltip("Zoom out")
@@ -530,6 +583,7 @@ def home() -> None:
         depth_slider.value = {"min": low, "max": max(low, high)}
         set_depth({"min": low, "max": max(low, high)}, record=False)
         paint_ocean_buttons()
+        ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('ocean', {{ocean: '{name.lower()}'}})")
         complete_quest_step("ocean")
         draw_info(name, f"Explore sea turtle migration routes across the {name.lower()} Ocean. Depth range: 0-{maximum:,} m.")
 

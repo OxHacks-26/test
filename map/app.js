@@ -344,6 +344,7 @@ function placeFish(depth) {
 }
 
 let migrationRoutes = null;
+const DIVE_TURTLE_NEAR_KM = 300;
 
 function seaDistance(lat1, lng1, lat2, lng2) {
   const toRad = (degrees) => (degrees * Math.PI) / 180;
@@ -365,21 +366,36 @@ async function closestSpecies(lat, lng) {
   }
   let bestId = null;
   let best = Infinity;
+  const consider = (id, la, lon) => {
+    const distance = seaDistance(lat, lng, la, lon);
+    if (distance < best) {
+      best = distance;
+      bestId = id;
+    }
+  };
   migrationRoutes.forEach((feature) => {
     const id = feature.properties && feature.properties.species_id;
     const coords = feature.geometry && feature.geometry.coordinates;
     if (!id || !coords) {
       return;
     }
-    coords.forEach(([lon, la]) => {
-      const distance = seaDistance(lat, lng, la, lon);
-      if (distance < best) {
-        best = distance;
-        bestId = id;
+    coords.forEach(([lon, la], index) => {
+      consider(id, la, lon);
+      if (index === 0) {
+        return;
+      }
+      // Check along each leg too, so a click beside a long straight leg still counts.
+      const [prevLon, prevLa] = coords[index - 1];
+      const dLon = ((lon - prevLon + 540) % 360) - 180;
+      const steps = Math.ceil(seaDistance(prevLa, prevLon, la, lon) / 60);
+      for (let step = 1; step < steps; step += 1) {
+        const t = step / steps;
+        consider(id, prevLa + (la - prevLa) * t, prevLon + dLon * t);
       }
     });
   });
-  return bestId;
+  // Only show a turtle when the click is right beside its route.
+  return best <= DIVE_TURTLE_NEAR_KM ? bestId : null;
 }
 
 function placeDiveTurtles(depth, request) {
@@ -1156,4 +1172,54 @@ async function checkHealth() {
   } catch {
     ui.status.textContent = "API unreachable";
   }
+}
+
+// Embedded mode: the Turtle Tide page shows this map in an iframe (/map/?embed=1)
+// and drives it with messages, so the page and the map stay in separate scopes.
+const EMBEDDED = new URLSearchParams(window.location.search).has("embed");
+const OCEAN_VIEWS = {
+  pacific: { center: [8, -160], zoom: 3 },
+  atlantic: { center: [12, -35], zoom: 3 },
+  indian: { center: [-14, 80], zoom: 3 },
+  southern: { center: [-50, 20], zoom: 3 },
+  arctic: { center: [66, -20], zoom: 3 },
+};
+
+if (EMBEDDED) {
+  document.documentElement.classList.add("embed");
+
+  window.addEventListener("message", (event) => {
+    if (event.origin !== window.location.origin || !event.data || event.data.type !== "tt-map") {
+      return;
+    }
+    const { action, ocean } = event.data;
+    if (action === "zoomIn") {
+      map.zoomIn();
+    } else if (action === "zoomOut") {
+      map.zoomOut();
+    } else if (action === "reset") {
+      map.flyTo(HOME.center, Math.max(HOME.zoom, map.getMinZoom()), { duration: 0.8 });
+    } else if (action === "ocean" && OCEAN_VIEWS[ocean]) {
+      closeSeaWindow();
+      map.flyTo(OCEAN_VIEWS[ocean].center, OCEAN_VIEWS[ocean].zoom, { duration: 1.2 });
+    }
+  });
+
+  const reportView = () => {
+    const center = map.getCenter();
+    window.parent.postMessage(
+      { type: "tt-map-view", lat: center.lat, lng: wrapLng(center.lng), zoom: map.getZoom() },
+      window.location.origin,
+    );
+  };
+  map.on("moveend", reportView);
+  map.whenReady(reportView);
+
+  // Tell the page when a dive is open so it can move its map buttons out of the way.
+  new MutationObserver(() => {
+    window.parent.postMessage(
+      { type: "tt-map-dive", open: !seaWindow.hidden },
+      window.location.origin,
+    );
+  }).observe(seaWindow, { attributes: true, attributeFilter: ["hidden"] });
 }
