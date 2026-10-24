@@ -5,22 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sea turtle migrations · OxHack '26</title>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
   <div id="map" role="application" aria-label="World ocean map"></div>
-  <div class="time-bar">
-    <button type="button" id="turtle-play" aria-pressed="true">Pause</button>
-    <label class="time-readout" for="turtle-time">
-      <span id="turtle-month">January</span>
-      <span>Illustrative routes — not observed tracking</span>
-    </label>
-    <input id="turtle-time" type="range" min="0" max="1000" step="1" value="0" aria-label="Time along the illustrative routes" aria-valuetext="January">
-    <ol class="time-months" aria-hidden="true">
-      <li>Jan</li><li>Feb</li><li>Mar</li><li>Apr</li><li>May</li><li>Jun</li>
-      <li>Jul</li><li>Aug</li><li>Sep</li><li>Oct</li><li>Nov</li><li>Dec</li>
-    </ol>
-  </div>
   <div id="sea-window" class="sea-window" hidden>
     <div class="sea-window-card" role="dialog" aria-modal="true" aria-label="Sea visual">
       <p id="sea-window-name" class="sea-window-name"></p>
