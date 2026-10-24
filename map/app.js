@@ -344,6 +344,7 @@ function placeFish(depth) {
 }
 
 let migrationRoutes = null;
+const DIVE_TURTLE_NEAR_KM = 300;
 
 function seaDistance(lat1, lng1, lat2, lng2) {
   const toRad = (degrees) => (degrees * Math.PI) / 180;
@@ -365,21 +366,36 @@ async function closestSpecies(lat, lng) {
   }
   let bestId = null;
   let best = Infinity;
+  const consider = (id, la, lon) => {
+    const distance = seaDistance(lat, lng, la, lon);
+    if (distance < best) {
+      best = distance;
+      bestId = id;
+    }
+  };
   migrationRoutes.forEach((feature) => {
     const id = feature.properties && feature.properties.species_id;
     const coords = feature.geometry && feature.geometry.coordinates;
     if (!id || !coords) {
       return;
     }
-    coords.forEach(([lon, la]) => {
-      const distance = seaDistance(lat, lng, la, lon);
-      if (distance < best) {
-        best = distance;
-        bestId = id;
+    coords.forEach(([lon, la], index) => {
+      consider(id, la, lon);
+      if (index === 0) {
+        return;
+      }
+      // Check along each leg too, so a click beside a long straight leg still counts.
+      const [prevLon, prevLa] = coords[index - 1];
+      const dLon = ((lon - prevLon + 540) % 360) - 180;
+      const steps = Math.ceil(seaDistance(prevLa, prevLon, la, lon) / 60);
+      for (let step = 1; step < steps; step += 1) {
+        const t = step / steps;
+        consider(id, prevLa + (la - prevLa) * t, prevLon + dLon * t);
       }
     });
   });
-  return bestId;
+  // Only show a turtle when the click is right beside its route.
+  return best <= DIVE_TURTLE_NEAR_KM ? bestId : null;
 }
 
 function placeDiveTurtles(depth, request) {
