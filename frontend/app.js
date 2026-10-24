@@ -61,23 +61,30 @@ const ui = {
 const OCEAN_SOUTH = -56;
 const OCEAN_NORTH = 72;
 
+const MIN_ZOOM = 1;
+
 const map = L.map("map", {
   worldCopyJump: true,
-  minZoom: 2,
+  minZoom: MIN_ZOOM,
   zoomControl: false,
   attributionControl: true,
 }).setView(HOME.center, HOME.zoom);
 
 // The ocean tiles turn into a flat gray band past these latitudes.
-// Keep the view inside the coloured water, and zoomed in far enough
-// that the band cannot show above or below the window.
+// Open inside the coloured water, then let the user zoom out further.
+let oceanFramed = false;
+
 function frameOcean() {
+  map.setMinZoom(MIN_ZOOM);
+  if (oceanFramed) {
+    return;
+  }
+  oceanFramed = true;
   const limits = L.latLngBounds(
     [OCEAN_SOUTH, -180],
     [OCEAN_NORTH, 180],
   );
   const coverZoom = map.getBoundsZoom(limits, true);
-  map.setMinZoom(Math.max(2, coverZoom));
   const center = map.getCenter();
   const lat = Math.min(OCEAN_NORTH, Math.max(OCEAN_SOUTH, center.lat));
   const zoom = Math.max(map.getZoom(), coverZoom);
@@ -117,22 +124,27 @@ const tiles = L.tileLayer(OCEAN_TILES, {
 const SEA_REGIONS = [
   {
     id: "southern",
+    name: "Southern Ocean",
     bbox: [-180, -90, 180, -60],
   },
   {
     id: "arctic",
+    name: "Arctic Ocean",
     bbox: [-180, 65, 180, 90],
   },
   {
     id: "indian",
+    name: "Indian Ocean",
     bbox: [20, -60, 120, 30],
   },
   {
     id: "atlantic",
+    name: "Atlantic Ocean",
     bbox: [-80, -60, 20, 65],
   },
   {
     id: "pacific",
+    name: "Pacific Ocean",
     bbox: [120, -60, -70, 60],
   },
 ];
@@ -156,6 +168,7 @@ const seaWindow = document.getElementById("sea-window");
 const seaCard = seaWindow.querySelector(".sea-window-card");
 const seaVisual = document.getElementById("sea-visual");
 const seaWindowClose = document.getElementById("sea-window-close");
+const seaWindowName = document.getElementById("sea-window-name");
 const seaDepthMeters = document.getElementById("sea-depth-meters");
 const seaDepthZone = document.getElementById("sea-depth-zone");
 const seaDepthSource = document.getElementById("sea-depth-source");
@@ -346,6 +359,8 @@ function ensureDiveMap(latlng) {
 
 function openSeaWindow(region, latlng) {
   seaVisual.dataset.region = region.id;
+  seaWindowName.textContent = region.name;
+  seaCard.setAttribute("aria-label", region.name);
   seaVisual.scrollTop = 0;
   seaWindow.hidden = false;
   ensureDiveMap(latlng);
@@ -371,6 +386,8 @@ function closeSeaWindow() {
   seaDepthMeters.textContent = "Surface";
   seaDepthZone.textContent = "Open water";
   seaDepthSource.textContent = "";
+  seaWindowName.textContent = "";
+  seaCard.setAttribute("aria-label", "Sea visual");
   delete seaVisual.dataset.region;
 }
 
