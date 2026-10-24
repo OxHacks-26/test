@@ -9,7 +9,7 @@ class AppState:
     """Values shared by UI controls and the future map renderer."""
 
     date: date = field(default_factory=date.today)
-    granularity: str = "Months"
+    granularity: str = "5-Year"
     selected_species: set[str] = field(default_factory=set)
     selected_ocean: str = "Pacific"
     depth_range: tuple[int, int] = (0, 300)

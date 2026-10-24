@@ -1,7 +1,7 @@
 """Run Turtle Tide with ``python ui/app.py``."""
 
 import importlib.util
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 
 from fastapi.staticfiles import StaticFiles
@@ -49,19 +49,15 @@ MIN_YEAR = 2006
 MAX_YEAR = 2020
 MIN_DATE = date(MIN_YEAR, 1, 1)
 MAX_DATE = date(MAX_YEAR, 12, 31)
-YEAR_CHECKPOINTS = list(range(MIN_YEAR, MAX_YEAR + 1))
+# Only these four years have data, so they are the only years the timeline offers.
 FIVE_YEAR_CHECKPOINTS = (MIN_YEAR, MIN_YEAR + 4, MIN_YEAR + 9, MAX_YEAR)
-GRANULARITIES = ("Weeks", "Months", "5-Year", "Decades")
+YEAR_CHECKPOINTS = list(FIVE_YEAR_CHECKPOINTS)
+GRANULARITIES = ("5-Year", "Decades")
 YEAR_TICKS = FIVE_YEAR_CHECKPOINTS
 
 
 def timeline_dates(granularity: str) -> list[date]:
     """Return the date stops represented by the selected timeline mode."""
-    if granularity == "Weeks":
-        stops = [MIN_DATE + timedelta(days=7 * index) for index in range((MAX_DATE - MIN_DATE).days // 7 + 1)]
-        return stops if stops[-1] == MAX_DATE else [*stops, MAX_DATE]
-    if granularity == "Months":
-        return [date(MIN_YEAR + offset // 12, offset % 12 + 1, 1) for offset in range((MAX_YEAR - MIN_YEAR + 1) * 12)]
     if granularity == "Decades":
         return [MIN_DATE, MAX_DATE]
     return [date(year, 1, 1) for year in FIVE_YEAR_CHECKPOINTS]
@@ -408,7 +404,7 @@ def home() -> None:
                                     on_change=lambda event: on_year_input(event),
                                     with_input=True,
                                 ).props('popup-content-class="year-popup"').classes("date-input")
-                                date_input.tooltip(f"Choose a year from {MIN_YEAR} to {MAX_YEAR}")
+                                date_input.tooltip("Choose 2006, 2010, 2015 or 2020")
                             date_slider = ui.slider(
                                 min=0,
                                 max=len(slider_stops) - 1,
