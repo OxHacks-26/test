@@ -4,6 +4,8 @@ from functools import lru_cache
 from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+# Years with an observable migration pattern for the seven species.
+OBSERVATION_YEARS = (2006, 2010, 2015, 2020)
 
 
 @lru_cache
@@ -63,6 +65,10 @@ def oceans() -> list[dict]:
     return load_json("oceans.json")
 
 
+def observation_years() -> list[int]:
+    return list(OBSERVATION_YEARS)
+
+
 def months_in_window(start: date, end: date) -> set[int]:
     """Calendar months (1-12) touched by an inclusive date window.
 
@@ -90,8 +96,9 @@ def migrations(
 ) -> dict:
     """GeoJSON FeatureCollection of routes matching the optional filters.
 
-    A route is in a time window when its start-end span overlaps the window
-    and at least one of its months falls inside the window.
+    A route is in a time window when its start-end span overlaps the window,
+    at least one of its months falls inside the window, and the window contains
+    an observation year (2006, 2010, 2015, or 2020) that the route also covers.
     """
     collection = load_json("migrations.geojson")
     if start is not None and end is not None and start > end:
@@ -133,8 +140,24 @@ def _route_matches(
     if window is None:
         return True
     window_start, window_end, months = window
-    if date.fromisoformat(props["start"]) > window_end:
+    route_start = date.fromisoformat(props["start"])
+    route_end = date.fromisoformat(props["end"])
+    if route_start > window_end or route_end < window_start:
         return False
-    if date.fromisoformat(props["end"]) < window_start:
+    if not _covered_observation_years(route_start, route_end, window_start, window_end):
         return False
     return bool(months & set(props["months"]))
+
+
+def _covered_observation_years(
+    route_start: date, route_end: date, window_start: date, window_end: date
+) -> bool:
+    """True when an observation year falls in both the route span and the window."""
+    for year in OBSERVATION_YEARS:
+        year_start = date(year, 1, 1)
+        year_end = date(year, 12, 31)
+        in_window = year_start <= window_end and year_end >= window_start
+        in_route = year_start <= route_end and year_end >= route_start
+        if in_window and in_route:
+            return True
+    return False

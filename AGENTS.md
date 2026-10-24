@@ -38,7 +38,7 @@ The app maps sea turtle migrations over time. All data lives in `data/` as plain
 - `data/migrations.geojson` — GeoJSON `FeatureCollection` of `LineString` routes (coordinates are `[lon, lat]`). Each feature's `properties`: `id`, `species` (a species `id`), `name`, `ocean` (an ocean `id`), `life_stage`, `start`/`end` (ISO dates — the years the route is known to be active), `months` (1–12, when the migration happens each year), `depth_m: {min, max}`, `confidence` (`documented` or `illustrative`), `notes`, `sources`.
 - `data/oceans.json` — array of `id`, `name`, `bbox` `[minLon, minLat, maxLon, maxLat]` (Pacific crosses the antimeridian, so minLon > maxLon), `center` `[lon, lat]`.
 
-Time filtering rule: a route is shown for a selected time window if its `start`–`end` span overlaps the window **and** at least one of its `months` falls inside the window.
+Time filtering rule: a route is shown for a selected time window if its `start`–`end` span overlaps the window **and** at least one of its `months` falls inside the window. Observable patterns exist only in 2006, 2010, 2015, and 2020, so the window must also contain one of those years and the route must cover that year. `GET /api/years` returns the list.
 
 ## Do
 

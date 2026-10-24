@@ -211,9 +211,25 @@ def test_migrations_time_window_uses_overlap_and_months():
     assert GREEN not in route_ids({"from": "1950-01-01", "to": "1960-12-31"})
     assert LOGGERHEAD not in route_ids({"from": "1950-01-01", "to": "1960-12-31"})
     assert GREEN not in route_ids({"from": "2040-01-01", "to": "2041-12-31"})
-    assert GREEN in route_ids({"from": "1989-12-01", "to": "1990-01-31"})
-    assert GREEN in route_ids({"from": "2030-12-01", "to": "2031-01-15"})
+    # 1990 and 2030 sit on the stub span, but they are not observation years.
+    assert GREEN not in route_ids({"from": "1989-12-01", "to": "1990-01-31"})
+    assert GREEN not in route_ids({"from": "2030-12-01", "to": "2031-01-15"})
     assert GREEN not in route_ids({"from": "2031-01-01", "to": "2031-03-31"})
+
+
+def test_migrations_only_observation_years():
+    assert client.get("/api/years").json() == [2006, 2010, 2015, 2020]
+    for year in (2006, 2010, 2015, 2020):
+        assert {GREEN, LOGGERHEAD} <= route_ids({"from": f"{year}-01-01", "to": f"{year}-12-31"})
+    # Gaps and years outside the series have no observable pattern.
+    for start, end in (
+        ("2005-01-01", "2005-12-31"),
+        ("2007-01-01", "2009-12-31"),
+        ("2011-01-01", "2014-12-31"),
+        ("2016-01-01", "2019-12-31"),
+        ("2021-01-01", "2024-12-31"),
+    ):
+        assert route_ids({"from": start, "to": end}) == set()
 
 
 def test_migrations_open_ended_and_inverted_windows():

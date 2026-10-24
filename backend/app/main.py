@@ -29,12 +29,24 @@ def list_oceans() -> list[dict]:
     return data.oceans()
 
 
+@app.get("/api/years")
+def list_years() -> list[int]:
+    return data.observation_years()
+
+
 @app.get("/api/migrations")
 def list_migrations(
     from_: Annotated[
-        date | None, Query(alias="from", description="Window start (ISO date)")
+        date | None,
+        Query(
+            alias="from",
+            description="Window start (ISO date). Observations: 2006, 2010, 2015, 2020.",
+        ),
     ] = None,
-    to: Annotated[date | None, Query(description="Window end (ISO date)")] = None,
+    to: Annotated[
+        date | None,
+        Query(description="Window end (ISO date). Observations: 2006, 2010, 2015, 2020."),
+    ] = None,
     species: Annotated[str | None, Query(description="Comma-separated species ids")] = None,
     ocean: Annotated[str | None, Query(description="Ocean id")] = None,
 ) -> dict:
