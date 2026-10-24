@@ -64,6 +64,13 @@ app.mount("/map", StaticFiles(directory=REPO_ROOT / "map", html=True), name="map
 
 OCEANS = ["Pacific", "Atlantic", "Indian", "Southern", "Arctic"]
 DEPTH_LIMITS = {"Pacific": 4080, "Atlantic": 3646, "Indian": 3741, "Southern": 3270, "Arctic": 1205}
+OCEAN_WEATHER_POINTS = {
+    "Pacific": (8, -160),
+    "Atlantic": (12, -35),
+    "Indian": (-14, 80),
+    "Southern": (-50, 20),
+    "Arctic": (66, -20),
+}
 MIN_YEAR = 2006
 MAX_YEAR = 2020
 MIN_DATE = date(MIN_YEAR, 1, 1)
@@ -105,7 +112,6 @@ SVG = {
     "alert": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg>',
     "spinner": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v6h-6"/></svg>',
 }
-LEVEL_TITLES = ["Hatchling", "Coastal Scout", "Current Rider", "Ocean Guardian", "Tide Legend"]
 ACHIEVEMENTS = [
     ("first_ocean", "First Current", "Explore an ocean", "wave"),
     ("ocean_hopper", "Ocean Hopper", "Visit all five oceans", "compass"),
@@ -120,7 +126,7 @@ VISITED_OCEANS: set[str] = set()
 ui.add_css(CSS, shared=True)
 ui.add_css(
     "#map-frame { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:#0c3d5c; }"
-    "body.tt-dive-open .map-tools, body.tt-dive-open .map-coordinates { display:none !important; }"
+    "body.tt-dive-open .map-tools, body.tt-dive-open .map-coordinates, body.tt-dive-open #map-modal-close { display:none !important; }"
     # backdrop-filter on the card would trap the enlarged (position:fixed) map inside it.
     "body.map-modal-open .map-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }"
     # The map covers the card, so blurring behind it every frame is wasted work.
@@ -315,15 +321,12 @@ def home() -> None:
                 with ui.column().classes("gap-0"):
                     ui.label("TURTLE TIDE").props('data-text="TURTLE TIDE"').classes("brand-title")
                     ui.label("Ocean migration console").classes("subtitle")
-            with ui.row().classes("items-center gap-2 hud-progress"):
-                level_number = ui.label().classes("level-number")
-                with ui.column().classes("level-copy gap-0"):
-                    level_title = ui.label().classes("level-title")
-                    xp_label = ui.label().classes("xp-label")
-                    xp_progress = ui.linear_progress(value=0).classes("xp-progress")
-                with ui.row().classes("heart-chip items-center gap-1"):
-                    for _ in range(3):
-                        svg_icon("heart", "heart-icon")
+            with ui.column().classes("header-status items-end gap-1"):
+                today_label = ui.label(date.today().strftime("%A, %d %B %Y")).classes("today-date")
+                weather_label = ui.label("Loading live marine weather…").props("id=tt-live-weather").classes("weather-readout")
+                ui.label("Open-Meteo · DWD").classes("weather-credit")
+                weather_label.tooltip("Current sea-surface temperature and wave height")
+                viewing_label = ui.label().classes("viewing-readout")
         with ui.element("div").classes("fish-drift fish-top"):
             for bubble_name in ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"):
                 ui.element("span").classes(f"bubble bubble-{bubble_name}")
@@ -343,7 +346,7 @@ def home() -> None:
                     ui.label("Migration data will bring this crew to life.").classes("text-sm leading-5")
                 with ui.card().classes("quest-card glass w-full mt-4 p-4"):
                     ui.label("TODAY'S QUEST").classes("section-kicker")
-                    ui.label("Choose an ocean, travel through time, and set your dive depth.").classes("mt-2 text-sm font-bold leading-5")
+                    ui.label("Choose an ocean, travel through time, and click the map to find field badge depths.").classes("mt-2 text-sm font-bold leading-5")
                     quest_progress = ui.linear_progress(value=0).props("rounded").classes("tt-progress mt-3")
                     with ui.row().classes("w-full items-center justify-between mt-2"):
                         ui.label("EXPLORER STEPS").classes("quest-progress-caption")
@@ -440,21 +443,8 @@ def home() -> None:
                                     timeline_tick_labels[year] = ui.label(str(year)).classes("timeline-tick")
                                 timeline_current_label = ui.label().classes("timeline-current")
                         with ui.column().classes("depth-controls min-w-0"):
-                            with ui.row().classes("w-full items-center justify-between gap-2 flex-wrap"):
-                                ui.label("DIVE DEPTH").classes("section-kicker")
-                                depth_label = ui.label().classes("depth-readout")
-                            with ui.element("div").classes("depth-slider-area w-full"):
-                                depth_slider = ui.range(
-                                    min=0,
-                                    max=DEPTH_LIMITS[state.selected_ocean],
-                                    step=1,
-                                    value={"min": state.depth_range[0], "max": state.depth_range[1]},
-                                    on_change=lambda event: set_depth(event.value),
-                                ).classes("w-full depth-slider")
-                                with ui.element("div").classes("depth-value-bubbles"):
-                                    depth_min_bubble = ui.label("0").classes("depth-value-bubble")
-                                    depth_max_bubble = ui.label().classes("depth-value-bubble")
-                            depth_slider.tooltip("Select the dive-depth range in metres")
+                            ui.label("DIVE DEPTH").classes("section-kicker")
+                            ui.label("Click the map to see what depth earns a field badge.").classes("depth-note")
 
                 info_panel = ui.card().classes("tt-card info-card w-full p-4")
                 info_panel.set_visibility(False)
@@ -492,7 +482,7 @@ def home() -> None:
             for number, heading, copy in [
                 ("01", "Pick an ocean", "Choose a basin to focus your expedition."),
                 ("02", "Travel through time", "Move through the timeline in five-year steps."),
-                ("03", "Set your depth", "Explore the dive range for your selected ocean."),
+                ("03", "Explore depth", "Click the map to see what depth earns a field badge."),
             ]:
                 with ui.row().classes("tutorial-step items-center gap-3"):
                     ui.label(number).classes("step-number")
@@ -503,24 +493,50 @@ def home() -> None:
         start_button.tooltip("Start exploring Turtle Tide")
     welcome.open()
     def dismiss_welcome() -> None:
-        """Close the tutorial and remember this browser has seen it."""
+        """Close the tutorial after the user chooses to start exploring."""
         welcome.close()
-        ui.run_javascript("localStorage.setItem('tt-welcome-seen', '1')")
-
-    # Close the tutorial on later visits without storing progress in AppState.
-    ui.run_javascript("if (localStorage.getItem('tt-welcome-seen') === '1') document.querySelector('#tt-welcome-start')?.click();")
 
     def complete_quest_step(step: str) -> None:
         quest_steps.add(step)
         quest_progress.value = len(quest_steps) / 3
         quest_label.text = f"{len(quest_steps)}/3"
 
-    def refresh_level() -> None:
-        level = state.xp // 30 + 1
-        level_title.text = LEVEL_TITLES[(level - 1) % len(LEVEL_TITLES)]
-        level_number.text = f"LV {level}"
-        xp_label.text = f"{state.xp % 30} / 30 XP"
-        xp_progress.value = (state.xp % 30) / 30
+    def refresh_header_status(load_weather: bool = False) -> None:
+        """Show the real date and current ocean/year selection in the header."""
+        viewing_label.text = f"Now viewing: {state.selected_ocean}, {state.date.year}"
+        if not load_weather:
+            return
+
+        latitude, longitude = OCEAN_WEATHER_POINTS[state.selected_ocean]
+        weather_label.text = "Loading live marine weather…"
+        script = """
+        (() => {
+          const weather = document.getElementById('tt-live-weather');
+          if (!weather) return;
+          const request = (window.ttMarineWeatherRequest || 0) + 1;
+          window.ttMarineWeatherRequest = request;
+          const url = new URL('https://marine-api.open-meteo.com/v1/marine');
+          url.search = new URLSearchParams({
+            latitude: '__LATITUDE__', longitude: '__LONGITUDE__',
+            current: 'sea_surface_temperature,wave_height',
+            timezone: 'auto', cell_selection: 'sea'
+          });
+          fetch(url, {cache: 'no-store'})
+            .then(response => { if (!response.ok) throw new Error('Weather request failed'); return response.json(); })
+            .then(data => {
+              if (request !== window.ttMarineWeatherRequest) return;
+              const current = data.current || {};
+              const parts = [];
+              if (Number.isFinite(current.sea_surface_temperature)) parts.push(`Sea ${current.sea_surface_temperature.toFixed(1)}°C`);
+              if (Number.isFinite(current.wave_height)) parts.push(`Waves ${current.wave_height.toFixed(1)} m`);
+              weather.textContent = parts.length ? parts.join(' · ') : 'Live marine weather unavailable';
+            })
+            .catch(() => {
+              if (request === window.ttMarineWeatherRequest) weather.textContent = 'Live marine weather unavailable';
+            });
+        })();
+        """.replace("__LATITUDE__", str(latitude)).replace("__LONGITUDE__", str(longitude))
+        ui.run_javascript(script)
 
     def refresh_badges() -> None:
         for key, (badge_card, _, lock_icon) in badge_cards.items():
@@ -543,7 +559,6 @@ def home() -> None:
             return
         UNLOCKED_BADGES.add(key)
         state.xp += 10
-        refresh_level()
         refresh_badges()
         title = next(name for badge_key, name, *_ in ACHIEVEMENTS if badge_key == key)
         show_achievement_toast(title)
@@ -588,6 +603,7 @@ def home() -> None:
     def open_ocean(name: str) -> None:
         state.selected_ocean = name
         state.focused_species = None
+        refresh_header_status(load_weather=True)
         visited_oceans.add(name)
         VISITED_OCEANS.add(name)
         unlock_badge("first_ocean")
@@ -596,8 +612,6 @@ def home() -> None:
         maximum = DEPTH_LIMITS[name]
         low = min(state.depth_range[0], maximum)
         high = min(state.depth_range[1], maximum)
-        depth_slider.props(f"max={maximum}")
-        depth_slider.value = {"min": low, "max": max(low, high)}
         set_depth({"min": low, "max": max(low, high)}, record=False)
         paint_ocean_buttons()
         ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('ocean', {{ocean: '{name.lower()}'}})")
@@ -648,6 +662,7 @@ def home() -> None:
         date_input.value = value.year
         ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('year', {{year: {value.year}}})")
         date_slider.value = slider_index
+        refresh_header_status()
         if value.year >= MAX_YEAR:
             date_label.text = f"{MAX_YEAR} - Latest data"
         else:
@@ -689,20 +704,6 @@ def home() -> None:
         high = min(max(low, int(value["max"])), maximum)
         changed = (low, high) != state.depth_range
         state.depth_range = (low, high)
-        depth_label.text = f"{low} to {high} m"
-        depth_min_bubble.text = str(low)
-        depth_max_bubble.text = str(high)
-        low_position = low / maximum * 100
-        high_position = high / maximum * 100
-        if high_position - low_position < 8:
-            low_position = max(0, low_position - 4)
-            high_position = min(100, high_position + 4)
-        depth_min_bubble.style(
-            f"left:{low_position}%;transform:translateX({'0%' if low_position < 5 else '-50%'})"
-        )
-        depth_max_bubble.style(
-            f"left:{high_position}%;transform:translateX({'-100%' if high_position > 95 else '-50%'})"
-        )
         if record and changed:
             if not has_tuned_depth:
                 has_tuned_depth = True
@@ -732,8 +733,8 @@ def home() -> None:
     if state.discovered:
         unlock_badge("turtle_tracker")
     refresh_badges()
-    refresh_level()
     paint_ocean_buttons()
+    refresh_header_status(load_weather=True)
 
 
 if __name__ == "__main__":
