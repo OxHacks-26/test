@@ -551,6 +551,10 @@ body {
   border: none !important;
 }
 
+.turtle-rot {
+  will-change: transform;
+}
+
 .turtle-rot,
 .turtle-swim,
 .turtle-pin svg {
