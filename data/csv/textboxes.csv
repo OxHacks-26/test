@@ -1,0 +1,22 @@
+species_id,common_name,box_index,topic,text,source_ids
+green,Green turtle,1,Habitat,Green turtles live in tropical and subtropical waters worldwide. Adults commonly forage in shallow coastal seagrass beds and other nearshore waters.,noaa-green
+green,Green turtle,2,Population and extinction risk,IUCN global status: Least Concern (2025 assessment). The total number of wild green turtles has not been reliably counted; the assessment reports an increasing population trend but no global mature-individual total.,iucn-green
+green,Green turtle,3,Life expectancy,Green turtles may live for at least 70 years.,noaa-green
+loggerhead,Loggerhead turtle,1,Habitat,Loggerheads use open-ocean waters as juveniles and coastal and oceanic habitats as they grow; adults often feed in coastal waters and nest on sandy beaches.,noaa-loggerhead
+loggerhead,Loggerhead turtle,2,Population and extinction risk,"IUCN global status: Vulnerable (assessed 2015). A reliable global headcount is unavailable; NOAA reports about 500 female loggerheads nest each year in the South Pacific, a regional nesting estimate rather than the total wild population.",iucn-loggerhead | noaa-loggerhead
+loggerhead,Loggerhead turtle,3,Life expectancy,Loggerheads can live for 80 years or more.,noaa-loggerhead
+leatherback,Leatherback turtle,1,Habitat,"Leatherbacks travel through oceanic and coastal waters worldwide, including cooler waters, and nest on tropical and subtropical beaches.",noaa-leatherback
+leatherback,Leatherback turtle,2,Population and extinction risk,IUCN global status: Vulnerable (assessed 2013). No reliable global headcount is available; NOAA estimates the global population declined about 40% over the past three generations.,iucn-leatherback | noaa-leatherback
+leatherback,Leatherback turtle,3,Life expectancy,Leatherback lifespan is uncertain; estimates suggest 45 to 50 years or more.,noaa-leatherback
+hawksbill,Hawksbill turtle,1,Habitat,"Hawksbills mainly live in warm nearshore waters, especially coral reefs, but also use mangrove estuaries, rocky areas, and open-ocean habitat when young.",noaa-hawksbill
+hawksbill,Hawksbill turtle,2,Population and extinction risk,"IUCN global status: Critically Endangered (assessed 2008). A reliable global headcount is unavailable; NOAA reports around 6,000 to 8,000 hawksbills nest annually near Australia's Great Barrier Reef, a regional nesting estimate.",iucn-hawksbill | noaa-hawksbill
+hawksbill,Hawksbill turtle,3,Life expectancy,"Hawksbills are estimated to live around 50 to 60 years, although their life expectancy has not been confirmed.",noaa-hawksbill
+kemps-ridley,Kemp's ridley turtle,1,Habitat,Kemp's ridleys mainly live in the Gulf of Mexico and nearby Atlantic waters. Adults forage in shallow coastal areas over sandy or muddy bottoms.,noaa-kemps
+kemps-ridley,Kemp's ridley turtle,2,Population and extinction risk,"IUCN global status: Critically Endangered (assessed 2019). The IUCN estimate is 22,341 mature individuals; this counts mature turtles, not all ages, and is not a live census.",iucn-kemps-ridley
+kemps-ridley,Kemp's ridley turtle,3,Life expectancy,"Kemp's ridleys are estimated to live at least 30 years, but their exact lifespan is not known.",noaa-kemps
+olive-ridley,Olive ridley turtle,1,Habitat,"Olive ridleys are found in tropical waters of the Atlantic, Pacific, and Indian oceans. They mostly live in the open ocean but also use coastal waters.",noaa-olive
+olive-ridley,Olive ridley turtle,2,Population and extinction risk,"IUCN global status: Vulnerable (assessed 2008). A reliable global headcount is unavailable; NOAA estimates around 450,000 nesting females at La Escobilla, Mexico, a single-site estimate rather than the total wild population.",iucn-olive-ridley | noaa-olive
+olive-ridley,Olive ridley turtle,3,Life expectancy,"The exact lifespan of olive ridleys is not known, but they are thought to live for decades.",noaa-olive
+flatback,Flatback turtle,1,Habitat,"Flatback turtles live in shallow coastal waters around northern Australia and nearby regions, often over soft seabeds; they nest on Australian beaches.",dcceew-flatback
+flatback,Flatback turtle,2,Population and extinction risk,IUCN global status: Data Deficient (assessed 1996). This means there is not enough information to determine its extinction risk; the assessment provides no global mature-individual count.,iucn-flatback
+flatback,Flatback turtle,3,Life expectancy,"The IUCN assessment does not give a life-expectancy estimate for flatback turtles, so their lifespan is listed as unknown.",iucn-flatback

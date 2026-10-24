@@ -1,0 +1,5 @@
+observation_id,predicted_species_id,predicted_common_name,confidence,confidence_is_calibrated,rationale,observed_at_local,year,month,longitude,latitude,source_ids
+1889_107,loggerhead,Loggerhead turtle,low,false,Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.,2006-07-30 15:38:01,2006,7,-71.2,39.99,obis-seamap-dataset-1889 | noaa-loggerhead
+1889_114,loggerhead,Loggerhead turtle,low,false,Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.,2006-07-30 16:09:26,2006,7,-72.0,39.75,obis-seamap-dataset-1889 | noaa-loggerhead
+1889_7,loggerhead,Loggerhead turtle,low,false,Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.,2006-07-26 16:36:41,2006,7,-72.35,40.44,obis-seamap-dataset-1889 | noaa-loggerhead
+1889_78,loggerhead,Loggerhead turtle,low,false,Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.,2006-07-27 17:10:42,2006,7,-69.12,40.55,obis-seamap-dataset-1889 | noaa-loggerhead
