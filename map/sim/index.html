@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle migration simulation · OxHack '26</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #e7f4f8;
+      --muted: rgba(231, 244, 248, 0.72);
+      --glass: rgba(8, 28, 40, 0.82);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #062033;
+      color: var(--ink);
+      font: 14px/1.4 "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    #canvas-host, #canvas-host canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .banner, .timebar, .inspect {
+      position: fixed;
+      z-index: 2;
+      background: var(--glass);
+      color: var(--ink);
+      backdrop-filter: blur(8px);
+    }
+
+    .banner {
+      top: 16px;
+      left: 16px;
+      max-width: min(420px, calc(100vw - 32px));
+      padding: 12px 14px;
+      border-radius: 16px;
+    }
+
+    .banner h1 {
+      margin: 0 0 2px;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .banner p, .hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .timebar {
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      width: min(640px, calc(100vw - 24px));
+      padding: 10px 12px;
+      border-radius: 16px;
+    }
+
+    .timebar button, .inspect button {
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: #e7f4f8;
+      color: #0e3a4d;
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .timebar button[aria-pressed="true"] {
+      background: #8fd0c8;
+    }
+
+    #sim-day {
+      flex: 1 1 140px;
+      min-width: 120px;
+      accent-color: #d7efe8;
+      cursor: pointer;
+    }
+
+    #day-label {
+      min-width: 92px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 650;
+    }
+
+    .inspect {
+      top: 16px;
+      right: 16px;
+      width: min(360px, calc(100vw - 32px));
+      padding: 12px;
+      border-radius: 16px;
+    }
+
+    .inspect-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .inspect h2 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    #inspect-canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      background: #083047;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 12px;
+      margin: 10px 0 0;
+    }
+
+    [hidden] { display: none !important; }
+
+    .stats div { min-width: 0; }
+
+    .stats dt {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .stats dd {
+      margin: 1px 0 0;
+      font-variant-numeric: tabular-nums;
+      font-weight: 650;
+    }
+
+    .hint { margin-top: 8px; }
+
+    @media (max-width: 720px) {
+      .inspect { top: auto; bottom: 108px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .banner, .timebar, .inspect { backdrop-filter: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="canvas-host"></div>
+  <header class="banner">
+    <h1>Migration simulation</h1>
+    <p id="pod-count">Flocking model — not observed tracking</p>
+  </header>
+  <aside class="inspect" aria-label="Turtle inspection">
+    <div class="inspect-head">
+      <h2 id="inspect-name">Inspection</h2>
+      <button type="button" id="inspect-close" hidden>Close</button>
+    </div>
+    <canvas id="inspect-canvas" width="640" height="340" aria-label="Close view of the selected turtle"></canvas>
+    <p class="hint" id="inspect-hint">Click a turtle to lock this view onto it.</p>
+    <dl class="stats" id="inspect-stats" hidden>
+      <div><dt>Speed</dt><dd id="stat-speed">—</dd></div>
+      <div><dt>Heading</dt><dd id="stat-heading">—</dd></div>
+      <div><dt>Water</dt><dd id="stat-temp">—</dd></div>
+      <div><dt>Energy</dt><dd id="stat-energy">—</dd></div>
+    </dl>
+  </aside>
+  <form class="timebar" id="timebar">
+    <button type="button" id="sim-play" aria-pressed="true">Pause</button>
+    <button type="button" id="sim-rewind" aria-pressed="false">Rewind</button>
+    <button type="button" data-rate="1" aria-pressed="true">1×</button>
+    <button type="button" data-rate="5" aria-pressed="false">5×</button>
+    <button type="button" data-rate="20" aria-pressed="false">20×</button>
+    <input id="sim-day" type="range" min="1" max="90" step="0.01" value="1" aria-label="Day of the migration">
+    <span id="day-label">Day 1 of 90</span>
+  </form>
+  <script>
+    const SPECIES = [
+      { id: "green", common: "Green", shell: "#5e6b3c", dark: "#3a4424", skin: "#cbb892" },
+      { id: "loggerhead", common: "Loggerhead", shell: "#8d4e2c", dark: "#5c3018", skin: "#d7a36a" },
+      { id: "hawksbill", common: "Hawksbill", shell: "#c4843a", dark: "#6e3e16", skin: "#e2c48a" },
+      { id: "olive-ridley", common: "Olive ridley", shell: "#6d734c", dark: "#434832", skin: "#cfc3a4" },
+      { id: "flatback", common: "Flatback", shell: "#a3aa8c", dark: "#5e6854", skin: "#ead9b4" },
+      { id: "kemps-ridley", common: "Kemp's ridley", shell: "#7d8a72", dark: "#4e5948", skin: "#ddd4c0" },
+      { id: "leatherback", common: "Leatherback", shell: "#1a2330", dark: "#0e141c", skin: "#243140" },
+    ];
+
+    const DAYS = 90;
+    const COUNT = 42;
+    const MAX_SPEED = 118;
+    const SNAP_EVERY = 0.2;
+
+    const playButton = document.getElementById("sim-play");
+    const rewindButton = document.getElementById("sim-rewind");
+    const daySlider = document.getElementById("sim-day");
+    const dayLabel = document.getElementById("day-label");
+    const rateButtons = [...document.querySelectorAll("[data-rate]")];
+    const inspectName = document.getElementById("inspect-name");
+    const inspectHint = document.getElementById("inspect-hint");
+    const inspectStats = document.getElementById("inspect-stats");
+    const inspectClose = document.getElementById("inspect-close");
+    const inspectCanvas = document.getElementById("inspect-canvas");
+    const inspectCtx = inspectCanvas.getContext("2d");
+    const podCount = document.getElementById("pod-count");
+
+    const state = {
+      day: 1,
+      rate: 1,
+      direction: 1,
+      playing: true,
+      turtles: [],
+      selected: null,
+      history: [],
+      cam: { x: 0, y: 0 },
+      zoom: 1.15,
+      reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    };
+
+    if (state.reduced) {
+      state.playing = false;
+      state.rate = 0;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function migrationAngle(day) {
+      const u = (day - 1) / (DAYS - 1);
+      return -0.7 + u * 2.1 + Math.sin(u * Math.PI) * 0.35;
+    }
+
+    function currentAt(x, y, day) {
+      const season = (day - 1) / (DAYS - 1);
+      const angle = Math.sin(x * 0.0031 + season * 2.4) * 0.9
+        + Math.cos(y * 0.0027 - season * 1.7) * 0.7
+        + season * 0.6;
+      const mag = 28 + 16 * Math.sin(x * 0.0018 + y * 0.0022 + season);
+      return { x: Math.cos(angle) * mag, y: Math.sin(angle) * mag };
+    }
+
+    function waterTemp(x, y, day) {
+      const season = Math.sin(((day - 1) / (DAYS - 1)) * Math.PI);
+      return 22.5 + Math.sin(y * 0.002) * 3.2 + season * 1.8 + Math.cos(x * 0.001) * 0.6;
+    }
+
+    function compass(vx, vy) {
+      const deg = (Math.atan2(vx, -vy) * 180 / Math.PI + 360) % 360;
+      const names = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+      return `${names[Math.round(deg / 45) % 8]} ${deg.toFixed(0)}°`;
+    }
+
+    function makeTurtles(p) {
+      const counts = Object.create(null);
+      const heading = migrationAngle(1);
+      for (let i = 0; i < COUNT; i += 1) {
+        const species = SPECIES[i % SPECIES.length];
+        counts[species.id] = (counts[species.id] || 0) + 1;
+        const angle = heading + p.random(-0.4, 0.4);
+        const speed = p.random(72, 96);
+        state.turtles.push({
+          id: i,
+          species,
+          name: `${species.common} ${counts[species.id]}`,
+          pos: p.createVector(p.random(-90, 90), p.random(-70, 70)),
+          vel: p.createVector(Math.cos(angle) * speed, Math.sin(angle) * speed),
+          acc: p.createVector(),
+          flip: p.random(Math.PI * 2),
+          pitch: 0,
+          energy: p.random(0.62, 0.96),
+          trail: [],
+        });
+      }
+    }
+
+    function snapshot() {
+      const last = state.history[state.history.length - 1];
+      if (last && state.day - last.day < SNAP_EVERY) {
+        return;
+      }
+      const pack = new Float32Array(state.turtles.length * 5);
+      state.turtles.forEach((turtle, index) => {
+        const offset = index * 5;
+        pack[offset] = turtle.pos.x;
+        pack[offset + 1] = turtle.pos.y;
+        pack[offset + 2] = turtle.vel.x;
+        pack[offset + 3] = turtle.vel.y;
+        pack[offset + 4] = turtle.energy;
+      });
+      state.history.push({ day: state.day, pack });
+    }
+
+    function truncateHistory() {
+      while (state.history.length && state.history[state.history.length - 1].day > state.day + 0.001) {
+        state.history.pop();
+      }
+    }
+
+    function restore(day) {
+      const frames = state.history;
+      if (!frames.length) {
+        return;
+      }
+      let high = frames.length - 1;
+      while (high > 0 && frames[high].day > day) {
+        high -= 1;
+      }
+      const next = Math.min(frames.length - 1, high + 1);
+      const a = frames[high];
+      const b = frames[next];
+      const span = b.day - a.day;
+      const t = span > 0.0001 ? clamp((day - a.day) / span, 0, 1) : 0;
+      state.turtles.forEach((turtle, index) => {
+        const offset = index * 5;
+        turtle.pos.x = a.pack[offset] + (b.pack[offset] - a.pack[offset]) * t;
+        turtle.pos.y = a.pack[offset + 1] + (b.pack[offset + 1] - a.pack[offset + 1]) * t;
+        turtle.vel.x = a.pack[offset + 2] + (b.pack[offset + 2] - a.pack[offset + 2]) * t;
+        turtle.vel.y = a.pack[offset + 3] + (b.pack[offset + 3] - a.pack[offset + 3]) * t;
+        turtle.energy = a.pack[offset + 4] + (b.pack[offset + 4] - a.pack[offset + 4]) * t;
+        turtle.trail.push({ x: turtle.pos.x, y: turtle.pos.y });
+        if (turtle.trail.length > 18) {
+          turtle.trail.shift();
+        }
+      });
+    }
+
+    function step(p, dayDelta) {
+      const migrate = migrationAngle(state.day);
+      const migX = Math.cos(migrate);
+      const migY = Math.sin(migrate);
+      for (const turtle of state.turtles) {
+        let sepX = 0;
+        let sepY = 0;
+        let aliX = 0;
+        let aliY = 0;
+        let cohX = 0;
+        let cohY = 0;
+        let neighbors = 0;
+        for (const other of state.turtles) {
+          if (other === turtle) {
+            continue;
+          }
+          const dx = turtle.pos.x - other.pos.x;
+          const dy = turtle.pos.y - other.pos.y;
+          const dist = Math.hypot(dx, dy) || 0.001;
+          if (dist < 34) {
+            sepX += dx / dist / dist;
+            sepY += dy / dist / dist;
+          }
+          if (dist < 110) {
+            aliX += other.vel.x;
+            aliY += other.vel.y;
+            cohX += other.pos.x;
+            cohY += other.pos.y;
+            neighbors += 1;
+          }
+        }
+        const flow = currentAt(turtle.pos.x, turtle.pos.y, state.day);
+        turtle.acc.set(migX * 46 + flow.x * 0.22, migY * 46 + flow.y * 0.22);
+        turtle.acc.add(sepX * 540, sepY * 540);
+        if (neighbors) {
+          aliX = aliX / neighbors - turtle.vel.x;
+          aliY = aliY / neighbors - turtle.vel.y;
+          cohX = cohX / neighbors - turtle.pos.x;
+          cohY = cohY / neighbors - turtle.pos.y;
+          const ali = Math.hypot(aliX, aliY) || 1;
+          const coh = Math.hypot(cohX, cohY) || 1;
+          turtle.acc.add((aliX / ali) * 18, (aliY / ali) * 18);
+          turtle.acc.add((cohX / coh) * 12, (cohY / coh) * 12);
+        }
+        turtle.acc.limit(90);
+        turtle.vel.add(turtle.acc.x * dayDelta, turtle.acc.y * dayDelta);
+        turtle.vel.limit(MAX_SPEED);
+        turtle.pos.add(turtle.vel.x * dayDelta, turtle.vel.y * dayDelta);
+        const against = turtle.vel.x * flow.x + turtle.vel.y * flow.y;
+        turtle.energy = clamp(turtle.energy + (against > 0 ? 0.01 : -0.012) * dayDelta, 0.35, 1);
+        const cross = turtle.vel.x * flow.y - turtle.vel.y * flow.x;
+        const targetPitch = clamp(cross * 0.0009, -0.28, 0.28);
+        turtle.pitch += (targetPitch - turtle.pitch) * 0.15;
+        turtle.trail.push({ x: turtle.pos.x, y: turtle.pos.y });
+        if (turtle.trail.length > 22) {
+          turtle.trail.shift();
+        }
+      }
+      state.day = clamp(state.day + dayDelta, 1, DAYS);
+    }
+
+    function advance(p, dayDelta) {
+      if (dayDelta > 0) {
+        truncateHistory();
+      }
+      const steps = Math.max(1, Math.ceil(Math.abs(dayDelta) / 0.045));
+      const h = dayDelta / steps;
+      for (let i = 0; i < steps; i += 1) {
+        if (state.day >= DAYS && h > 0) {
+          state.day = DAYS;
+          break;
+        }
+        if (state.day <= 1 && h < 0) {
+          state.day = 1;
+          break;
+        }
+        step(p, h);
+        snapshot();
+      }
+    }
+
+    function rewindTo(day) {
+      const target = clamp(day, 1, DAYS);
+      state.day = target;
+      restore(target);
+    }
+
+    function centroid() {
+      let x = 0;
+      let y = 0;
+      for (const turtle of state.turtles) {
+        x += turtle.pos.x;
+        y += turtle.pos.y;
+      }
+      return { x: x / state.turtles.length, y: y / state.turtles.length };
+    }
+
+    function drawTopTurtle(p, turtle) {
+      const look = turtle.species;
+      const flap = Math.sin(turtle.flip) * (0.35 + turtle.vel.mag() / MAX_SPEED * 0.45);
+      p.push();
+      p.translate(turtle.pos.x, turtle.pos.y);
+      p.rotate(Math.atan2(turtle.vel.y, turtle.vel.x) + p.HALF_PI);
+      p.strokeJoin(p.ROUND);
+      p.noStroke();
+      p.fill(look.skin);
+      p.push();
+      p.translate(-7, 8);
+      p.rotate(-0.5 - flap * 0.3);
+      p.ellipse(0, 0, 7, 12);
+      p.pop();
+      p.push();
+      p.translate(7, 8);
+      p.rotate(0.5 + flap * 0.3);
+      p.ellipse(0, 0, 7, 12);
+      p.pop();
+      p.fill(look.shell);
+      p.stroke(look.dark);
+      p.strokeWeight(1);
+      p.ellipse(0, 0, 16, 22);
+      p.noStroke();
+      p.fill(255, 255, 255, 40);
+      p.ellipse(-2, -4, 7, 5);
+      p.fill(look.skin);
+      p.push();
+      p.translate(-9, -4);
+      p.rotate(-0.9 + flap);
+      p.ellipse(0, -8, 7, 16);
+      p.pop();
+      p.push();
+      p.translate(9, -4);
+      p.rotate(0.9 - flap);
+      p.ellipse(0, -8, 7, 16);
+      p.pop();
+      p.ellipse(0, -14, 7, 8);
+      if (turtle === state.selected) {
+        p.noFill();
+        p.stroke(231, 244, 248, 210);
+        p.strokeWeight(1.4);
+        p.ellipse(0, -2, 36, 42);
+      }
+      p.pop();
+    }
+
+    function drawOcean(p) {
+      const ctx = p.drawingContext;
+      const sky = ctx.createLinearGradient(0, 0, 0, p.height);
+      sky.addColorStop(0, "#0e6284");
+      sky.addColorStop(0.45, "#0a4664");
+      sky.addColorStop(1, "#062033");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, p.width, p.height);
+    }
+
+    function drawCurrents(p) {
+      p.stroke(190, 230, 236, 42);
+      p.strokeWeight(1.2);
+      p.noFill();
+      const gap = 64;
+      const originX = state.cam.x - p.width / state.zoom / 2;
+      const originY = state.cam.y - p.height / state.zoom / 2;
+      const cols = Math.ceil(p.width / state.zoom / gap) + 2;
+      const rows = Math.ceil(p.height / state.zoom / gap) + 2;
+      const startX = Math.floor(originX / gap) * gap;
+      const startY = Math.floor(originY / gap) * gap;
+      for (let col = 0; col < cols; col += 1) {
+        for (let row = 0; row < rows; row += 1) {
+          const x = startX + col * gap;
+          const y = startY + row * gap;
+          const flow = currentAt(x, y, state.day);
+          const mag = Math.hypot(flow.x, flow.y) || 1;
+          const len = 16 + mag * 0.12;
+          p.line(x, y, x + (flow.x / mag) * len, y + (flow.y / mag) * len);
+        }
+      }
+    }
+
+    function drawTrails(p) {
+      p.noFill();
+      p.strokeWeight(1.5);
+      for (const turtle of state.turtles) {
+        if (!turtle.trailColor) {
+          turtle.trailColor = p.color(turtle.species.shell);
+          turtle.trailColor.setAlpha(110);
+        }
+        p.stroke(turtle.trailColor);
+        p.beginShape();
+        turtle.trail.forEach((point) => p.vertex(point.x, point.y));
+        p.endShape();
+      }
+    }
+
+    function renderInspect(realDt) {
+      const ctx = inspectCtx;
+      const w = inspectCanvas.width;
+      const h = inspectCanvas.height;
+      const wash = ctx.createLinearGradient(0, 0, 0, h);
+      wash.addColorStop(0, "#12739a");
+      wash.addColorStop(1, "#0a3e58");
+      ctx.fillStyle = wash;
+      ctx.fillRect(0, 0, w, h);
+      ctx.save();
+      ctx.globalAlpha = 0.35;
+      ctx.strokeStyle = "rgba(214, 240, 246, 0.45)";
+      for (let i = 0; i < 9; i += 1) {
+        const y = ((i * 46 - performance.now() * 0.02) % (h + 40)) - 20;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.bezierCurveTo(w * 0.3, y + 8, w * 0.6, y - 8, w, y);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      const turtle = state.selected;
+      if (!turtle) {
+        return;
+      }
+      const flap = Math.sin(turtle.flip);
+      const reach = 0.35 + turtle.vel.mag() / MAX_SPEED * 0.85;
+      const look = turtle.species;
+      ctx.save();
+      ctx.translate(w * 0.48, h * 0.56);
+      ctx.rotate(turtle.pitch);
+      ctx.scale(2.15, 2.15);
+      ctx.lineJoin = "round";
+      ctx.fillStyle = look.dark;
+      ctx.globalAlpha = 0.8;
+      ctx.save();
+      ctx.translate(6, -8);
+      ctx.rotate(-0.7 + flap * reach * 0.85);
+      roundedFlipper(ctx, 48, 7);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = look.skin;
+      ctx.beginPath();
+      ctx.ellipse(-48, 12, 11, 7, -0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = look.shell;
+      ctx.strokeStyle = look.dark;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(-6, 0, 44, 24, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "rgba(255,255,255,0.16)";
+      ctx.beginPath();
+      ctx.ellipse(-12, -10, 20, 6, -0.15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = look.skin;
+      ctx.save();
+      ctx.translate(10, 12);
+      ctx.rotate(0.55 + flap * reach);
+      roundedFlipper(ctx, 52, 8);
+      ctx.restore();
+      ctx.beginPath();
+      ctx.ellipse(40, -4, 13, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = look.dark;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = "#f4f7f2";
+      ctx.beginPath();
+      ctx.arc(48, -9, 2.3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#1a140e";
+      ctx.beginPath();
+      ctx.arc(49, -9, 1.1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function roundedFlipper(ctx, length, thick) {
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(length * 0.55, -thick, length, -thick * 0.15);
+      ctx.quadraticCurveTo(length * 0.62, thick * 0.85, 0, thick * 0.35);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function updateHud() {
+      const shown = Math.round(state.day);
+      dayLabel.textContent = `Day ${shown} of ${DAYS}`;
+      if (document.activeElement !== daySlider) {
+        daySlider.value = String(state.day);
+      }
+      daySlider.setAttribute("aria-valuetext", dayLabel.textContent);
+      const turtle = state.selected;
+      if (!turtle) {
+        return;
+      }
+      const speed = turtle.vel.mag() / 40;
+      document.getElementById("stat-speed").textContent = `${speed.toFixed(1)} km/h`;
+      document.getElementById("stat-heading").textContent = compass(turtle.vel.x, turtle.vel.y);
+      document.getElementById("stat-temp").textContent = `${waterTemp(turtle.pos.x, turtle.pos.y, state.day).toFixed(1)} °C`;
+      document.getElementById("stat-energy").textContent = `${Math.round(turtle.energy * 100)}%`;
+    }
+
+    function showSelection() {
+      const turtle = state.selected;
+      inspectHint.hidden = Boolean(turtle);
+      inspectStats.hidden = !turtle;
+      inspectClose.hidden = !turtle;
+      inspectName.textContent = turtle ? turtle.name : "Inspection";
+    }
+
+    function selectAt(p) {
+      const world = screenToWorld(p, p.mouseX, p.mouseY);
+      let best = null;
+      let bestDist = 26 / state.zoom;
+      for (const turtle of state.turtles) {
+        const dist = Math.hypot(turtle.pos.x - world.x, turtle.pos.y - world.y);
+        if (dist < bestDist) {
+          best = turtle;
+          bestDist = dist;
+        }
+      }
+      state.selected = best;
+      showSelection();
+    }
+
+    function screenToWorld(p, x, y) {
+      return {
+        x: (x - p.width / 2) / state.zoom + state.cam.x,
+        y: (y - p.height / 2) / state.zoom + state.cam.y,
+      };
+    }
+
+    function setPlaying(playing) {
+      state.playing = playing;
+      if (playing && state.rate === 0) {
+        state.rate = 1;
+      }
+      playButton.textContent = playing ? "Pause" : "Play";
+      playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+      if (playing && state.direction < 0) {
+        state.direction = 1;
+        rewindButton.setAttribute("aria-pressed", "false");
+      }
+    }
+
+    function setRate(rate) {
+      state.rate = rate;
+      state.direction = 1;
+      state.playing = true;
+      rewindButton.setAttribute("aria-pressed", "false");
+      playButton.textContent = "Pause";
+      playButton.setAttribute("aria-pressed", "true");
+      rateButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", button.dataset.rate === String(rate) ? "true" : "false");
+      });
+    }
+
+    playButton.addEventListener("click", () => setPlaying(!state.playing));
+    rewindButton.addEventListener("click", () => {
+      state.direction = -1;
+      state.playing = true;
+      if (state.rate === 0) {
+        state.rate = 1;
+      }
+      rewindButton.setAttribute("aria-pressed", "true");
+      playButton.textContent = "Pause";
+      playButton.setAttribute("aria-pressed", "true");
+      rateButtons.forEach((button) => button.setAttribute("aria-pressed", "false"));
+    });
+    rateButtons.forEach((button) => {
+      button.addEventListener("click", () => setRate(Number(button.dataset.rate)));
+    });
+    daySlider.addEventListener("input", () => {
+      const target = Number(daySlider.value);
+      if (target < state.day) {
+        rewindTo(target);
+      } else {
+        advance(window.__simP, target - state.day);
+      }
+      updateHud();
+    });
+    inspectClose.addEventListener("click", () => {
+      state.selected = null;
+      showSelection();
+    });
+    document.getElementById("timebar").addEventListener("submit", (event) => event.preventDefault());
+
+    const sketch = new p5((p) => {
+      p.setup = () => {
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        canvas.parent("canvas-host");
+        p.pixelDensity(Math.min(2, window.devicePixelRatio || 1));
+        makeTurtles(p);
+        snapshot();
+        podCount.textContent = `${COUNT} turtles · flocking model — not observed tracking`;
+        window.__simP = p;
+        const center = centroid();
+        state.cam.x = center.x;
+        state.cam.y = center.y;
+        if (state.reduced) {
+          playButton.textContent = "Play";
+          playButton.setAttribute("aria-pressed", "false");
+        }
+      };
+
+      p.windowResized = () => {
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
+      };
+
+      p.mousePressed = () => {
+        if (p.mouseX < 0 || p.mouseY < 0 || p.mouseX > p.width || p.mouseY > p.height) {
+          return;
+        }
+        selectAt(p);
+      };
+
+      p.draw = () => {
+        const realDt = Math.min(0.05, p.deltaTime / 1000);
+        if (state.playing && state.rate > 0) {
+          const dayDelta = realDt * state.rate * state.direction;
+          if (dayDelta >= 0) {
+            advance(p, dayDelta);
+          } else {
+            rewindTo(state.day + dayDelta);
+          }
+        }
+        for (const turtle of state.turtles) {
+          turtle.flip += realDt * (1.1 + turtle.vel.mag() / MAX_SPEED);
+        }
+        const center = centroid();
+        state.cam.x += (center.x - state.cam.x) * 0.04;
+        state.cam.y += (center.y - state.cam.y) * 0.04;
+        drawOcean(p);
+        p.push();
+        p.translate(p.width / 2, p.height / 2);
+        p.scale(state.zoom);
+        p.translate(-state.cam.x, -state.cam.y);
+        drawCurrents(p);
+        drawTrails(p);
+        const ordered = state.turtles.slice().sort((a, b) => a.pos.y - b.pos.y);
+        ordered.forEach((turtle) => drawTopTurtle(p, turtle));
+        p.pop();
+        renderInspect(realDt);
+        updateHud();
+      };
+    });
+
+    window.__sim = state;
+    window.__simSketch = sketch;
+  </script>
+</body>
+</html>

@@ -3,8 +3,8 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
-SPECIES_KEYS = {"id", "common_name", "scientific_name", "color", "depth_range_m", "iucn_status"}
-ROUTE_KEYS = {"id", "species", "name", "ocean", "start", "end", "months", "depth_m", "confidence"}
+SPECIES_KEYS = {"id", "common_name", "scientific_name", "colour", "depth_range_m"}
+ROUTE_KEYS = {"route_id", "species_id", "months", "depth_m"}
 
 
 def load(name):
@@ -12,21 +12,19 @@ def load(name):
 
 
 def test_species_file():
-    species = load("species.json")
+    species = load("species.json")["species"]
     assert len(species) == 7
-    for s in species:
-        assert SPECIES_KEYS <= s.keys(), s["id"]
+    for item in species:
+        assert SPECIES_KEYS <= item.keys(), item["id"]
 
 
 def test_migrations_reference_known_species_and_oceans():
-    species_ids = {s["id"] for s in load("species.json")}
-    ocean_ids = {o["id"] for o in load("oceans.json")}
+    species_ids = {item["id"] for item in load("species.json")["species"]}
     routes = load("migrations.geojson")["features"]
     assert routes
     for route in routes:
         props = route["properties"]
-        assert ROUTE_KEYS <= props.keys(), props["id"]
-        assert props["species"] in species_ids, props["id"]
-        assert props["ocean"] in ocean_ids, props["id"]
+        assert ROUTE_KEYS <= props.keys(), props["route_id"]
+        assert props["species_id"] in species_ids, props["route_id"]
         assert route["geometry"]["type"] == "LineString"
-        assert all(1 <= m <= 12 for m in props["months"])
+        assert all(1 <= month <= 12 for month in props["months"])

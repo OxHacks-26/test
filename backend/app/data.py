@@ -11,4 +11,7 @@ def load_json(name: str):
 
 
 def species() -> list[dict]:
-    return load_json("species.json")
+    payload = load_json("species.json")
+    if isinstance(payload, dict):
+        return payload["species"]
+    return payload

@@ -120,6 +120,22 @@ body {
   pointer-events: none;
 }
 
+.sea-fish {
+  position: absolute;
+  top: 48px;
+  left: 16px;
+  z-index: 5;
+  max-width: calc(100% - 32px);
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(4, 16, 24, 0.4);
+  color: rgba(244, 251, 255, 0.86);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
 #sea-window-close {
   position: absolute;
   top: 12px;
@@ -227,6 +243,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(ellipse at 28% 16%, rgba(255, 255, 255, 0.09), transparent 24%),
@@ -236,10 +253,70 @@ body {
 
 .dive-rays,
 .dive-snow,
-.dive-glow {
+.dive-glow,
+.dive-fish {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.dive-fish {
+  z-index: 2;
+  overflow: hidden;
+}
+
+.fish {
+  position: absolute;
+  width: 86px;
+  height: 34px;
+  margin-top: -17px;
+  animation: fish-cruise var(--swim, 24s) ease-in-out var(--delay, 0s) infinite;
+}
+
+.fish svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fish-lantern {
+  width: 72px;
+  height: 30px;
+}
+
+.fish-tail {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: fish-wag 0.7s ease-in-out infinite alternate;
+}
+
+.fish-lantern .fish-tail {
+  animation-duration: 0.95s;
+}
+
+.column-turtle {
+  position: absolute;
+  left: -240px;
+  z-index: 3;
+  will-change: transform;
+  animation: turtle-cruise 30s linear var(--delay, 0s) infinite;
+}
+
+.column-turtle .turtle-swim,
+.column-turtle svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+.column-turtle .side-turtle {
+  filter: drop-shadow(0 3px 2px rgba(4, 16, 24, 0.45));
+}
+
+.column-turtle .turtle-swim {
+  animation: turtle-bob 5s ease-in-out infinite;
 }
 
 .dive-rays {
@@ -434,10 +511,207 @@ body {
   to { transform: translateY(-160px); }
 }
 
+@keyframes fish-cruise {
+  0% { left: var(--from); transform: scale(var(--fish-scale)) scaleX(var(--face)); }
+  46% { left: var(--to); transform: scale(var(--fish-scale)) scaleX(var(--face)); }
+  54% { left: var(--to); transform: scale(var(--fish-scale)) scaleX(calc(var(--face) * -1)); }
+  100% { left: var(--from); transform: scale(var(--fish-scale)) scaleX(calc(var(--face) * -1)); }
+}
+
+@keyframes fish-wag {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(16deg); }
+}
+
+@keyframes turtle-cruise {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--travel, 1200px), 0, 0); }
+}
+
+@keyframes turtle-bob {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(-4px); }
+}
+
+.time-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 500;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "play readout"
+    "play slider"
+    "play months";
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: center;
+  width: min(560px, calc(100vw - 28px));
+  margin: 0;
+  padding: 10px 14px 8px;
+  border-radius: 16px;
+  background: rgba(8, 28, 40, 0.82);
+  color: #e7f4f8;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.time-bar button {
+  grid-area: play;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #e7f4f8;
+  color: #0e3a4d;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.time-readout {
+  grid-area: readout;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.time-readout span:first-child {
+  font-weight: 600;
+}
+
+.time-readout span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(231, 244, 248, 0.78);
+}
+
+#turtle-time {
+  grid-area: slider;
+  width: 100%;
+  margin: 0;
+  accent-color: #d7efe8;
+  cursor: pointer;
+}
+
+.time-months {
+  grid-area: months;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 2px;
+  list-style: none;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(231, 244, 248, 0.62);
+}
+
+.turtle-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.turtle-rot,
+.turtle-swim,
+.turtle-pin svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.turtle-pin svg {
+  display: block;
+  filter: drop-shadow(0 0 1px rgba(255, 248, 230, 0.95)) drop-shadow(0 1px 2px rgba(0, 20, 30, 0.55));
+}
+
+.turtle-swim {
+  animation: swim-bob var(--stroke) ease-in-out infinite;
+}
+
+.turtle-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.turtle-card .turtle-swim {
+  width: 84px;
+  height: 84px;
+  flex: none;
+}
+
+.turtle-card .turtle-swim svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 1px rgba(255, 248, 230, 0.95));
+}
+
+.turtle-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.turtle-card-copy em,
+.turtle-card-copy span {
+  color: rgba(244, 251, 253, 0.78);
+}
+
+.turtle-tip {
+  background: rgba(8, 28, 40, 0.92);
+  color: #f4fbfd;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: none;
+  padding: 8px 10px;
+}
+
+.turtle-tip::before {
+  border-top-color: rgba(8, 28, 40, 0.92);
+}
+
+.turtle-pop .leaflet-popup-content-wrapper,
+.turtle-pop .leaflet-popup-tip {
+  background: rgba(8, 28, 40, 0.94);
+  color: #f4fbfd;
+  box-shadow: 0 12px 32px rgba(8, 24, 36, 0.35);
+}
+
+.turtle-pop .leaflet-popup-content-wrapper {
+  border-radius: 14px;
+}
+
+.turtle-pop .leaflet-popup-content {
+  margin: 10px 28px 10px 10px;
+}
+
+.turtle-pop .leaflet-popup-close-button {
+  color: #f4fbfd;
+}
+
+@keyframes swim-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .dive-caustics,
   .dive-snow::before,
-  .dive-snow::after {
+  .dive-snow::after,
+  .turtle-swim,
+  .fish,
+  .fish-tail,
+  .column-turtle {
     animation: none;
   }
 }
