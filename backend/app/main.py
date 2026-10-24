@@ -35,8 +35,10 @@ def list_years() -> list[int]:
 
 
 @app.get("/api/predictions")
-def list_predictions() -> dict:
-    return data.predictions()
+def list_predictions(
+    species: Annotated[str | None, Query(description="Species id")] = None,
+) -> dict:
+    return data.predictions(species_id=species)
 
 
 @app.get("/api/depth-profiles")

@@ -91,17 +91,25 @@ def test_migrations_does_not_filter_by_depth():
 
 
 def test_years_and_predictions():
+    species_ids = {item["id"] for item in client.get("/api/species").json()}
     assert client.get("/api/years").json() == [2006, 2010, 2015, 2020]
     predictions = client.get("/api/predictions").json()
     assert predictions["data_status"] == "speculative_unvalidated_predictions"
+    assert predictions["years"] == [2006, 2010, 2015, 2020]
+    assert set(predictions["species_year_status"]) == species_ids
     assert predictions["predictions"]
     assert all(
         row["predicted_species_id"] and row["coordinates"] for row in predictions["predictions"]
     )
+    loggerhead = client.get("/api/predictions", params={"species": "loggerhead"}).json()
+    assert loggerhead["predictions"]
+    assert {row["predicted_species_id"] for row in loggerhead["predictions"]} == {"loggerhead"}
+    assert set(loggerhead["species_year_status"]) == {"loggerhead"}
+    green = client.get("/api/predictions", params={"species": "green"}).json()
+    assert green["predictions"] == []
+    assert set(green["species_year_status"]) == {"green"}
     profiles = client.get("/api/depth-profiles").json()
-    assert {item["species_id"] for item in profiles["species"]} == {
-        item["id"] for item in client.get("/api/species").json()
-    }
+    assert {item["species_id"] for item in profiles["species"]} == species_ids
 
 
 def test_oceans():

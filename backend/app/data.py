@@ -52,15 +52,31 @@ def observation_years() -> list[int]:
     return list(OBSERVATION_YEARS)
 
 
-def predictions() -> dict:
-    """Predicted species labels joined to the sample sightings, when that data is present."""
+def predictions(species_id: str | None = None) -> dict:
+    """Predicted sample labels joined to sightings.
+
+    ``species_year_status`` is included for every species, or for the one
+    requested. Prediction rows are the low-confidence guesses that name that
+    species. A species with no guessed sightings still gets its year status.
+    """
     payload = load_optional("animation_species_predictions.json")
-    if not isinstance(payload, dict):
-        return {"data_status": "unavailable", "predictions": []}
     sightings = load_optional("animation_sightings.json") or {}
+    status = sightings.get("species_year_status") or {}
+    if species_id:
+        status = {species_id: status[species_id]} if species_id in status else {}
+    years = sightings.get("years") or list(OBSERVATION_YEARS)
+    if not isinstance(payload, dict):
+        return {
+            "data_status": "unavailable",
+            "years": years,
+            "species_year_status": status,
+            "predictions": [],
+        }
     by_id = {item["observation_id"]: item for item in sightings.get("sightings", [])}
     rows = []
     for prediction in payload.get("predictions", []):
+        if species_id and prediction.get("predicted_species_id") != species_id:
+            continue
         sighting = by_id.get(prediction.get("observation_id"), {})
         rows.append(
             {
@@ -70,7 +86,7 @@ def predictions() -> dict:
                 "month": sighting.get("month"),
             }
         )
-    return {**payload, "predictions": rows}
+    return {**payload, "years": years, "species_year_status": status, "predictions": rows}
 
 
 def depth_profiles() -> dict:
