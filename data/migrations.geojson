@@ -1,0 +1,71 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [140.0, 35.0],
+          [160.0, 36.0],
+          [-180.0, 37.0],
+          [-160.0, 35.0],
+          [-140.0, 32.0],
+          [-125.0, 29.0],
+          [-114.5, 27.5]
+        ]
+      },
+      "properties": {
+        "id": "loggerhead-north-pacific-japan-baja",
+        "species": "loggerhead",
+        "name": "North Pacific: Japan to Baja California",
+        "ocean": "pacific",
+        "life_stage": "juvenile",
+        "start": "1990-01-01",
+        "end": "2030-12-31",
+        "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        "depth_m": { "min": 0, "max": 100 },
+        "confidence": "documented",
+        "notes": "Juveniles hatched in Japan cross the North Pacific to forage off Baja California, then return to Japan to breed.",
+        "sources": [
+          {
+            "title": "Nichols et al. 2000, Transpacific migration of a loggerhead turtle monitored by satellite telemetry",
+            "url": "https://doi.org/10.5343/bms.2000.67.3.937"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-35.0, -5.0],
+          [-30.0, -6.0],
+          [-25.0, -7.0],
+          [-20.0, -7.5],
+          [-14.4, -7.9]
+        ]
+      },
+      "properties": {
+        "id": "green-south-atlantic-brazil-ascension",
+        "species": "green",
+        "name": "South Atlantic: Brazilian coast to Ascension Island",
+        "ocean": "atlantic",
+        "life_stage": "adult",
+        "start": "1990-01-01",
+        "end": "2030-12-31",
+        "months": [11, 12, 1, 2, 3],
+        "depth_m": { "min": 0, "max": 40 },
+        "confidence": "documented",
+        "notes": "Adults feeding off Brazil swim ~2,200 km to nest on Ascension Island between December and March.",
+        "sources": [
+          {
+            "title": "Luschi et al. 1998, The navigational feats of green sea turtles migrating from Ascension Island investigated by satellite telemetry",
+            "url": "https://doi.org/10.1098/rspb.1998.0571"
+          }
+        ]
+      }
+    }
+  ]
+}

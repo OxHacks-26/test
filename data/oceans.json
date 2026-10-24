@@ -1,0 +1,7 @@
+[
+  { "id": "pacific", "name": "Pacific Ocean", "bbox": [120, -60, -70, 60], "center": [-160, 0] },
+  { "id": "atlantic", "name": "Atlantic Ocean", "bbox": [-80, -60, 20, 65], "center": [-30, 10] },
+  { "id": "indian", "name": "Indian Ocean", "bbox": [20, -60, 120, 30], "center": [75, -15] },
+  { "id": "southern", "name": "Southern Ocean", "bbox": [-180, -90, 180, -60], "center": [0, -70] },
+  { "id": "arctic", "name": "Arctic Ocean", "bbox": [-180, 65, 180, 90], "center": [0, 80] }
+]
