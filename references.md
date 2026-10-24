@@ -4,6 +4,15 @@ This bibliography lists the sources recorded in [`data/sources.json`](data/sourc
 
 ## Bibliography
 
+Ampela, K. and Bacon, C. (2017) ‘HRC Koa Kai-11 Marine Species Monitoring Aerial Surveys November 2010’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/917.
+*Source ID: `obis-seamap-dataset-917`. CC-BY point observations; cited for archive coverage only. No coordinates redistributed because the OBIS-SEAMAP download terms restrict redistribution without consent.*
+
+Ampela, K. and Bacon, C. (2019a) ‘HRC Koa Kai Marine Species Monitoring Vessel Surveys November 2010’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/1614.
+*Source ID: `obis-seamap-dataset-1614`. CC-BY point observation; cited for archive coverage only. No coordinate redistributed because the OBIS-SEAMAP download terms restrict redistribution without consent.*
+
+Ampela, K. and Bacon, C. (2019b) ‘HRC SCC Aerial-Based Monitoring Survey February 2010’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/1616.
+*Source ID: `obis-seamap-dataset-1616`. CC-BY point observations; cited for archive coverage only. No coordinates redistributed because the OBIS-SEAMAP download terms restrict redistribution without consent.*
+
 Australian Government Department of Climate Change, Energy, the Environment and Water (DCCEEW) (n.d.) ‘Flatback turtle’. Available at: https://www.dcceew.gov.au/environment/marine/marine-species/marine-turtles/flatback (Accessed: 24 October 2026).  
 *Source ID: `dcceew-flatback`. Supports distribution, Australian breeding sites and soft-bottom habitats.*
 
@@ -13,17 +22,23 @@ Gaos et al. (2012) ‘Dive behaviour of adult hawksbills in the eastern Pacific 
 Hays et al. (2000) ‘The diving behaviour of green turtles at Ascension Island’. Available at: https://doi.org/10.1006/anbe.1999.1326 (Accessed: 24 October 2026).  
 *Source ID: `green-diving`. Supports routine resting dive depths of 18–20 m in six inter-nesting females.*
 
+Josephson, B. and Palka, D. (2019) ‘NEFSC Aerial Circle-Back Abundance Survey 2006’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/1889.
+*Source ID: `obis-seamap-dataset-1889`. CC0 dataset; four July 2006 point observations labelled unidentified turtle (Chelonioidea) are included as separate sighting markers in `data/animation_sightings.json`.*
+
 Iverson et al. (2019) ‘Loggerhead sea turtle diving changes with productivity, behavioral mode, and sea surface temperature’. Available at: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220372 (Accessed: 24 October 2026).  
 *Source ID: `loggerhead-diving`. Supports study-specific depth use and maximum dive depth for 26 adult female tracks in the northern Gulf of Mexico.*
 
 McMahon et al. (2007) ‘Satellite tracking reveals unusual diving characteristics for the olive ridley turtle’. Available at: https://digital.library.adelaide.edu.au/items/b793bd15-af51-42be-93f9-72dbe03759b2 (Accessed: 24 October 2026).  
 *Source ID: `olive-diving`. Supports northern Australia study results for individual mean maximum dive depths and the recorded maximum.*
 
+Pool, M. and de Boer, M. (2021) ‘SeaTurtle surveys on Braamspunt by Green Heritage Fund of Suriname’. Data downloaded from OBIS-SEAMAP on 23 October 2026. Available at: https://seamap.env.duke.edu/dataset/2127.
+*Source ID: `obis-seamap-dataset-2127`. CC-BY-NC nest observations; cited for archive coverage only. Coordinates are not redistributed and nest locations are not turtle swimming tracks.*
+
 NOAA Fisheries (n.d.) ‘Green turtle’. Available at: https://www.fisheries.noaa.gov/species/green-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-green`. Supports taxonomy, distribution and diet.*
+*Source ID: `noaa-green`. Supports taxonomy and distribution.*
 
 NOAA Fisheries (n.d.) ‘Hawksbill turtle’. Available at: https://www.fisheries.noaa.gov/species/hawksbill-turtle?page=0 (Accessed: 24 October 2026).  
-*Source ID: `noaa-hawksbill`. Supports distribution, diet and anatomy.*
+*Source ID: `noaa-hawksbill`. Supports distribution and anatomy.*
 
 NOAA Fisheries (n.d.) ‘Kemp’s ridley turtle’. Available at: https://www.fisheries.noaa.gov/species/kemps-ridley-turtle (Accessed: 24 October 2026).  
 *Source ID: `noaa-kemps`. Supports distribution, April–July nesting and daytime arribadas.*
@@ -32,7 +47,7 @@ NOAA Fisheries (n.d.) ‘Leatherback turtle’. Available at: https://www.fisher
 *Source ID: `noaa-leatherback`. Supports taxonomy, distribution and shell characteristics.*
 
 NOAA Fisheries (n.d.) ‘Loggerhead turtle’. Available at: https://www.fisheries.noaa.gov/species/loggerhead-turtle (Accessed: 24 October 2026).  
-*Source ID: `noaa-loggerhead`. Supports taxonomy, distribution and feeding biology.*
+*Source ID: `noaa-loggerhead`. Supports taxonomy and distribution.*
 
 NOAA Fisheries (n.d.) ‘Olive ridley turtle’. Available at: https://www.fisheries.noaa.gov/species/olive-ridley-turtle (Accessed: 24 October 2026).  
 *Source ID: `noaa-olive`. Supports distribution and arribada nesting.*
@@ -42,6 +57,10 @@ NOAA InPort (n.d.) ‘Kemps Ridley and Loggerhead Tracking data in GOM’. Avail
 
 Ocean Biodiversity Information System (OBIS) (n.d.) ‘Access OBIS data’. Available at: https://portal.obis.org/data/access/ (Accessed: 24 October 2026).  
 *Source ID: `obis-access`. Supports occurrence access and field definitions. OBIS bathymetry is seabed depth, not measured turtle depth.*
+
+OBIS-SEAMAP (2026) ‘Chelonioidea (superfamily) species profile: CSV point-observation export, request 101809’. Downloaded 23 October 2026. Available at: https://seamap.env.duke.edu/species/948946 (Accessed: 24 October 2026).
+
+*Source ID: `obis-seamap-chelonioidea-101809`. User-provided archive containing 1,835 point observations dated 2006–2020. The points file has no depth fields or populated series IDs, so it does not provide measured swimming depths or linked individual trajectories. The archive’s `datasets_and_citations.csv` lists per-dataset citations and sharing policies; cite each contributing dataset used and follow its policy.*
 
 Queensland Government (n.d.) ‘Sea turtle nesting areas mapping’. Available at: https://environment.qld.gov.au/management/planning-guidelines/sea-turtle-nesting-areas-mapping (Accessed: 24 October 2026).  
 *Source ID: `qld-seasons`. Supports regional nesting calendars based on the Marine Turtle Breeding and Migration Atlas Project (2021); nesting months are not migration dates.*

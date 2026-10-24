@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "title": "OBIS-SEAMAP turtle sighting year selector (not trajectory data)",
+  "data_status": "partial_occurrence_sightings_not_migration_tracks",
+  "description": "Provides a four-year selector and seven species options, but the supplied OBIS-SEAMAP export does not provide species-specific individual tracks for those animations. Only four dated CC0 point sightings are included; all are unidentified turtles and must not be joined into migration paths.",
+  "source_archive": {
+    "source_id": "obis-seamap-chelonioidea-101809",
+    "request_id": "101809",
+    "source_url": "https://seamap.env.duke.edu/species/948946",
+    "citation": "Occurrence points downloaded from OBIS-SEAMAP. This export is not a set of linked individual migration trajectories. Cite each contributing dataset as listed in the archive's datasets_and_citations.csv.",
+    "notice": "The archive terms prohibit redistribution of downloaded records without consent except for records in datasets explicitly marked CC0. Only CC0 coordinates are included here."
+  },
+  "years": [2006, 2010, 2015, 2020],
+  "species": [
+    {"species_id": "green", "common_name": "Green turtle"},
+    {"species_id": "loggerhead", "common_name": "Loggerhead turtle"},
+    {"species_id": "leatherback", "common_name": "Leatherback turtle"},
+    {"species_id": "hawksbill", "common_name": "Hawksbill turtle"},
+    {"species_id": "kemps-ridley", "common_name": "Kemp's ridley turtle"},
+    {"species_id": "olive-ridley", "common_name": "Olive ridley turtle"},
+    {"species_id": "flatback", "common_name": "Flatback turtle"}
+  ],
+  "chart_axes": {
+    "map": {
+      "x": "longitude",
+      "y": "latitude",
+      "coordinate_order": "[longitude, latitude]",
+      "coordinate_reference_system": "WGS84",
+      "rendering": "Plot each sighting as a point; do not draw connecting lines."
+    },
+    "timeline": {
+      "year": "Select one of the four years in years.",
+      "month": "Filter the included point sightings by the month in observed_at_local; this does not animate migration.",
+      "depth": "No swimming-depth measurements are present; leave depth unplotted."
+    }
+  },
+  "year_availability": [
+    {
+      "year": 2006,
+      "status": "cc0_sightings_available",
+      "archive_record_count": 4,
+      "available_months": [7],
+      "species_specific_tracks": false,
+      "note": "All four CC0 records are labelled unidentified turtle (Chelonioidea). No species among the seven can be assigned, and the records are not one identified animal's trajectory.",
+      "dataset_source_ids": ["obis-seamap-dataset-1889"]
+    },
+    {
+      "year": 2010,
+      "status": "coordinates_excluded_reuse_restriction",
+      "archive_record_count": 114,
+      "available_months": [2, 11],
+      "species_specific_tracks": false,
+      "note": "114 point observations are labelled unidentified turtle. The contributing datasets are CC-BY, but the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are therefore not copied into this file.",
+      "dataset_source_ids": [
+        "obis-seamap-dataset-917",
+        "obis-seamap-dataset-1616",
+        "obis-seamap-dataset-1614"
+      ]
+    },
+    {
+      "year": 2015,
+      "status": "no_records_in_export",
+      "archive_record_count": 0,
+      "available_months": [],
+      "species_specific_tracks": false,
+      "note": "The supplied archive contains no records dated 2015.",
+      "dataset_source_ids": []
+    },
+    {
+      "year": 2020,
+      "status": "coordinates_excluded_reuse_restriction",
+      "archive_record_count": 90,
+      "available_months": [3],
+      "species_specific_tracks": false,
+      "note": "All records are nest or poached-nest observations, not turtle swimming locations. The dataset is CC-BY-NC, and the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are not copied into this file.",
+      "dataset_source_ids": ["obis-seamap-dataset-2127"]
+    }
+  ],
+  "sightings": [
+    {
+      "observation_id": "1889_107",
+      "dataset_id": "1889",
+      "source_id": "obis-seamap-dataset-1889",
+      "species_id": null,
+      "taxon_label": "Chelonioidea",
+      "observation_label": "unidentified turtle",
+      "observed_at_local": "2006-07-30 15:38:01",
+      "timezone": null,
+      "month": 7,
+      "coordinates": [-71.2, 39.99],
+      "depth_m": null,
+      "record_type": "point_observation",
+      "track_id": null,
+      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
+      "license": "CC0"
+    },
+    {
+      "observation_id": "1889_114",
+      "dataset_id": "1889",
+      "source_id": "obis-seamap-dataset-1889",
+      "species_id": null,
+      "taxon_label": "Chelonioidea",
+      "observation_label": "unidentified turtle",
+      "observed_at_local": "2006-07-30 16:09:26",
+      "timezone": null,
+      "month": 7,
+      "coordinates": [-72.0, 39.75],
+      "depth_m": null,
+      "record_type": "point_observation",
+      "track_id": null,
+      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
+      "license": "CC0"
+    },
+    {
+      "observation_id": "1889_7",
+      "dataset_id": "1889",
+      "source_id": "obis-seamap-dataset-1889",
+      "species_id": null,
+      "taxon_label": "Chelonioidea",
+      "observation_label": "unidentified turtle",
+      "observed_at_local": "2006-07-26 16:36:41",
+      "timezone": null,
+      "month": 7,
+      "coordinates": [-72.35, 40.44],
+      "depth_m": null,
+      "record_type": "point_observation",
+      "track_id": null,
+      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
+      "license": "CC0"
+    },
+    {
+      "observation_id": "1889_78",
+      "dataset_id": "1889",
+      "source_id": "obis-seamap-dataset-1889",
+      "species_id": null,
+      "taxon_label": "Chelonioidea",
+      "observation_label": "unidentified turtle",
+      "observed_at_local": "2006-07-27 17:10:42",
+      "timezone": null,
+      "month": 7,
+      "coordinates": [-69.12, 40.55],
+      "depth_m": null,
+      "record_type": "point_observation",
+      "track_id": null,
+      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
+      "license": "CC0"
+    }
+  ],
+  "species_year_status": {
+    "green": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "loggerhead": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "leatherback": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "hawksbill": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "kemps-ridley": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "olive-ridley": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
+    "flatback": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"}
+  }
+}

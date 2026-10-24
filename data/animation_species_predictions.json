@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Exploratory species guesses for unidentified turtle sightings",
+  "data_status": "speculative_unvalidated_predictions",
+  "description": "Low-confidence geographic-prior guesses for the four 2006 survey observations. They are not species identifications, validated model outputs, or migration tracks. The original observation records remain unidentified.",
+  "method": {
+    "name": "regional range prior",
+    "summary": "The sightings are from the Northwest Atlantic near 40 degrees north in late July. Loggerheads are a plausible regional species, so loggerhead is selected as a single heuristic best guess for each observation.",
+    "limitations": [
+      "The observations were recorded only as unidentified turtle (Chelonioidea).",
+      "All four points are from one survey, close in place and time, and have no species-diagnostic fields.",
+      "The documented regional range does not establish the identity of an individual sighting.",
+      "Other sea turtle species may occur in the broader Northwest Atlantic.",
+      "No training data, calibrated probabilities, or independent validation were used.",
+      "Do not use these labels as confirmed species data, species-specific migration routes, or scientific estimates."
+    ],
+    "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+  },
+  "predictions": [
+    {
+      "observation_id": "1889_107",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
+      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+    },
+    {
+      "observation_id": "1889_114",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
+      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+    },
+    {
+      "observation_id": "1889_7",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
+      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+    },
+    {
+      "observation_id": "1889_78",
+      "predicted_species_id": "loggerhead",
+      "predicted_common_name": "Loggerhead turtle",
+      "confidence": "low",
+      "confidence_is_calibrated": false,
+      "rationale": "Plausible regional species based on Northwest Atlantic range; the observation itself has no species-identifying evidence.",
+      "source_ids": ["obis-seamap-dataset-1889", "noaa-loggerhead"]
+    }
+  ]
+}

@@ -6,14 +6,14 @@
       "title": "NOAA Fisheries: Green turtle",
       "url": "https://www.fisheries.noaa.gov/species/green-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Taxonomy, distribution and diet."
+      "supports": "Taxonomy and distribution."
     },
     {
       "id": "noaa-loggerhead",
       "title": "NOAA Fisheries: Loggerhead turtle",
       "url": "https://www.fisheries.noaa.gov/species/loggerhead-turtle",
       "accessed_on": "2026-10-24",
-      "supports": "Taxonomy, distribution and feeding biology."
+      "supports": "Taxonomy and distribution."
     },
     {
       "id": "noaa-leatherback",
@@ -27,7 +27,7 @@
       "title": "NOAA Fisheries: Hawksbill turtle",
       "url": "https://www.fisheries.noaa.gov/species/hawksbill-turtle?page=0",
       "accessed_on": "2026-10-24",
-      "supports": "Distribution, diet and anatomy."
+      "supports": "Distribution and anatomy."
     },
     {
       "id": "noaa-kemps",
@@ -119,6 +119,48 @@
       "url": "https://portal.obis.org/data/access/",
       "accessed_on": "2026-10-24",
       "supports": "Occurrence access and field definitions. Bathymetry is seabed depth, not measured turtle depth. No raw records downloaded in this session."
+    },
+    {
+      "id": "obis-seamap-chelonioidea-101809",
+      "title": "OBIS-SEAMAP: Chelonioidea species profile, CSV point-observation export (request 101809)",
+      "url": "https://seamap.env.duke.edu/species/948946",
+      "accessed_on": "2026-10-24",
+      "supports": "User-provided ZIP export contains 1,835 point observations dated 2006–2020, not linked migration trajectories. The points CSV has no depth fields and no populated series IDs, so it provides neither individual tracks nor swimming-depth measurements. The archive includes per-dataset citations and reuse policies."
+    },
+    {
+      "id": "obis-seamap-dataset-1889",
+      "title": "Josephson and Palka: NEFSC Aerial Circle-Back Abundance Survey 2006",
+      "url": "https://seamap.env.duke.edu/dataset/1889",
+      "accessed_on": "2026-10-23",
+      "supports": "Four CC0 point observations labelled unidentified turtle (Chelonioidea), all dated July 2006. They are sightings, not an identified animal's track; no swimming depths are supplied."
+    },
+    {
+      "id": "obis-seamap-dataset-917",
+      "title": "Ampela and Bacon: HRC Koa Kai-11 Marine Species Monitoring Aerial Surveys November 2010",
+      "url": "https://seamap.env.duke.edu/dataset/917",
+      "accessed_on": "2026-10-23",
+      "supports": "101 turtle-labelled point observations from November 2010 in the supplied profile export. CC-BY; OBIS-SEAMAP archive terms restrict redistribution without consent. Not an individual track and no depth measurements."
+    },
+    {
+      "id": "obis-seamap-dataset-1616",
+      "title": "Ampela and Bacon: HRC SCC Aerial-Based Monitoring Survey February 2010",
+      "url": "https://seamap.env.duke.edu/dataset/1616",
+      "accessed_on": "2026-10-23",
+      "supports": "12 unidentified-turtle point observations from February 2010 in the supplied profile export. CC-BY; OBIS-SEAMAP archive terms restrict redistribution without consent. Not an individual track and no depth measurements."
+    },
+    {
+      "id": "obis-seamap-dataset-1614",
+      "title": "Ampela and Bacon: HRC Koa Kai Marine Species Monitoring Vessel Surveys November 2010",
+      "url": "https://seamap.env.duke.edu/dataset/1614",
+      "accessed_on": "2026-10-23",
+      "supports": "One unidentified-turtle point observation from November 2010 in the supplied profile export. CC-BY; OBIS-SEAMAP archive terms restrict redistribution without consent. Not an individual track and no depth measurements."
+    },
+    {
+      "id": "obis-seamap-dataset-2127",
+      "title": "Pool and de Boer: SeaTurtle surveys on Braamspunt by Green Heritage Fund of Suriname",
+      "url": "https://seamap.env.duke.edu/dataset/2127",
+      "accessed_on": "2026-10-23",
+      "supports": "90 point observations from March 2020 in the supplied profile export: 86 turtle nests and 4 poached-nest records. CC-BY-NC; OBIS-SEAMAP archive terms restrict redistribution without consent. Nest points are not swimming locations or tracks."
     },
     {
       "id": "noaa-tracking-catalog",

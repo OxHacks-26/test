@@ -1,8 +1,20 @@
 # Sea turtle data handoff
 
 `species.json` contains all seven living species, display colours, geographic summaries,
-published depth examples, facts, regional nesting months and citation IDs.
+published depth examples, species facts, regional nesting months and citation IDs.
 `sources.json` resolves those IDs to source titles, links and the claims they support.
+`animation_sightings.json` supplies a four-year selector, seven species options and
+year/month availability metadata. It does **not** contain the four requested annual
+migration animations: the supplied OBIS-SEAMAP export contains point occurrences, not
+species-identified individual tracks. Only four CC0 July 2006 coordinates are included;
+restricted 2010 and 2020 coordinates are deliberately omitted.
+`animation_depth_profiles.json` contains depth examples from separate published diving
+studies, not from OBIS-SEAMAP. They are study-specific and cannot be joined to the
+occurrence locations or used as distance-versus-depth swimming animations.
+`animation_species_predictions.json` is a separate, low-confidence regional-prior
+guess for those four unidentified sightings. The source observations remain unidentified;
+the guess is not a validated classification and does not make a species track. Do not
+use speculative assignments in scientific or species-specific animation layers.
 
 **`migrations.geojson` is stub data, not downloaded telemetry.** It contains seven
 hand-authored LineStrings with twelve invented monthly positions each. The 2025 dates
@@ -47,16 +59,84 @@ them. Serving endpoints and the website UI are outside this data-only change.
 
 ## Obtaining actual observations
 
-The supplied OBIS dataset URL (`https://obis.org/dataset/1cfc4d23-9f`) appears truncated;
-it did not resolve during research. Do not cite it as a retrieved dataset.
-SWOT confirms that its map contains nesting and telemetry datasets hosted at
-OBIS-SEAMAP, with reuse governed by its terms and data request process. No SWOT or
-SEAMAP tracks were downloaded or digitised. Access to a map does not itself establish
-redistribution permission for every underlying dataset.
+### Historical tracks
 
-A direct OBIS API request failed in the restricted environment and permission for the
-network download was declined. Consequently **no actual occurrence or telemetry
-records are included** in this handoff. To fetch a small real occurrence sample later:
+The requested year selector is 2006, 2010, 2015 and 2020. The existing
+2025 routes are invented animation fixtures, not historical observations. The
+repository does not contain verified individual migration tracks for any of these
+years or all seven species. The JSON includes the requested year/species selector
+structure, but accurate migration animations cannot be populated from the available
+records without inventing tracks.
+
+The [SWOT sea turtle database](https://www.seaturtlestatus.org/online-map-data)
+contains contributed telemetry tracks. Its [request form](https://www.seaturtlestatus.org/request-data)
+requires an email verification code and acceptance of its data-use terms; the
+[Chelonioidea species profile](https://seamap.env.duke.edu/species/948946) likewise
+opens a download form rather than exposing track records directly. The files have not
+been requested or downloaded here. The NOAA [Kemp's ridley and loggerhead tracking catalog](https://www.fisheries.noaa.gov/inport/item/30696)
+describes a 2010 dataset, but its catalog says the data reside on a secure government
+network requiring multifactor authentication. These sources do not provide files that
+can be used for averages in this repository yet.
+
+### Other repositories checked
+
+- [SEATURTLE.ORG tracking](https://seaturtle.org/tracking/) describes Argos-supported
+  tracking tools for researchers. Automated access presents a browser verification
+  page; no track export was obtained.
+- [IUCN MTSG Regional Management Units](https://www.iucn-mtsg.org/regional-management-units)
+  describes population-level boundaries built from multiple evidence types, including
+  telemetry. RMUs are population geography, not dated individual trajectories.
+- [GBIF](https://www.gbif.org/) exposes occurrence records through its API. A sample
+  query for green turtles in 1990 returned preserved specimens, among other record
+  types; occurrences do not establish continuous individual movement.
+- [OBIS-SEAMAP Chelonioidea](https://seamap.env.duke.edu/species/948946) identifies the
+  relevant taxon. Its download flow requires completing the site's form; a user-
+  provided export was inspected and only CC0 point coordinates are included here.
+
+OBIS occurrence records can provide dated sightings and coordinates, but separate
+sightings are not continuous individual tracks. The user-provided
+[OBIS-SEAMAP Chelonioidea export](../references.md#bibliography) contains 1,835
+point-observation records dated 2006–2020. Its points CSV has no depth fields, and its
+`series_id` field is empty for all records, so it does not link observations into
+individual trajectories or provide swimming-depth measurements. The records also
+include multiple turtle labels and observation types; do not treat every point as an
+identified sea turtle track.
+
+`animation_sightings.json` contains only the four July 2006 records from dataset 1889,
+which the supplied archive marks CC0. All four are labelled unidentified turtle
+(Chelonioidea), not any of the seven species, and have no depth measurement. Render
+them as distinct observation markers in date order if desired; never connect them with a
+line or label the animation a migration trajectory.
+
+The separate `animation_species_predictions.json` file assigns a low-confidence
+loggerhead regional-prior guess to each of these four points. The points are close in
+space and time and contain no species-diagnostic information, so this repeated label
+does not mean they were individually identified or are one migrating turtle. Keep
+predictions visually distinct from observed species labels and allow them to be hidden.
+
+The archive also contains 114 unidentified-turtle point observations in February and
+November 2010, but their datasets are CC-BY and the OBIS-SEAMAP download terms prohibit
+redistribution without consent except for CC0 datasets. Its 90 March 2020 points are
+nests or poached nests in a CC-BY-NC dataset, not turtles swimming at sea. These
+coordinates are not included in the animation JSON. There are no 2015 records in this
+export.
+
+OBIS `minimumDepthInMeters`, `maximumDepthInMeters` and `bathymetry` fields are not
+automatically measured turtle dive depths. Do not draw lines between independent
+sightings, or treat seabed depth as animal depth. Add a historical track only when a
+permitted source provides individual IDs, timestamps, coordinates, and documented
+depth measurements.
+
+The original user-provided OBIS-SEAMAP archive is not copied into this repository. Its
+`datasets_and_citations.csv` contains 57 dataset citation entries and sharing policies.
+The archive's terms require individual dataset citations and prohibit redistribution
+without consent except for CC0 datasets. Check each contributing dataset's citation and
+sharing policy before using its records in a product or publishing derived results.
+
+No SWOT/SEAMAP telemetry tracks are included in this handoff. The separate sample
+importer below retrieves OBIS occurrences for exploration, not continuous individual
+tracks, and must not be used to create migration trajectories or per-position
+turtle-dive-depth charts. To fetch a bounded occurrence sample:
 
 ```powershell
 py data/fetch_obis.py --size 100
@@ -76,12 +156,15 @@ a live tagged turtle. Never connect independent occurrences into a migration rou
 OBIS `bathymetry` means seabed depth, not turtle swimming depth; even reported occurrence
 depths require checking the provider's methods. The importer does not infer dive depth.
 
-For real migration trails, obtain permitted individual telemetry datasets with stable
-animal/tag IDs, dated coordinates and documented quality flags. Split by individual,
-sort timestamps, check gaps and location quality, and retain dataset provenance and
-licenses. Only then replace demo features with observed tracks. Coverage of all seven
-species is not guaranteed. NOAA's [Kemp's ridley and loggerhead tracking catalog](https://www.fisheries.noaa.gov/inport/item/30696)
-is another lead for genuine tracking data; its files have not been downloaded here.
+For year-by-year monthly averages, first obtain permitted individual tracks with stable
+animal/tag IDs, timestamps, coordinates and documented quality flags. Measured dive
+depths must be linked to those individuals and times; location-only tracks cannot
+produce swimming-depth values. Calculate distance from consecutive valid positions
+within each individual track, then calculate monthly metrics per individual before
+averaging across individuals. Keep sample sizes and missing months visible, and retain
+source provenance, uncertainty and licenses. Do not average independent sightings as
+tracks or imply coverage where no usable individuals exist. Coverage of all seven
+species and each requested year is not guaranteed.
 
 ## Validation
 
