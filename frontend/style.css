@@ -1,13 +1,44 @@
-body {
-  font-family: system-ui, sans-serif;
-  margin: 0;
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  background: #f6f7f9;
-  color: #1f2328;
+:root {
+  color: #1c2b33;
+  background: #c5d5df;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
 }
 
-main {
-  text-align: center;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+  background: #0c3d5c;
+  z-index: 0;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: #0c3d5c;
+}
+
+.leaflet-tile-pane {
+  filter: saturate(1.28) contrast(1.06) brightness(0.8);
+}
+
+.leaflet-control-zoom {
+  border: 0 !important;
+  box-shadow: 0 8px 24px rgba(16, 32, 42, 0.16) !important;
+}
+
+.leaflet-control-zoom a {
+  color: #0e3a4d !important;
 }

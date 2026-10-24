@@ -1,0 +1,43 @@
+{
+  "note": "Bounding boxes for click-to-zoom. The Pacific is split at the date line so the rectangle draws in two pieces.",
+  "oceans": [
+    {
+      "id": "pacific",
+      "name": "Pacific",
+      "center": [8, -150],
+      "zoom": 4,
+      "boxes": [
+        [[-45, 130], [55, 180]],
+        [[-45, -180], [55, -70]]
+      ]
+    },
+    {
+      "id": "atlantic",
+      "name": "Atlantic",
+      "center": [8, -30],
+      "zoom": 4,
+      "boxes": [[[-50, -75], [62, 18]]]
+    },
+    {
+      "id": "indian",
+      "name": "Indian",
+      "center": [-12, 75],
+      "zoom": 4,
+      "boxes": [[[-48, 20], [26, 120]]]
+    },
+    {
+      "id": "southern",
+      "name": "Southern",
+      "center": [-60, 20],
+      "zoom": 4,
+      "boxes": [[[-78, -180], [-48, 180]]]
+    },
+    {
+      "id": "arctic",
+      "name": "Arctic",
+      "center": [78, 0],
+      "zoom": 4,
+      "boxes": [[[66, -180], [85, 180]]]
+    }
+  ]
+}
