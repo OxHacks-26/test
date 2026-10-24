@@ -219,10 +219,18 @@ function normalizeSpecies(data) {
     scientificName: item.scientific_name || item.scientificName || "",
     color: safeColor(item.color),
     depthMin: numberOr(item.depth_m && item.depth_m.min, item.depth_min, 0),
-    depthMax: numberOr(item.depth_m && item.depth_m.max, item.depth_max, 0),
-    typicalDepth: numberOr(item.depth_m && item.depth_m.typical, item.typical_depth, 0),
+    depthMax: numberOr(
+      item.depth_m && item.depth_m.max,
+      item.depth_range_m && item.depth_range_m.record_max,
+      0
+    ),
+    typicalDepth: numberOr(
+      item.depth_m && item.depth_m.typical,
+      item.depth_range_m && item.depth_range_m.typical_max,
+      0
+    ),
     diveProfile: item.dive_profile || item.diveProfile || [],
-    fact: item.fact || "",
+    fact: item.fact || item.blurb || "",
   }));
 }
 
@@ -243,7 +251,11 @@ function normalizeMigrations(data) {
       name: properties.name || "Corridor",
       start: properties.start,
       end: properties.end,
-      source: properties.source || "illustrative, based on published studies",
+      months: Array.isArray(properties.months) ? properties.months : null,
+      source:
+        properties.source ||
+        (properties.sources && properties.sources[0] && properties.sources[0].title) ||
+        "illustrative, based on published studies",
       coordinates,
     };
   });
@@ -257,10 +269,27 @@ function normalizeOceans(data) {
   return list.map((ocean) => ({
     id: ocean.id,
     name: ocean.name,
-    center: ocean.center,
+    // API gives center as [lon, lat] and bbox as [minLon, minLat, maxLon, maxLat];
+    // Leaflet wants [lat, lng] and [[south, west], [north, east]].
+    center: ocean.bbox ? [ocean.center[1], ocean.center[0]] : ocean.center,
     zoom: ocean.zoom || 3,
-    boxes: ocean.boxes || (ocean.bounds ? [ocean.bounds] : []),
+    boxes: ocean.boxes || (ocean.bounds ? [ocean.bounds] : boxesFromBbox(ocean.bbox)),
   }));
+}
+
+function boxesFromBbox(bbox) {
+  if (!Array.isArray(bbox) || bbox.length !== 4) {
+    return [];
+  }
+  const [minLon, minLat, maxLon, maxLat] = bbox;
+  if (minLon > maxLon) {
+    // Crosses the antimeridian (Pacific): split into two boxes.
+    return [
+      [[minLat, minLon], [maxLat, 180]],
+      [[minLat, -180], [maxLat, maxLon]],
+    ];
+  }
+  return [[[minLat, minLon], [maxLat, maxLon]]];
 }
 
 function buildOceanControls() {
@@ -549,6 +578,9 @@ function seasonSpan(route) {
 }
 
 function activeInMonth(route, month) {
+  if (route.months) {
+    return route.months.includes(month + 1);
+  }
   const span = seasonSpan(route);
   if (span.start <= span.end) {
     return month >= span.start && month <= span.end;

@@ -6,13 +6,34 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [140.0, 35.0],
-          [160.0, 36.0],
-          [-180.0, 37.0],
-          [-160.0, 35.0],
-          [-140.0, 32.0],
-          [-125.0, 29.0],
-          [-114.5, 27.5]
+          [
+            140.0,
+            35.0
+          ],
+          [
+            160.0,
+            36.0
+          ],
+          [
+            -180.0,
+            37.0
+          ],
+          [
+            -160.0,
+            35.0
+          ],
+          [
+            -140.0,
+            32.0
+          ],
+          [
+            -125.0,
+            29.0
+          ],
+          [
+            -114.5,
+            27.5
+          ]
         ]
       },
       "properties": {
@@ -23,8 +44,24 @@
         "life_stage": "juvenile",
         "start": "1990-01-01",
         "end": "2030-12-31",
-        "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        "depth_m": { "min": 0, "max": 100 },
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 100
+        },
         "confidence": "documented",
         "notes": "Juveniles hatched in Japan cross the North Pacific to forage off Baja California, then return to Japan to breed.",
         "sources": [
@@ -40,11 +77,26 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-35.0, -5.0],
-          [-30.0, -6.0],
-          [-25.0, -7.0],
-          [-20.0, -7.5],
-          [-14.4, -7.9]
+          [
+            -35.0,
+            -5.0
+          ],
+          [
+            -30.0,
+            -6.0
+          ],
+          [
+            -25.0,
+            -7.0
+          ],
+          [
+            -20.0,
+            -7.5
+          ],
+          [
+            -14.4,
+            -7.9
+          ]
         ]
       },
       "properties": {
@@ -55,8 +107,17 @@
         "life_stage": "adult",
         "start": "1990-01-01",
         "end": "2030-12-31",
-        "months": [11, 12, 1, 2, 3],
-        "depth_m": { "min": 0, "max": 40 },
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 40
+        },
         "confidence": "documented",
         "notes": "Adults feeding off Brazil swim ~2,200 km to nest on Ascension Island between December and March.",
         "sources": [
@@ -64,6 +125,471 @@
             "title": "Luschi et al. 1998, The navigational feats of green sea turtles migrating from Ascension Island investigated by satellite telemetry",
             "url": "https://doi.org/10.1098/rspb.1998.0571"
           }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "loggerhead-florida-to-the-azores",
+        "species": "loggerhead",
+        "name": "Florida to the Azores",
+        "ocean": "atlantic",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 50
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -80.6,
+            27.6
+          ],
+          [
+            -68,
+            30.5
+          ],
+          [
+            -52,
+            33.5
+          ],
+          [
+            -38,
+            36
+          ],
+          [
+            -28.2,
+            38.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "leatherback-new-guinea-to-california",
+        "species": "leatherback",
+        "name": "New Guinea to California",
+        "ocean": "pacific",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 200
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            147,
+            -6
+          ],
+          [
+            165,
+            2
+          ],
+          [
+            -175,
+            12
+          ],
+          [
+            -150,
+            24
+          ],
+          [
+            -130,
+            33
+          ],
+          [
+            -122.5,
+            37.5
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "leatherback-caribbean-to-the-north-atlantic",
+        "species": "leatherback",
+        "name": "Caribbean to the North Atlantic",
+        "ocean": "atlantic",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 200
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -65,
+            15.5
+          ],
+          [
+            -55,
+            25
+          ],
+          [
+            -45,
+            36
+          ],
+          [
+            -35,
+            48
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hawksbill-caribbean-reefs",
+        "species": "hawksbill",
+        "name": "Caribbean reefs",
+        "ocean": "atlantic",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 18
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -64.8,
+            18.3
+          ],
+          [
+            -67.5,
+            17.2
+          ],
+          [
+            -70.5,
+            19
+          ],
+          [
+            -66.2,
+            21.4
+          ],
+          [
+            -63,
+            18.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "hawksbill-seychelles-to-madagascar",
+        "species": "hawksbill",
+        "name": "Seychelles to Madagascar",
+        "ocean": "indian",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 18
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            55.4,
+            -4.6
+          ],
+          [
+            50,
+            -10
+          ],
+          [
+            46.5,
+            -16
+          ],
+          [
+            43.4,
+            -22
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kemps-ridley-gulf-of-mexico",
+        "species": "kemps-ridley",
+        "name": "Gulf of Mexico",
+        "ocean": "atlantic",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 20
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -97.7,
+            23.2
+          ],
+          [
+            -94,
+            26.2
+          ],
+          [
+            -90,
+            28.2
+          ],
+          [
+            -86.5,
+            29.4
+          ],
+          [
+            -90.5,
+            26.5
+          ],
+          [
+            -95.5,
+            24.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "olive-ridley-costa-rica-into-the-east-pacific",
+        "species": "olive-ridley",
+        "name": "Costa Rica into the east Pacific",
+        "ocean": "pacific",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          1
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 60
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -85.6,
+            10
+          ],
+          [
+            -100,
+            8
+          ],
+          [
+            -118,
+            4
+          ],
+          [
+            -135,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "olive-ridley-bay-of-bengal",
+        "species": "olive-ridley",
+        "name": "Bay of Bengal",
+        "ocean": "indian",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          10,
+          11,
+          12,
+          1,
+          2,
+          3
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 60
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            80.2,
+            13
+          ],
+          [
+            86,
+            10
+          ],
+          [
+            92,
+            8
+          ],
+          [
+            88,
+            5
+          ],
+          [
+            83,
+            8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "flatback-northern-australia-shelf",
+        "species": "flatback",
+        "name": "Northern Australia shelf",
+        "ocean": "pacific",
+        "life_stage": "adult",
+        "start": "2000-01-01",
+        "end": "2030-12-31",
+        "months": [
+          11,
+          12,
+          1,
+          2
+        ],
+        "depth_m": {
+          "min": 0,
+          "max": 15
+        },
+        "confidence": "illustrative",
+        "notes": "Illustrative corridor based on published range descriptions; replace with a sourced route.",
+        "sources": []
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            136.4,
+            -12.2
+          ],
+          [
+            132,
+            -13.4
+          ],
+          [
+            127,
+            -15.2
+          ],
+          [
+            123.5,
+            -18
+          ],
+          [
+            130,
+            -16
+          ],
+          [
+            136,
+            -13.5
+          ]
         ]
       }
     }

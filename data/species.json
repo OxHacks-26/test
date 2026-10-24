@@ -4,69 +4,247 @@
     "common_name": "Loggerhead",
     "scientific_name": "Caretta caretta",
     "color": "#c0392b",
-    "depth_range_m": { "typical_max": 100, "record_max": 233 },
+    "depth_range_m": {
+      "typical_max": 100,
+      "record_max": 233
+    },
     "iucn_status": "Vulnerable",
-    "blurb": "TODO (data): one or two sentences on range and migration habits.",
-    "sources": []
+    "blurb": "North Pacific juveniles cross from Japan toward Baja California. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.2,
+        "depth_m": 30
+      },
+      {
+        "t": 0.45,
+        "depth_m": 140
+      },
+      {
+        "t": 0.7,
+        "depth_m": 40
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "green",
     "common_name": "Green turtle",
     "scientific_name": "Chelonia mydas",
     "color": "#27ae60",
-    "depth_range_m": { "typical_max": 40, "record_max": 150 },
+    "depth_range_m": {
+      "typical_max": 40,
+      "record_max": 150
+    },
     "iucn_status": "Endangered",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "Atlantic greens commute between Brazil and Ascension Island. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.25,
+        "depth_m": 15
+      },
+      {
+        "t": 0.5,
+        "depth_m": 70
+      },
+      {
+        "t": 0.75,
+        "depth_m": 20
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "leatherback",
     "common_name": "Leatherback",
     "scientific_name": "Dermochelys coriacea",
     "color": "#2c3e50",
-    "depth_range_m": { "typical_max": 250, "record_max": 1280 },
+    "depth_range_m": {
+      "typical_max": 250,
+      "record_max": 1280
+    },
     "iucn_status": "Vulnerable",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "The only species here that still shows up below a few hundred metres. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.15,
+        "depth_m": 80
+      },
+      {
+        "t": 0.4,
+        "depth_m": 900
+      },
+      {
+        "t": 0.55,
+        "depth_m": 250
+      },
+      {
+        "t": 0.75,
+        "depth_m": 700
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "hawksbill",
     "common_name": "Hawksbill",
     "scientific_name": "Eretmochelys imbricata",
     "color": "#e67e22",
-    "depth_range_m": { "typical_max": 30, "record_max": 100 },
+    "depth_range_m": {
+      "typical_max": 30,
+      "record_max": 100
+    },
     "iucn_status": "Critically Endangered",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "Mostly reef movements, in the Caribbean and the western Indian Ocean. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.3,
+        "depth_m": 12
+      },
+      {
+        "t": 0.55,
+        "depth_m": 45
+      },
+      {
+        "t": 0.8,
+        "depth_m": 15
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "kemps-ridley",
     "common_name": "Kemp's ridley",
     "scientific_name": "Lepidochelys kempii",
     "color": "#8e44ad",
-    "depth_range_m": { "typical_max": 50, "record_max": 50 },
+    "depth_range_m": {
+      "typical_max": 50,
+      "record_max": 50
+    },
     "iucn_status": "Critically Endangered",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "A Gulf of Mexico species, on the shelf more than the open ocean. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.35,
+        "depth_m": 15
+      },
+      {
+        "t": 0.6,
+        "depth_m": 40
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "olive-ridley",
     "common_name": "Olive ridley",
     "scientific_name": "Lepidochelys olivacea",
     "color": "#7f8c8d",
-    "depth_range_m": { "typical_max": 150, "record_max": 290 },
+    "depth_range_m": {
+      "typical_max": 150,
+      "record_max": 290
+    },
     "iucn_status": "Vulnerable",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "After nesting in Costa Rica, many head west into the tropical Pacific. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.25,
+        "depth_m": 40
+      },
+      {
+        "t": 0.5,
+        "depth_m": 180
+      },
+      {
+        "t": 0.75,
+        "depth_m": 50
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   },
   {
     "id": "flatback",
     "common_name": "Flatback",
     "scientific_name": "Natator depressus",
     "color": "#16a085",
-    "depth_range_m": { "typical_max": 60, "record_max": 70 },
+    "depth_range_m": {
+      "typical_max": 60,
+      "record_max": 70
+    },
     "iucn_status": "Data Deficient",
-    "blurb": "TODO (data)",
-    "sources": []
+    "blurb": "Stays on the northern Australian shelf. No open-ocean crossing. (illustrative; data team to verify)",
+    "sources": [],
+    "dive_profile": [
+      {
+        "t": 0,
+        "depth_m": 0
+      },
+      {
+        "t": 0.4,
+        "depth_m": 12
+      },
+      {
+        "t": 0.65,
+        "depth_m": 30
+      },
+      {
+        "t": 1,
+        "depth_m": 0
+      }
+    ],
+    "dive_profile_note": "illustrative"
   }
 ]
