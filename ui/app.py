@@ -1,4 +1,4 @@
-"""Run the Turtle Tide demo with ``python ui/app.py``."""
+"""Run Turtle Tide with ``python ui/app.py``."""
 
 from datetime import date
 
@@ -6,151 +6,229 @@ from nicegui import ui
 
 if __package__:
     from .state import state
-    from .theme import COLORS, CSS
-else:  # Support direct execution from the repository root.
+    from .theme import CSS
+else:
     from state import state
-    from theme import COLORS, CSS
+    from theme import CSS
 
 OCEANS = ["Pacific", "Atlantic", "Indian", "Southern", "Arctic"]
-GRANULARITIES = ["Weeks", "Months", "Years", "Decades"]
-MIN_DAY = date(2000, 1, 1).toordinal()
-MAX_DAY = date(2035, 12, 31).toordinal()
-ui.add_css(CSS)
+OCEAN_COLORS = {
+    "Pacific": ("#35c2d8", "#294d6d"),
+    "Atlantic": ("#a69bdf", "#354d70"),
+    "Indian": ("#ffb35f", "#574d67"),
+    "Southern": ("#67d99c", "#244e5d"),
+    "Arctic": ("#f48b9c", "#56445d"),
+}
+DEPTH_LIMITS = {"Pacific": 4080, "Atlantic": 3646, "Indian": 3741, "Southern": 3270, "Arctic": 1205}
+MIN_YEAR = 1995
+MAX_YEAR = 2025
+YEAR_CHECKPOINTS = list(range(MIN_YEAR, MAX_YEAR + 1, 5))
+ui.add_css(CSS, shared=True)
 
 
 @ui.page("/")
 def home() -> None:
-    """Build the game dashboard; event handlers mutate the shared state."""
-    with ui.column().classes("w-full max-w-[1500px] mx-auto px-5 py-5 gap-4"):
-        with ui.row().classes("w-full items-center justify-between flex-wrap gap-3"):
+    """Build the interactive, data-ready game dashboard."""
+    quest_steps: set[str] = set()
+    state.date = min(max(state.date, date(MIN_YEAR, 1, 1)), date(MAX_YEAR, 12, 31))
+    state.granularity = "5 Years"
+
+    with ui.column().classes("tt-page w-full max-w-[1550px] mx-auto px-5 py-4 gap-3"):
+        with ui.row().classes("hud-bar w-full items-center justify-between flex-wrap gap-3"):
             with ui.row().classes("items-center gap-3"):
-                ui.label("🐢").classes("text-4xl")
+                ui.label(chr(0x1F422)).classes("brand-icon turtle-mark")
                 with ui.column().classes("gap-0"):
-                    ui.label("Turtle Tide").classes("text-3xl font-black text-[#21465b]")
-                    ui.label("A little time travel for a big blue planet").classes("text-sm text-[#70909a]")
+                    ui.label("Turtle Tide").classes("game-title")
+                    ui.label("Ocean migration console").classes("subtitle")
             with ui.row().classes("items-center gap-2"):
-                ui.label(f"✨ {state.xp} XP").classes("rounded-full bg-[#fff0b9] px-4 py-2 font-black text-[#9b6a15]")
-                ui.label("🔥 4 day streak").classes("rounded-full bg-[#ffe1d4] px-4 py-2 font-black text-[#b75c37]")
-                ui.label("❤️ ❤️ ❤️").classes("rounded-full bg-white px-4 py-2 text-lg")
+                ui.icon("auto_awesome").classes("hud-star")
+                ui.label(f"{state.xp} XP").classes("status-chip xp-chip")
+                with ui.row().classes("status-chip heart-chip items-center gap-1"):
+                    for _ in range(3):
+                        ui.icon("favorite")
 
-        with ui.row().classes("w-full items-start gap-4 flex-nowrap"):
-            # Species chooser and discovery status.
-            with ui.card().classes("tt-card w-[245px] min-w-[220px] p-4"):
-                ui.label("YOUR TURTLES").classes("text-xs font-black tracking-widest text-[#7a9ba2]")
-                species_list = ui.column().classes("w-full gap-2 mt-3")
+        with ui.element("div").classes("fish-drift fish-top"):
+            ui.element("div").classes("bubble bubble-a")
+            ui.element("div").classes("bubble bubble-b")
+            ui.label(chr(0x1F420)).classes("swimming-fish fish-a swim-right")
+            ui.label(chr(0x1F41F)).classes("swimming-fish fish-b swim-left")
+            ui.label(chr(0x1F421)).classes("swimming-fish fish-c swim-right")
 
-            with ui.column().classes("min-w-0 flex-1 gap-4"):
-                # The map placeholder is deliberately data-independent for now.
-                with ui.card().classes("tt-card w-full p-4"):
+        map_dialog = ui.dialog()
+        with map_dialog, ui.card().classes("map-expanded-panel"):
+            with ui.row().classes("w-full items-center justify-between"):
+                ui.label("Migration map").classes("game-title")
+                ui.button("Close", on_click=lambda: map_dialog.close()).props("no-caps")
+            with ui.element("div").classes("map-expanded-scroll"):
+                ui.element("div").classes("map-expanded-canvas")
+
+        with ui.row().classes("tt-dashboard w-full items-start gap-4 flex-nowrap"):
+            with ui.card().classes("tt-card species-column w-[245px] min-w-[220px] p-4"):
+                ui.label("TURTLE CREW").classes("section-kicker")
+                with ui.column().classes("data-note w-full gap-2 mt-3 p-4"):
+                    ui.label(chr(0x1F422)).classes("empty-icon turtle-mark-small")
+                    ui.label("Turtle cards are on their way!").classes("font-black")
+                    ui.label("Migration data will bring this crew to life.").classes("text-sm leading-5")
+                with ui.card().classes("quest-card w-full mt-4 p-4"):
+                    ui.label("TODAY'S QUEST").classes("section-kicker")
+                    ui.label("Choose an ocean, travel through time, and set your dive depth.").classes("mt-2 text-sm font-bold leading-5")
+                    quest_progress = ui.linear_progress(value=0, color="orange").props("rounded track-color=orange-2").classes("tt-progress mt-3")
+                    quest_label = ui.label("0 of 3 explorer steps").classes("mt-2 text-xs font-black")
+
+            with ui.column().classes("map-column min-w-0 flex-1 gap-3"):
+                with ui.card().classes("tt-card map-card w-full p-4"):
                     with ui.row().classes("w-full items-center justify-between flex-wrap gap-2"):
                         with ui.column().classes("gap-0"):
-                            ui.label("MIGRATION ATLAS").classes("text-xs font-black tracking-widest text-[#7a9ba2]")
-                            date_label = ui.label().classes("text-xl font-black text-[#21465b]")
-                        ui.label("◉  ILLUSTRATIVE ROUTES").classes("rounded-full bg-[#e5f8ed] px-3 py-2 text-xs font-black text-[#37965c]")
-                    with ui.element("div").classes("ocean-map w-full mt-3"):
-                        ui.label("NORTH PACIFIC CURRENT").classes("absolute left-[32%] top-[18%] text-[10px] font-black tracking-widest text-white/80")
-                        ui.label("🐢").classes("absolute left-[47%] top-[43%] text-4xl drop-shadow")
-                        ui.label("🐢").classes("absolute left-[70%] top-[62%] text-3xl drop-shadow")
-                        ui.label("🐢").classes("absolute left-[22%] top-[67%] text-2xl drop-shadow")
-                        ui.element("div").classes("map-island left-[8%] top-[18%] h-24 w-36 -rotate-12")
-                        ui.element("div").classes("map-island right-[8%] top-[10%] h-28 w-40 rotate-12")
-                        ui.element("div").classes("map-island right-[12%] bottom-[8%] h-20 w-28 -rotate-6")
-                        with ui.row().classes("absolute bottom-3 left-3 rounded-2xl bg-white/90 p-2 shadow-sm"):
-                            ui.label("🐢  Following migration paths across the blue").classes("text-xs font-bold text-[#39758a]")
-                    with ui.row().classes("items-center gap-2 mt-3 flex-wrap"):
-                        ui.label("EXPLORE OCEAN").classes("mr-1 text-[10px] font-black tracking-widest text-[#7a9ba2]")
+                            ui.label("MIGRATION ATLAS").classes("section-kicker")
+                            date_label = ui.label().classes("date-readout")
+                        ui.button("Enlarge map", on_click=lambda: map_dialog.open()).props("no-caps unelevated").classes("tt-button enlarge-button")
+                    # The map layer is intentionally blank for the teammate to build.
+                    with ui.element("div").classes("map-scroll w-full mt-3"):
+                        ui.element("div").classes("ocean-map").on("click", lambda _: map_dialog.open())
+                    with ui.row().classes("ocean-picker items-center gap-2 mt-3 flex-wrap"):
+                        ui.label("SELECT OCEAN").classes("section-kicker mr-1")
+                        ocean_buttons = {}
                         for ocean in OCEANS:
-                            ui.button(ocean, on_click=lambda _, name=ocean: open_ocean(name)).props("no-caps unelevated").classes("tt-pill bg-[#e9f7fb] px-3 text-[#367e97]")
+                            ocean_buttons[ocean] = ui.button(
+                                ocean, on_click=lambda _, name=ocean: open_ocean(name)
+                            ).props("no-caps unelevated").classes("ocean-pill px-3")
 
-                # Time and depth controls share one bar below the map.
-                with ui.card().classes("tt-card w-full p-4"):
+                with ui.card().classes("tt-card controls-card w-full p-4"):
                     with ui.row().classes("w-full items-center justify-between flex-wrap gap-3"):
-                        with ui.row().classes("items-center gap-2"):
-                            ui.label("⏳  TIME TRAVEL").classes("text-xs font-black tracking-widest text-[#7a9ba2]")
-                            granularity_buttons = {}
-                            for granularity in GRANULARITIES:
-                                granularity_buttons[granularity] = ui.button(
-                                    granularity, on_click=lambda _, value=granularity: set_granularity(value)
-                                ).props("no-caps flat").classes("tt-pill text-xs")
-                        play_button = ui.button("▶  Play", on_click=lambda: toggle_play()).props("no-caps unelevated").classes("tt-button bg-[#58bd73] px-4 text-white")
+                        with ui.row().classes("items-center gap-2 flex-wrap"):
+                            ui.label("TIME TRAVEL").classes("section-kicker")
+                            ui.label("5-YEAR CHECKPOINTS").classes("checkpoint-tag")
+                        play_button = ui.button("Play", on_click=lambda: toggle_play()).props("no-caps unelevated").classes("tt-button play-button px-4")
+                    with ui.row().classes("date-entry-row w-full items-center justify-between gap-3 flex-wrap"):
+                        ui.label("Jump to a year").classes("section-kicker")
+                        date_input = ui.select(
+                            YEAR_CHECKPOINTS,
+                            value=state.date.year,
+                            on_change=lambda event: on_year_input(event),
+                            with_input=True,
+                        ).props('popup-content-class="year-popup"').classes("date-input")
                     date_slider = ui.slider(
-                        min=MIN_DAY, max=MAX_DAY, step=1, value=state.date.toordinal(),
-                        on_change=lambda event: set_date(date.fromordinal(int(event.value))),
-                    ).props("label-always color=positive").classes("w-full mt-2")
-                    with ui.row().classes("w-full items-center justify-between mt-2 gap-4 flex-wrap"):
-                        ui.label("🌊  DIVE DEPTH").classes("text-xs font-black tracking-widest text-[#7a9ba2]")
-                        depth_label = ui.label().classes("text-sm font-black text-[#3985a0]")
+                        min=MIN_YEAR,
+                        max=MAX_YEAR,
+                        step=5,
+                        value=MIN_YEAR + round((state.date.year - MIN_YEAR) / 5) * 5,
+                        on_change=lambda event: set_date(date(int(event.value), 1, 1)),
+                    ).props("color=positive").classes("w-full mt-2")
+                    with ui.row().classes("w-full items-center justify-between mt-3 gap-3 flex-wrap"):
+                        ui.label("DIVE DEPTH").classes("section-kicker")
+                        depth_label = ui.label().classes("depth-readout")
                     depth_slider = ui.range(
-                        min=0, max=1200, step=10,
+                        min=0,
+                        max=DEPTH_LIMITS[state.selected_ocean],
+                        step=1,
                         value={"min": state.depth_range[0], "max": state.depth_range[1]},
                         on_change=lambda event: set_depth(event.value),
                     ).props("label-always color=info").classes("w-full")
 
-            # Right-side notes stay tucked away until the player makes a choice.
-            info_panel = ui.card().classes("tt-card w-[270px] min-w-[230px] p-4")
-            info_panel.set_visibility(False)
+                info_panel = ui.card().classes("tt-card info-card w-full p-4")
+                info_panel.set_visibility(False)
 
-    def draw_species() -> None:
-        species_list.clear()
-        with species_list:
-            ui.label("Species cards will appear here when the migration data is ready.").classes(
-                "rounded-2xl bg-[#f2f8f7] p-3 text-sm leading-6 text-[#70909a]"
-            )
+        with ui.element("div").classes("fish-drift fish-bottom"):
+            ui.element("div").classes("bubble bubble-c")
+            ui.element("div").classes("bubble bubble-d")
+            ui.label(chr(0x1F41F)).classes("swimming-fish fish-d swim-left")
+            ui.label(chr(0x1F420)).classes("swimming-fish fish-e swim-right")
+            ui.label(chr(0x1F421)).classes("swimming-fish fish-f swim-left")
 
-    def draw_info(title: str, body: str, extra: str = "") -> None:
+    def complete_quest_step(step: str) -> None:
+        quest_steps.add(step)
+        quest_progress.value = len(quest_steps) / 3
+        quest_label.text = f"{len(quest_steps)} of 3 explorer steps"
+
+    def draw_info(title: str, body: str) -> None:
         info_panel.clear()
         info_panel.set_visibility(True)
         with info_panel:
             with ui.row().classes("w-full items-center justify-between"):
-                ui.label("FIELD NOTES").classes("text-xs font-black tracking-widest text-[#7a9ba2]")
-                ui.button("×", on_click=lambda: info_panel.set_visibility(False)).props("flat round dense")
-            ui.label(title).classes("mt-3 text-2xl font-black text-[#21465b]")
-            ui.label(body).classes("mt-2 text-sm leading-6 text-[#58727e]")
-            if extra:
-                ui.label(extra).classes("mt-4 rounded-xl bg-[#f1f8f5] p-3 text-xs text-[#6e8d88]")
+                ui.label("FIELD NOTES").classes("section-kicker")
+                ui.button("Close", on_click=lambda: info_panel.set_visibility(False)).props("no-caps flat dense")
+            ui.label(title).classes("mt-2 text-xl font-black")
+            ui.label(body).classes("mt-2 text-sm")
+
+    def paint_ocean_buttons() -> None:
+        for name, button in ocean_buttons.items():
+            bright, dark = OCEAN_COLORS[name]
+            selected = name == state.selected_ocean
+            button.style(
+                f"background:{bright if selected else dark};"
+                f"color:{'#17344e' if selected else '#e6f7fa'};"
+                f"box-shadow:{'0 4px 0 ' + bright if selected else 'none'};"
+                f"transform:{'translateY(-2px)' if selected else 'none'}"
+            )
 
     def open_ocean(name: str) -> None:
         state.selected_ocean = name
         state.focused_species = None
-        draw_info(f"{name} Ocean", f"Explore sea turtle migration routes across the {name.lower()} Ocean.", "Ocean view selected · Illustrative migration atlas")
+        maximum = DEPTH_LIMITS[name]
+        low = min(state.depth_range[0], maximum)
+        high = min(state.depth_range[1], maximum)
+        depth_slider.props(f"max={maximum}")
+        depth_slider.value = {"min": low, "max": max(low, high)}
+        set_depth({"min": low, "max": max(low, high)})
+        paint_ocean_buttons()
+        complete_quest_step("ocean")
+        draw_info(name, f"Explore sea turtle migration routes across the {name.lower()} Ocean. Depth range: 0-{maximum:,} m.")
 
     def set_date(value: date) -> None:
+        year = min(max(value.year, MIN_YEAR), MAX_YEAR)
+        year = MIN_YEAR + round((year - MIN_YEAR) / 5) * 5
+        year = min(MAX_YEAR, max(MIN_YEAR, year))
+        value = date(year, 1, 1)
         state.date = value
-        date_label.text = value.strftime("%B %Y")
+        date_input.value = year
+        date_slider.value = year
+        now = date.today()
+        years_ago = now.year - value.year
+        if years_ago > 0:
+            unit = "year" if years_ago == 1 else "years"
+            date_label.text = f"{value.year} - {years_ago} {unit} ago"
+        elif years_ago < 0:
+            date_label.text = f"{value.year} - in {abs(years_ago)} years"
+        else:
+            date_label.text = f"{value.year} - this year"
 
-    def set_granularity(value: str) -> None:
-        state.granularity = value
-        for name, button in granularity_buttons.items():
-            button.props("unelevated" if name == value else "flat")
-            button.classes(replace="bg-[#48b8dc] text-white" if name == value else "text-[#62818c]")
+    def on_year_input(event) -> None:
+        if event.value is not None:
+            try:
+                year = int(event.value)
+                if year in YEAR_CHECKPOINTS:
+                    set_date(date(year, 1, 1))
+            except (TypeError, ValueError):
+                pass
 
     def set_depth(value: dict) -> None:
-        state.depth_range = (int(value["min"]), int(value["max"]))
-        depth_label.text = f"{state.depth_range[0]}–{state.depth_range[1]} m"
+        maximum = DEPTH_LIMITS[state.selected_ocean]
+        low = min(max(0, int(value["min"])), maximum)
+        high = min(max(low, int(value["max"])), maximum)
+        state.depth_range = (low, high)
+        depth_label.text = f"{low} to {high} m"
 
     def advance_time() -> None:
-        step = {"Weeks": 7, "Months": 30, "Years": 365, "Decades": 3650}[state.granularity]
-        next_day = min(MAX_DAY, state.date.toordinal() + step)
-        if next_day == MAX_DAY:
+        next_year = min(MAX_YEAR, MIN_YEAR + ((state.date.year - MIN_YEAR) // 5 + 1) * 5)
+        if next_year == MAX_YEAR:
             timer.deactivate()
-            play_button.text = "▶  Play"
-        date_slider.value = next_day
-        set_date(date.fromordinal(next_day))
+            play_button.text = "Play"
+        set_date(date(next_year, 1, 1))
+        complete_quest_step("time")
 
     def toggle_play() -> None:
         if timer.active:
             timer.deactivate()
-            play_button.text = "▶  Play"
+            play_button.text = "Play"
         else:
             timer.activate()
-            play_button.text = "Ⅱ  Pause"
+            play_button.text = "Pause"
 
     timer = ui.timer(1.5, advance_time, active=False)
-    draw_species()
     set_date(state.date)
     set_depth({"min": state.depth_range[0], "max": state.depth_range[1]})
-    set_granularity(state.granularity)
+    paint_ocean_buttons()
 
 
 if __name__ == "__main__":
-    ui.run(title="Turtle Tide", favicon="🐢", reload=False)
+    ui.run(title="Turtle Tide", reload=False)
