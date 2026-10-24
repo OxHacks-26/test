@@ -315,8 +315,14 @@ body {
   filter: drop-shadow(0 3px 2px rgba(4, 16, 24, 0.45));
 }
 
+/* Slow rise and fall, with the nose tilting up while rising and down while sinking. */
 .column-turtle .turtle-swim {
-  animation: turtle-bob 5s ease-in-out infinite;
+  animation: turtle-glide 11s ease-in-out infinite;
+}
+
+.column-turtle .side-turtle {
+  transform-origin: 50% 55%;
+  animation: turtle-pitch 11s ease-in-out infinite;
 }
 
 .dive-rays {
@@ -528,9 +534,16 @@ body {
   to { transform: translate3d(var(--travel, 1200px), 0, 0); }
 }
 
-@keyframes turtle-bob {
-  0%, 100% { transform: translateY(2px); }
-  50% { transform: translateY(-4px); }
+@keyframes turtle-glide {
+  0%, 50%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-13px); }
+  75% { transform: translateY(13px); }
+}
+
+@keyframes turtle-pitch {
+  0%, 100% { transform: rotate(-3deg); }
+  25%, 75% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
 }
 
 .turtle-pin {
@@ -632,6 +645,7 @@ body {
   .dive-snow::before,
   .dive-snow::after,
   .turtle-swim,
+  .column-turtle .side-turtle,
   .fish,
   .fish-tail,
   .column-turtle {
