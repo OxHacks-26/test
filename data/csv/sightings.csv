@@ -1,0 +1,5 @@
+observation_id,dataset_id,source_id,species_id,taxon_label,observation_label,observed_at_local,year,month,timezone,longitude,latitude,depth_m,record_type,track_id,provider,license
+1889_107,1889,obis-seamap-dataset-1889,,Chelonioidea,unidentified turtle,2006-07-30 15:38:01,2006,7,,-71.2,39.99,,point_observation,,NOAA Northeast Fisheries Science Center (NEFSC),CC0
+1889_114,1889,obis-seamap-dataset-1889,,Chelonioidea,unidentified turtle,2006-07-30 16:09:26,2006,7,,-72.0,39.75,,point_observation,,NOAA Northeast Fisheries Science Center (NEFSC),CC0
+1889_7,1889,obis-seamap-dataset-1889,,Chelonioidea,unidentified turtle,2006-07-26 16:36:41,2006,7,,-72.35,40.44,,point_observation,,NOAA Northeast Fisheries Science Center (NEFSC),CC0
+1889_78,1889,obis-seamap-dataset-1889,,Chelonioidea,unidentified turtle,2006-07-27 17:10:42,2006,7,,-69.12,40.55,,point_observation,,NOAA Northeast Fisheries Science Center (NEFSC),CC0

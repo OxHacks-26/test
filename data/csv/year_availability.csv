@@ -1,0 +1,5 @@
+year,status,archive_record_count,available_months,species_specific_tracks,note,dataset_source_ids
+2006,cc0_sightings_available,4,7,false,"All four CC0 records are labelled unidentified turtle (Chelonioidea). No species among the seven can be assigned, and the records are not one identified animal's trajectory.",obis-seamap-dataset-1889
+2010,coordinates_excluded_reuse_restriction,114,2 | 11,false,"114 point observations are labelled unidentified turtle. The contributing datasets are CC-BY, but the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are therefore not copied into this file.",obis-seamap-dataset-917 | obis-seamap-dataset-1616 | obis-seamap-dataset-1614
+2015,no_records_in_export,0,,false,The supplied archive contains no records dated 2015.,
+2020,coordinates_excluded_reuse_restriction,90,3,false,"All records are nest or poached-nest observations, not turtle swimming locations. The dataset is CC-BY-NC, and the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are not copied into this file.",obis-seamap-dataset-2127
