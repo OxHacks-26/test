@@ -1,158 +1,1294 @@
 {
   "schema_version": "1.0.0",
-  "title": "OBIS-SEAMAP turtle sighting year selector (not trajectory data)",
-  "data_status": "partial_occurrence_sightings_not_migration_tracks",
-  "description": "Provides a four-year selector and seven species options, but the supplied OBIS-SEAMAP export does not provide species-specific individual tracks for those animations. Only four dated CC0 point sightings are included; all are unidentified turtles and must not be joined into migration paths.",
-  "source_archive": {
-    "source_id": "obis-seamap-chelonioidea-101809",
-    "request_id": "101809",
-    "source_url": "https://seamap.env.duke.edu/species/948946",
-    "citation": "Occurrence points downloaded from OBIS-SEAMAP. This export is not a set of linked individual migration trajectories. Cite each contributing dataset as listed in the archive's datasets_and_citations.csv.",
-    "notice": "The archive terms prohibit redistribution of downloaded records without consent except for records in datasets explicitly marked CC0. Only CC0 coordinates are included here."
-  },
-  "years": [2006, 2010, 2015, 2020],
-  "species": [
-    {"species_id": "green", "common_name": "Green turtle"},
-    {"species_id": "loggerhead", "common_name": "Loggerhead turtle"},
-    {"species_id": "leatherback", "common_name": "Leatherback turtle"},
-    {"species_id": "hawksbill", "common_name": "Hawksbill turtle"},
-    {"species_id": "kemps-ridley", "common_name": "Kemp's ridley turtle"},
-    {"species_id": "olive-ridley", "common_name": "Olive ridley turtle"},
-    {"species_id": "flatback", "common_name": "Flatback turtle"}
+  "title": "Sample migration positions for the four animation years",
+  "data_status": "illustrative_sample_prediction",
+  "description": "Two example positions per species per year, taken from the sample routes in migrations.geojson: one nesting month and one foraging month. These are not OBIS observations and must not be cited as sightings.",
+  "years": [
+    2006,
+    2010,
+    2015,
+    2020
   ],
-  "chart_axes": {
-    "map": {
-      "x": "longitude",
-      "y": "latitude",
-      "coordinate_order": "[longitude, latitude]",
-      "coordinate_reference_system": "WGS84",
-      "rendering": "Plot each sighting as a point; do not draw connecting lines."
+  "species": [
+    {
+      "species_id": "green",
+      "common_name": "Green turtle"
     },
-    "timeline": {
-      "year": "Select one of the four years in years.",
-      "month": "Filter the included point sightings by the month in observed_at_local; this does not animate migration.",
-      "depth": "No swimming-depth measurements are present; leave depth unplotted."
+    {
+      "species_id": "loggerhead",
+      "common_name": "Loggerhead turtle"
+    },
+    {
+      "species_id": "leatherback",
+      "common_name": "Leatherback turtle"
+    },
+    {
+      "species_id": "hawksbill",
+      "common_name": "Hawksbill turtle"
+    },
+    {
+      "species_id": "kemps-ridley",
+      "common_name": "Kemp's ridley turtle"
+    },
+    {
+      "species_id": "olive-ridley",
+      "common_name": "Olive ridley turtle"
+    },
+    {
+      "species_id": "flatback",
+      "common_name": "Flatback turtle"
     }
-  },
+  ],
   "year_availability": [
     {
       "year": 2006,
-      "status": "cc0_sightings_available",
-      "archive_record_count": 4,
-      "available_months": [7],
-      "species_specific_tracks": false,
-      "note": "All four CC0 records are labelled unidentified turtle (Chelonioidea). No species among the seven can be assigned, and the records are not one identified animal's trajectory.",
-      "dataset_source_ids": ["obis-seamap-dataset-1889"]
+      "status": "sample_routes_available",
+      "sample_position_count": 14,
+      "available_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "species_specific_tracks": true,
+      "note": "Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track."
     },
     {
       "year": 2010,
-      "status": "coordinates_excluded_reuse_restriction",
-      "archive_record_count": 114,
-      "available_months": [2, 11],
-      "species_specific_tracks": false,
-      "note": "114 point observations are labelled unidentified turtle. The contributing datasets are CC-BY, but the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are therefore not copied into this file.",
-      "dataset_source_ids": [
-        "obis-seamap-dataset-917",
-        "obis-seamap-dataset-1616",
-        "obis-seamap-dataset-1614"
-      ]
+      "status": "sample_routes_available",
+      "sample_position_count": 14,
+      "available_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "species_specific_tracks": true,
+      "note": "Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track."
     },
     {
       "year": 2015,
-      "status": "no_records_in_export",
-      "archive_record_count": 0,
-      "available_months": [],
-      "species_specific_tracks": false,
-      "note": "The supplied archive contains no records dated 2015.",
-      "dataset_source_ids": []
+      "status": "sample_routes_available",
+      "sample_position_count": 14,
+      "available_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "species_specific_tracks": true,
+      "note": "Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track."
     },
     {
       "year": 2020,
-      "status": "coordinates_excluded_reuse_restriction",
-      "archive_record_count": 90,
-      "available_months": [3],
-      "species_specific_tracks": false,
-      "note": "All records are nest or poached-nest observations, not turtle swimming locations. The dataset is CC-BY-NC, and the downloaded archive terms prohibit redistribution without consent except for CC0 datasets. Coordinates are not copied into this file.",
-      "dataset_source_ids": ["obis-seamap-dataset-2127"]
+      "status": "sample_routes_available",
+      "sample_position_count": 14,
+      "available_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "species_specific_tracks": true,
+      "note": "Example positions for every species. The map route is the matching LineString in migrations.geojson. Not an observed track."
     }
   ],
   "sightings": [
     {
-      "observation_id": "1889_107",
-      "dataset_id": "1889",
-      "source_id": "obis-seamap-dataset-1889",
-      "species_id": null,
-      "taxon_label": "Chelonioidea",
-      "observation_label": "unidentified turtle",
-      "observed_at_local": "2006-07-30 15:38:01",
-      "timezone": null,
-      "month": 7,
-      "coordinates": [-71.2, 39.99],
-      "depth_m": null,
-      "record_type": "point_observation",
-      "track_id": null,
-      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
-      "license": "CC0"
+      "observation_id": "loggerhead-2006-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample nesting position",
+      "observed_at_local": "2006-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        153.35,
+        -25.0
+      ],
+      "depth_m": 3.6,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2006",
+      "provider": "Project sample",
+      "license": "sample"
     },
     {
-      "observation_id": "1889_114",
-      "dataset_id": "1889",
-      "source_id": "obis-seamap-dataset-1889",
-      "species_id": null,
-      "taxon_label": "Chelonioidea",
-      "observation_label": "unidentified turtle",
-      "observed_at_local": "2006-07-30 16:09:26",
-      "timezone": null,
+      "observation_id": "loggerhead-2006-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample foraging position",
+      "observed_at_local": "2006-07-15 12:00:00",
+      "timezone": "UTC",
       "month": 7,
-      "coordinates": [-72.0, 39.75],
-      "depth_m": null,
-      "record_type": "point_observation",
-      "track_id": null,
-      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
-      "license": "CC0"
+      "coordinates": [
+        166.41,
+        -22.61
+      ],
+      "depth_m": 19.5,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2006",
+      "provider": "Project sample",
+      "license": "sample"
     },
     {
-      "observation_id": "1889_7",
-      "dataset_id": "1889",
-      "source_id": "obis-seamap-dataset-1889",
-      "species_id": null,
-      "taxon_label": "Chelonioidea",
-      "observation_label": "unidentified turtle",
-      "observed_at_local": "2006-07-26 16:36:41",
-      "timezone": null,
-      "month": 7,
-      "coordinates": [-72.35, 40.44],
-      "depth_m": null,
-      "record_type": "point_observation",
-      "track_id": null,
-      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
-      "license": "CC0"
+      "observation_id": "loggerhead-2010-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample nesting position",
+      "observed_at_local": "2010-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        152.4,
+        -24.8
+      ],
+      "depth_m": 4.3,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2010",
+      "provider": "Project sample",
+      "license": "sample"
     },
     {
-      "observation_id": "1889_78",
-      "dataset_id": "1889",
-      "source_id": "obis-seamap-dataset-1889",
-      "species_id": null,
-      "taxon_label": "Chelonioidea",
-      "observation_label": "unidentified turtle",
-      "observed_at_local": "2006-07-27 17:10:42",
-      "timezone": null,
+      "observation_id": "loggerhead-2010-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample foraging position",
+      "observed_at_local": "2010-07-15 12:00:00",
+      "timezone": "UTC",
       "month": 7,
-      "coordinates": [-69.12, 40.55],
-      "depth_m": null,
-      "record_type": "point_observation",
-      "track_id": null,
-      "provider": "NOAA Northeast Fisheries Science Center (NEFSC)",
-      "license": "CC0"
+      "coordinates": [
+        166.6,
+        -22.2
+      ],
+      "depth_m": 20.2,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "loggerhead-2015-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample nesting position",
+      "observed_at_local": "2015-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        151.35,
+        -24.55
+      ],
+      "depth_m": 5.1,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "loggerhead-2015-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample foraging position",
+      "observed_at_local": "2015-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        166.69,
+        -21.74
+      ],
+      "depth_m": 21.0,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "loggerhead-2020-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample nesting position",
+      "observed_at_local": "2020-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        152.84,
+        -24.2
+      ],
+      "depth_m": 6.0,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "loggerhead-2020-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-loggerhead",
+      "species_id": "loggerhead",
+      "taxon_label": "Caretta caretta",
+      "observation_label": "Loggerhead turtle sample foraging position",
+      "observed_at_local": "2020-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        166.61,
+        -21.67
+      ],
+      "depth_m": 21.9,
+      "record_type": "sample_route_position",
+      "track_id": "loggerhead-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2006-m03",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample nesting position",
+      "observed_at_local": "2006-03-15 12:00:00",
+      "timezone": "UTC",
+      "month": 3,
+      "coordinates": [
+        -14.84,
+        -8.33
+      ],
+      "depth_m": 2.4,
+      "record_type": "sample_route_position",
+      "track_id": "green-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2006-m08",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample foraging position",
+      "observed_at_local": "2006-08-15 12:00:00",
+      "timezone": "UTC",
+      "month": 8,
+      "coordinates": [
+        -36.74,
+        -12.84
+      ],
+      "depth_m": 17.0,
+      "record_type": "sample_route_position",
+      "track_id": "green-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2010-m03",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample nesting position",
+      "observed_at_local": "2010-03-15 12:00:00",
+      "timezone": "UTC",
+      "month": 3,
+      "coordinates": [
+        -14.4,
+        -7.9
+      ],
+      "depth_m": 2.9,
+      "record_type": "sample_route_position",
+      "track_id": "green-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2010-m08",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample foraging position",
+      "observed_at_local": "2010-08-15 12:00:00",
+      "timezone": "UTC",
+      "month": 8,
+      "coordinates": [
+        -38.2,
+        -12.8
+      ],
+      "depth_m": 17.5,
+      "record_type": "sample_route_position",
+      "track_id": "green-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2015-m03",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample nesting position",
+      "observed_at_local": "2015-03-15 12:00:00",
+      "timezone": "UTC",
+      "month": 3,
+      "coordinates": [
+        -14.06,
+        -7.42
+      ],
+      "depth_m": 3.4,
+      "record_type": "sample_route_position",
+      "track_id": "green-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2015-m08",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample foraging position",
+      "observed_at_local": "2015-08-15 12:00:00",
+      "timezone": "UTC",
+      "month": 8,
+      "coordinates": [
+        -39.76,
+        -12.71
+      ],
+      "depth_m": 18.0,
+      "record_type": "sample_route_position",
+      "track_id": "green-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2020-m03",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample nesting position",
+      "observed_at_local": "2020-03-15 12:00:00",
+      "timezone": "UTC",
+      "month": 3,
+      "coordinates": [
+        -14.49,
+        -7.38
+      ],
+      "depth_m": 4.0,
+      "record_type": "sample_route_position",
+      "track_id": "green-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "green-2020-m08",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-green",
+      "species_id": "green",
+      "taxon_label": "Chelonia mydas",
+      "observation_label": "Green turtle sample foraging position",
+      "observed_at_local": "2020-08-15 12:00:00",
+      "timezone": "UTC",
+      "month": 8,
+      "coordinates": [
+        -37.57,
+        -12.13
+      ],
+      "depth_m": 18.6,
+      "record_type": "sample_route_position",
+      "track_id": "green-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2006-m04",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample nesting position",
+      "observed_at_local": "2006-04-15 12:00:00",
+      "timezone": "UTC",
+      "month": 4,
+      "coordinates": [
+        -60.44,
+        11.2
+      ],
+      "depth_m": 24.0,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2006-m10",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample foraging position",
+      "observed_at_local": "2006-10-15 12:00:00",
+      "timezone": "UTC",
+      "month": 10,
+      "coordinates": [
+        -60.9,
+        41.37
+      ],
+      "depth_m": 130.0,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2010-m04",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample nesting position",
+      "observed_at_local": "2010-04-15 12:00:00",
+      "timezone": "UTC",
+      "month": 4,
+      "coordinates": [
+        -61.0,
+        10.7
+      ],
+      "depth_m": 28.6,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2010-m10",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample foraging position",
+      "observed_at_local": "2010-10-15 12:00:00",
+      "timezone": "UTC",
+      "month": 10,
+      "coordinates": [
+        -61.5,
+        43.5
+      ],
+      "depth_m": 134.6,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2015-m04",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample nesting position",
+      "observed_at_local": "2015-04-15 12:00:00",
+      "timezone": "UTC",
+      "month": 4,
+      "coordinates": [
+        -61.66,
+        10.25
+      ],
+      "depth_m": 34.3,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2015-m10",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample foraging position",
+      "observed_at_local": "2015-10-15 12:00:00",
+      "timezone": "UTC",
+      "month": 10,
+      "coordinates": [
+        -62.2,
+        45.68
+      ],
+      "depth_m": 140.3,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2020-m04",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample nesting position",
+      "observed_at_local": "2020-04-15 12:00:00",
+      "timezone": "UTC",
+      "month": 4,
+      "coordinates": [
+        -60.71,
+        11.57
+      ],
+      "depth_m": 40.0,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "leatherback-2020-m10",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-leatherback",
+      "species_id": "leatherback",
+      "taxon_label": "Dermochelys coriacea",
+      "observation_label": "Leatherback turtle sample foraging position",
+      "observed_at_local": "2020-10-15 12:00:00",
+      "timezone": "UTC",
+      "month": 10,
+      "coordinates": [
+        -61.19,
+        43.38
+      ],
+      "depth_m": 146.0,
+      "record_type": "sample_route_position",
+      "track_id": "leatherback-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2006-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample nesting position",
+      "observed_at_local": "2006-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        -76.46,
+        23.57
+      ],
+      "depth_m": 1.2,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2006-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample foraging position",
+      "observed_at_local": "2006-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        -65.24,
+        17.96
+      ],
+      "depth_m": 6.5,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2010-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample nesting position",
+      "observed_at_local": "2010-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        -77.4,
+        24.2
+      ],
+      "depth_m": 1.4,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2010-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample foraging position",
+      "observed_at_local": "2010-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        -65.2,
+        18.1
+      ],
+      "depth_m": 6.7,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2015-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample nesting position",
+      "observed_at_local": "2015-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        -78.44,
+        24.88
+      ],
+      "depth_m": 1.7,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2015-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample foraging position",
+      "observed_at_local": "2015-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        -65.26,
+        18.29
+      ],
+      "depth_m": 7.0,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2020-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample nesting position",
+      "observed_at_local": "2020-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        -76.97,
+        24.65
+      ],
+      "depth_m": 2.0,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "hawksbill-2020-m01",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-hawksbill",
+      "species_id": "hawksbill",
+      "taxon_label": "Eretmochelys imbricata",
+      "observation_label": "Hawksbill turtle sample foraging position",
+      "observed_at_local": "2020-01-15 12:00:00",
+      "timezone": "UTC",
+      "month": 1,
+      "coordinates": [
+        -65.13,
+        18.73
+      ],
+      "depth_m": 7.3,
+      "record_type": "sample_route_position",
+      "track_id": "hawksbill-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2006-m05",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample nesting position",
+      "observed_at_local": "2006-05-15 12:00:00",
+      "timezone": "UTC",
+      "month": 5,
+      "coordinates": [
+        -97.02,
+        23.1
+      ],
+      "depth_m": 2.1,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2006-m11",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample foraging position",
+      "observed_at_local": "2006-11-15 12:00:00",
+      "timezone": "UTC",
+      "month": 11,
+      "coordinates": [
+        -89.48,
+        28.62
+      ],
+      "depth_m": 2.9,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2010-m05",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample nesting position",
+      "observed_at_local": "2010-05-15 12:00:00",
+      "timezone": "UTC",
+      "month": 5,
+      "coordinates": [
+        -97.8,
+        23.2
+      ],
+      "depth_m": 2.1,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2010-m11",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample foraging position",
+      "observed_at_local": "2010-11-15 12:00:00",
+      "timezone": "UTC",
+      "month": 11,
+      "coordinates": [
+        -89.6,
+        29.2
+      ],
+      "depth_m": 2.9,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2015-m05",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample nesting position",
+      "observed_at_local": "2015-05-15 12:00:00",
+      "timezone": "UTC",
+      "month": 5,
+      "coordinates": [
+        -98.68,
+        23.35
+      ],
+      "depth_m": 2.2,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2015-m11",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample foraging position",
+      "observed_at_local": "2015-11-15 12:00:00",
+      "timezone": "UTC",
+      "month": 11,
+      "coordinates": [
+        -89.82,
+        29.83
+      ],
+      "depth_m": 2.9,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2020-m05",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample nesting position",
+      "observed_at_local": "2020-05-15 12:00:00",
+      "timezone": "UTC",
+      "month": 5,
+      "coordinates": [
+        -97.43,
+        23.84
+      ],
+      "depth_m": 2.2,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "kemps-ridley-2020-m11",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-kemps",
+      "species_id": "kemps-ridley",
+      "taxon_label": "Lepidochelys kempii",
+      "observation_label": "Kemp's ridley turtle sample foraging position",
+      "observed_at_local": "2020-11-15 12:00:00",
+      "timezone": "UTC",
+      "month": 11,
+      "coordinates": [
+        -89.47,
+        29.66
+      ],
+      "depth_m": 2.9,
+      "record_type": "sample_route_position",
+      "track_id": "kemps-ridley-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2006-m09",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample nesting position",
+      "observed_at_local": "2006-09-15 12:00:00",
+      "timezone": "UTC",
+      "month": 9,
+      "coordinates": [
+        -86.14,
+        9.26
+      ],
+      "depth_m": 23.3,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2006-m02",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample foraging position",
+      "observed_at_local": "2006-02-15 12:00:00",
+      "timezone": "UTC",
+      "month": 2,
+      "coordinates": [
+        -108.96,
+        5.3
+      ],
+      "depth_m": 42.7,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2010-m09",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample nesting position",
+      "observed_at_local": "2010-09-15 12:00:00",
+      "timezone": "UTC",
+      "month": 9,
+      "coordinates": [
+        -85.7,
+        9.7
+      ],
+      "depth_m": 23.9,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2010-m02",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample foraging position",
+      "observed_at_local": "2010-02-15 12:00:00",
+      "timezone": "UTC",
+      "month": 2,
+      "coordinates": [
+        -110.5,
+        5.4
+      ],
+      "depth_m": 43.3,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2015-m09",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample nesting position",
+      "observed_at_local": "2015-09-15 12:00:00",
+      "timezone": "UTC",
+      "month": 9,
+      "coordinates": [
+        -85.36,
+        10.19
+      ],
+      "depth_m": 24.7,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2015-m02",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample foraging position",
+      "observed_at_local": "2015-02-15 12:00:00",
+      "timezone": "UTC",
+      "month": 2,
+      "coordinates": [
+        -112.14,
+        5.55
+      ],
+      "depth_m": 44.1,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2020-m09",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample nesting position",
+      "observed_at_local": "2020-09-15 12:00:00",
+      "timezone": "UTC",
+      "month": 9,
+      "coordinates": [
+        -85.78,
+        10.21
+      ],
+      "depth_m": 25.4,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "olive-ridley-2020-m02",
+      "dataset_id": "sample-routes",
+      "source_id": "noaa-olive",
+      "species_id": "olive-ridley",
+      "taxon_label": "Lepidochelys olivacea",
+      "observation_label": "Olive ridley turtle sample foraging position",
+      "observed_at_local": "2020-02-15 12:00:00",
+      "timezone": "UTC",
+      "month": 2,
+      "coordinates": [
+        -109.84,
+        6.04
+      ],
+      "depth_m": 44.8,
+      "record_type": "sample_route_position",
+      "track_id": "olive-ridley-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2006-m12",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample nesting position",
+      "observed_at_local": "2006-12-15 12:00:00",
+      "timezone": "UTC",
+      "month": 12,
+      "coordinates": [
+        115.29,
+        -21.81
+      ],
+      "depth_m": 3.5,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2006-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample foraging position",
+      "observed_at_local": "2006-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        117.87,
+        -16.2
+      ],
+      "depth_m": 18.9,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2006",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2010-m12",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample nesting position",
+      "observed_at_local": "2010-12-15 12:00:00",
+      "timezone": "UTC",
+      "month": 12,
+      "coordinates": [
+        114.8,
+        -21.7
+      ],
+      "depth_m": 4.1,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2010-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample foraging position",
+      "observed_at_local": "2010-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        117.6,
+        -15.6
+      ],
+      "depth_m": 19.5,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2010",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2015-m12",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample nesting position",
+      "observed_at_local": "2015-12-15 12:00:00",
+      "timezone": "UTC",
+      "month": 12,
+      "coordinates": [
+        114.21,
+        -21.54
+      ],
+      "depth_m": 5.0,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2015-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample foraging position",
+      "observed_at_local": "2015-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        117.23,
+        -14.95
+      ],
+      "depth_m": 20.3,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2015",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2020-m12",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample nesting position",
+      "observed_at_local": "2020-12-15 12:00:00",
+      "timezone": "UTC",
+      "month": 12,
+      "coordinates": [
+        115.07,
+        -21.06
+      ],
+      "depth_m": 5.8,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2020",
+      "provider": "Project sample",
+      "license": "sample"
+    },
+    {
+      "observation_id": "flatback-2020-m07",
+      "dataset_id": "sample-routes",
+      "source_id": "dcceew-flatback",
+      "species_id": "flatback",
+      "taxon_label": "Natator depressus",
+      "observation_label": "Flatback turtle sample foraging position",
+      "observed_at_local": "2020-07-15 12:00:00",
+      "timezone": "UTC",
+      "month": 7,
+      "coordinates": [
+        117.78,
+        -15.14
+      ],
+      "depth_m": 21.2,
+      "record_type": "sample_route_position",
+      "track_id": "flatback-2020",
+      "provider": "Project sample",
+      "license": "sample"
     }
   ],
   "species_year_status": {
-    "green": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "loggerhead": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "leatherback": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "hawksbill": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "kemps-ridley": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "olive-ridley": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"},
-    "flatback": {"2006": "no_species_identified", "2010": "restricted_unidentified_sightings", "2015": "no_records", "2020": "non_swimming_nest_records_only"}
+    "loggerhead": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "green": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "leatherback": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "hawksbill": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "kemps-ridley": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "olive-ridley": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    },
+    "flatback": {
+      "2006": "sample_migration_available",
+      "2010": "sample_migration_available",
+      "2015": "sample_migration_available",
+      "2020": "sample_migration_available"
+    }
   }
 }

@@ -61,52 +61,67 @@ def test_migrations():
     assert response.status_code == 200
     routes = response.json()
     assert routes["type"] == "FeatureCollection"
-    assert len(routes["features"]) == 7
-    assert {feature["properties"]["species_id"] for feature in routes["features"]} == {
-        item["id"] for item in client.get("/api/species").json()
-    }
+    assert len(routes["features"]) == 28
+    species_ids = {item["id"] for item in client.get("/api/species").json()}
+    years_by_species = {}
+    for feature in routes["features"]:
+        props = feature["properties"]
+        years_by_species.setdefault(props["species_id"], set()).add(props["year"])
+        assert {date[:4] for date in props["dates"]} == {str(props["year"])}
+    assert set(years_by_species) == species_ids
+    assert all(years == {2006, 2010, 2015, 2020} for years in years_by_species.values())
 
 
 def test_migrations_filter_by_species_and_date():
     green = client.get("/api/migrations", params={"species": "green"}).json()["features"]
-    assert len(green) == 1
-    assert green[0]["properties"]["species_id"] == "green"
+    assert len(green) == 4
+    assert {feature["properties"]["year"] for feature in green} == {2006, 2010, 2015, 2020}
 
-    march = client.get(
-        "/api/migrations", params={"from": "2025-03-01", "to": "2025-03-31", "species": "green"}
+    species_ids = {item["id"] for item in client.get("/api/species").json()}
+    for year in (2006, 2010, 2015, 2020):
+        window = client.get("/api/migrations", params={"year": year}).json()["features"]
+        assert len(window) == 7
+        assert {feature["properties"]["species_id"] for feature in window} == species_ids
+        assert {feature["properties"]["year"] for feature in window} == {year}
+
+    one = client.get("/api/migrations", params={"species": "green", "year": 2006}).json()[
+        "features"
+    ]
+    assert len(one) == 1
+    assert one[0]["properties"]["route_id"] == "green-2006"
+    july = client.get(
+        "/api/migrations", params={"from": "2015-07-01", "to": "2015-07-31", "species": "green"}
     ).json()["features"]
-    assert len(march) == 1
-    # The checked-in demo positions are in 2025, so an observation year has no route.
-    assert (
-        client.get("/api/migrations", params={"from": "2015-01-01", "to": "2015-12-31"}).json()[
-            "features"
-        ]
-        == []
-    )
+    assert len(july) == 1
+    assert july[0]["properties"]["year"] == 2015
+    assert client.get("/api/migrations", params={"year": 2025}).json()["features"] == []
+    indian = client.get("/api/migrations", params={"ocean": "indian", "year": 2010}).json()[
+        "features"
+    ]
+    assert [feature["properties"]["species_id"] for feature in indian] == ["flatback"]
     assert client.get("/api/migrations", params={"from": "not-a-date"}).status_code == 422
 
 
 def test_migrations_does_not_filter_by_depth():
-    assert len(client.get("/api/migrations", params={"depth": 4100}).json()["features"]) == 7
+    assert len(client.get("/api/migrations", params={"depth": 4100}).json()["features"]) == 28
 
 
 def test_years_and_predictions():
     species_ids = {item["id"] for item in client.get("/api/species").json()}
     assert client.get("/api/years").json() == [2006, 2010, 2015, 2020]
     predictions = client.get("/api/predictions").json()
-    assert predictions["data_status"] == "speculative_unvalidated_predictions"
+    assert predictions["data_status"] == "illustrative_sample_predictions"
     assert predictions["years"] == [2006, 2010, 2015, 2020]
     assert set(predictions["species_year_status"]) == species_ids
-    assert predictions["predictions"]
-    assert all(
-        row["predicted_species_id"] and row["coordinates"] for row in predictions["predictions"]
-    )
-    loggerhead = client.get("/api/predictions", params={"species": "loggerhead"}).json()
-    assert loggerhead["predictions"]
-    assert {row["predicted_species_id"] for row in loggerhead["predictions"]} == {"loggerhead"}
-    assert set(loggerhead["species_year_status"]) == {"loggerhead"}
-    green = client.get("/api/predictions", params={"species": "green"}).json()
-    assert green["predictions"] == []
+    pairs = {(row["predicted_species_id"], row["year"]) for row in predictions["predictions"]}
+    assert pairs == {
+        (species_id, year) for species_id in species_ids for year in (2006, 2010, 2015, 2020)
+    }
+    assert all(row["coordinates"] for row in predictions["predictions"])
+    green = client.get("/api/predictions", params={"species": "green", "year": 2015}).json()
+    assert green["predictions"]
+    assert {row["predicted_species_id"] for row in green["predictions"]} == {"green"}
+    assert {row["year"] for row in green["predictions"]} == {2015}
     assert set(green["species_year_status"]) == {"green"}
     profiles = client.get("/api/depth-profiles").json()
     assert {item["species_id"] for item in profiles["species"]} == species_ids

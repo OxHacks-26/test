@@ -52,18 +52,24 @@ def observation_years() -> list[int]:
     return list(OBSERVATION_YEARS)
 
 
-def predictions(species_id: str | None = None) -> dict:
-    """Predicted sample labels joined to sightings.
+def predictions(species_id: str | None = None, year: int | None = None) -> dict:
+    """Sample positions joined to their species labels.
 
-    ``species_year_status`` is included for every species, or for the one
-    requested. Prediction rows are the low-confidence guesses that name that
-    species. A species with no guessed sightings still gets its year status.
+    ``species_year_status`` covers every species, or the one requested. ``year``
+    keeps only positions and status entries from that calendar year.
     """
     payload = load_optional("animation_species_predictions.json")
     sightings = load_optional("animation_sightings.json") or {}
     status = sightings.get("species_year_status") or {}
     if species_id:
         status = {species_id: status[species_id]} if species_id in status else {}
+    if year is not None:
+        year_key = str(year)
+        status = {
+            sid: {year_key: years[year_key]}
+            for sid, years in status.items()
+            if isinstance(years, dict) and year_key in years
+        }
     years = sightings.get("years") or list(OBSERVATION_YEARS)
     if not isinstance(payload, dict):
         return {
@@ -78,11 +84,16 @@ def predictions(species_id: str | None = None) -> dict:
         if species_id and prediction.get("predicted_species_id") != species_id:
             continue
         sighting = by_id.get(prediction.get("observation_id"), {})
+        observed = sighting.get("observed_at_local") or ""
+        row_year = int(str(observed)[:4]) if str(observed)[:4].isdigit() else None
+        if year is not None and row_year != year:
+            continue
         rows.append(
             {
                 **prediction,
                 "coordinates": sighting.get("coordinates"),
-                "observed_at_local": sighting.get("observed_at_local"),
+                "observed_at_local": observed or None,
+                "year": row_year,
                 "month": sighting.get("month"),
             }
         )
