@@ -25,7 +25,12 @@ def test_serves_frontend():
     response = client.get("/")
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert 'id="map"' in response.text
+    assert "Turtle Tide" in response.text
+    assert "/map/?embed=1" in response.text
+
+    map_page = client.get("/map/")
+    assert map_page.status_code == 200
+    assert 'id="map"' in map_page.text
 
 
 def test_species():

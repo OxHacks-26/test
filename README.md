@@ -16,25 +16,13 @@ A judge needs a GitHub account. The first open installs the Python packages, so 
 
 That Codespaces link is the link to submit. It uses the default branch, so this setup has to be on `main`. GitHub cannot keep one always-on website for this Python app.
 
-On your own machine:
+On your own machine, from the repository root:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r backend/requirements.txt -r ui/requirements.txt
-cd ui && python3 app.py
+pip install -r backend/requirements-dev.txt
+cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8080
 ```
 
-Then open http://127.0.0.1:8080. The process prints that address and does not launch a browser itself.
-
-The API and the map page alone still run from `backend/`:
-
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-uvicorn app.main:app --reload
-```
-
-Open http://localhost:8000. API routes live under `/api`.
+Open http://127.0.0.1:8080. That page is the whole Turtle Tide screen: the header, ocean buttons, and time controls, with the map inside the atlas. The map file alone is at http://127.0.0.1:8080/map/. API routes live under `/api`.

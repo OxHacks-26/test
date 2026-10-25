@@ -1,15 +1,18 @@
+import sys
 from datetime import date
+from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 from typing import Annotated
 
 from fastapi import FastAPI, Query
 from fastapi.staticfiles import StaticFiles
+from nicegui import ui
 
 from app import data
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-MAP_DIR = REPO_ROOT / "map"
 FRONTEND_DATA_DIR = REPO_ROOT / "frontend" / "data"
+UI_DIR = REPO_ROOT / "ui"
 
 app = FastAPI(title="OxHacks API")
 
@@ -72,8 +75,15 @@ def list_migrations(
     )
 
 
-# Must be mounted last so /api routes take precedence.
-# The map page lives in map/ and is served at /. The stub JSON stays in
-# frontend/data and is served at /data.
+# Stub JSON stays at /data. The map is not the site: Turtle Tide in ui/ is the
+# page at /, and it embeds the map from /map/.
 app.mount("/data", StaticFiles(directory=FRONTEND_DATA_DIR), name="frontend-data")
-app.mount("/", StaticFiles(directory=MAP_DIR, html=True), name="map")
+
+if str(UI_DIR) not in sys.path:
+    sys.path.insert(0, str(UI_DIR))
+_ui_spec = spec_from_file_location("turtle_ui", UI_DIR / "app.py")
+_turtle_ui = module_from_spec(_ui_spec)
+sys.modules["turtle_ui"] = _turtle_ui
+_ui_spec.loader.exec_module(_turtle_ui)
+
+ui.run_with(app, title="Turtle Tide", show_welcome_message=False)

@@ -7,7 +7,7 @@ from typing import Annotated
 
 from fastapi import Query
 from fastapi.staticfiles import StaticFiles
-from nicegui import app, ui
+from nicegui import app, core, ui
 
 if __package__:
     from .state import state
@@ -138,6 +138,16 @@ ui.add_css(
 def svg_icon(name: str, classes: str = ""):
     """Render one of the local inline SVG icons."""
     return ui.html(SVG[name], sanitize=False).classes(f"svg-icon {classes}")
+
+
+def run_ui_script(script: str) -> None:
+    """Run a browser script once the server loop is up.
+
+    Building the page also calls this, and a test client has no loop yet.
+    """
+    if core.loop is None:
+        return
+    ui.run_javascript(script)
 
 
 @ui.page("/")
@@ -536,7 +546,7 @@ def home() -> None:
             });
         })();
         """.replace("__LATITUDE__", str(latitude)).replace("__LONGITUDE__", str(longitude))
-        ui.run_javascript(script)
+        run_ui_script(script)
 
     def refresh_badges() -> None:
         for key, (badge_card, _, lock_icon) in badge_cards.items():
@@ -614,7 +624,7 @@ def home() -> None:
         high = min(state.depth_range[1], maximum)
         set_depth({"min": low, "max": max(low, high)}, record=False)
         paint_ocean_buttons()
-        ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('ocean', {{ocean: '{name.lower()}'}})")
+        run_ui_script(f"window.ttMapCommand && window.ttMapCommand('ocean', {{ocean: '{name.lower()}'}})")
         complete_quest_step("ocean")
         draw_info(name, f"Explore sea turtle migration routes across the {name.lower()} Ocean. Depth range: 0-{maximum:,} m.")
 
@@ -660,7 +670,7 @@ def home() -> None:
         changed = value != state.date
         state.date = value
         date_input.value = value.year
-        ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('year', {{year: {value.year}}})")
+        run_ui_script(f"window.ttMapCommand && window.ttMapCommand('year', {{year: {value.year}}})")
         date_slider.value = slider_index
         refresh_header_status()
         if value.year >= MAX_YEAR:
