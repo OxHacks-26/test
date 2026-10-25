@@ -738,4 +738,6 @@ def home() -> None:
 
 
 if __name__ == "__main__":
-    ui.run(title="Turtle Tide", reload=False)
+    # show=False: NiceGUI's automatic browser launch crashes in this environment
+    # and leaves an untitled tab that never finishes loading. Open the printed URL.
+    ui.run(title="Turtle Tide", host="0.0.0.0", port=8080, reload=False, show=False)
