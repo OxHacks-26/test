@@ -8,7 +8,11 @@ The screen is built around that moment of choice. Recent history stays visible, 
 
 ## Open it
 
-The screen is the Turtle Tide app in `ui/`. It needs Python, so GitHub cannot host it as a static page. From the GitHub repo, use Codespaces: the dev container installs dependencies, starts the app, and opens port 8080 in your browser.
+**Live site: https://turtle-tide.onrender.com/** — no account needed. It redeploys itself
+on every merge to `main`. The free host sleeps when idle, so the first visit can take about
+30 seconds to wake up; if the page looks blank, wait and refresh. Click **Start exploring**.
+
+The screen is the Turtle Tide app in `ui/`. It needs Python, so GitHub cannot host it as a static page. As a fallback, use Codespaces: the dev container installs dependencies, starts the app, and opens port 8080 in your browser.
 
 [Open Turtle Tide in GitHub Codespaces](https://codespaces.new/OxHacks-26/turtle-tide?quickstart=1)
 
