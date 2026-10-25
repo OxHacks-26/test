@@ -12,6 +12,10 @@ The screen is the Turtle Tide app in `ui/`. It needs Python, so GitHub cannot ho
 
 [Open Turtle Tide in GitHub Codespaces](https://codespaces.new/OxHacks-26/test?quickstart=1)
 
+A judge needs a GitHub account. The first open installs the Python packages, so give it a few minutes. A browser tab then opens Turtle Tide on port 8080. If it does not, open the Ports panel and choose Turtle Tide. Click **Start exploring**. The sample years are 2006, 2010, 2015, and 2020.
+
+That Codespaces link is the link to submit. It uses the default branch, so this setup has to be on `main`. GitHub cannot keep one always-on website for this Python app.
+
 On your own machine:
 
 ```bash
