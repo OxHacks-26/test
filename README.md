@@ -18,6 +18,21 @@ A Codespace stops after it sits idle, and the old browser tab then says the site
 
 That Codespaces link is the link to submit. It uses the default branch, so this setup has to be on `main`. GitHub cannot keep one always-on website for this Python app.
 
+## Put it on the web (Render)
+
+`render.yaml` describes the site for [Render](https://render.com), so it gets a public
+`https://turtle-tide.onrender.com`-style address and redeploys itself on every merge to
+`main`. No Codespace, port forwarding, or manual restart.
+
+One-time setup (needs a Render account linked to GitHub):
+
+1. On Render choose **New > Blueprint** and pick this repository.
+2. Render reads `render.yaml`; confirm and click **Apply**.
+3. When the first deploy finishes, open the URL Render shows. Click **Start exploring**.
+
+The free plan sleeps after about 15 minutes idle, so the first visit afterwards takes
+around 30 seconds to wake up. Merges to `main` redeploy automatically.
+
 On your own machine, from the repository root:
 
 ```bash
