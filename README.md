@@ -10,9 +10,11 @@ The screen is built around that moment of choice. Recent history stays visible, 
 
 The screen is the Turtle Tide app in `ui/`. It needs Python, so GitHub cannot host it as a static page. From the GitHub repo, use Codespaces: the dev container installs dependencies, starts the app, and opens port 8080 in your browser.
 
-[Open Turtle Tide in GitHub Codespaces](https://codespaces.new/OxHacks-26/test?quickstart=1)
+[Open Turtle Tide in GitHub Codespaces](https://codespaces.new/OxHacks-26/turtle-tide?quickstart=1)
 
-A judge needs a GitHub account. The first open installs the Python packages, so give it a few minutes. A browser tab then opens Turtle Tide on port 8080. If it does not, open the Ports panel and choose Turtle Tide. Click **Start exploring**. The sample years are 2006, 2010, 2015, and 2020.
+A judge needs a GitHub account. The first open installs the Python packages, so give it a few minutes. When the Codespace is ready, open the **Ports** panel and click the globe next to **Turtle Tide** (port 8080). That opens the site in your browser. Click **Start exploring**. The sample years are 2006, 2010, 2015, and 2020.
+
+A Codespace stops after it sits idle, and the old browser tab then says the site cannot be reached. Open the Codespace again and use the Ports globe. Do not open `http://127.0.0.1:8080` from the README in your own browser: that address is inside the Codespace, not on your computer. If the terminal says the address is already in use, the app is already running and the Ports globe is the way in.
 
 That Codespaces link is the link to submit. It uses the default branch, so this setup has to be on `main`. GitHub cannot keep one always-on website for this Python app.
 
