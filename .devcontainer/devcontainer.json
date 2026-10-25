@@ -1,0 +1,14 @@
+{
+  "name": "Turtle Tide",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Turtle Tide",
+      "onAutoForward": "openBrowser",
+      "protocol": "http"
+    }
+  },
+  "postCreateCommand": "pip install -r backend/requirements.txt -r ui/requirements.txt",
+  "postStartCommand": "bash .devcontainer/start.sh"
+}
