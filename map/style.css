@@ -265,6 +265,107 @@ body {
   overflow: hidden;
 }
 
+/* Deep-sea notes for the nearest turtle; they fade in once scrolled into view. */
+.dive-facts {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  padding: 0 clamp(14px, 5%, 48px);
+  color: #eaf6fb;
+  pointer-events: none;
+}
+
+.dive-facts[hidden] {
+  display: none;
+}
+
+.dive-facts h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgba(0, 8, 16, 0.7);
+}
+
+.dive-facts h3 em {
+  margin-left: 4px;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(234, 246, 251, 0.78);
+}
+
+.dive-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.dive-facts article {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(3, 14, 24, 0.74);
+  box-shadow: 0 6px 18px rgba(0, 6, 14, 0.35);
+}
+
+.dive-facts h4 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9fd6e6;
+}
+
+.dive-facts p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dive-facts .dive-facts-sources {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(234, 246, 251, 0.68);
+}
+
+.dive-facts a {
+  color: #bfe6f2;
+  pointer-events: auto;
+}
+
+.dive-facts h3,
+.dive-facts article {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.dive-facts.is-revealed h3,
+.dive-facts.is-revealed article {
+  opacity: 1;
+  transform: none;
+}
+
+.dive-facts.is-revealed article:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+.dive-facts.is-revealed article:nth-child(3) {
+  transition-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dive-facts h3,
+  .dive-facts article {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .fish {
   position: absolute;
   width: 86px;

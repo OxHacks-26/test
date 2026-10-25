@@ -165,3 +165,9 @@ def test_stub_routes_cover_every_species():
 def test_months_in_window():
     assert months_in_window(date(2015, 7, 15), date(2015, 7, 15)) == {7}
     assert months_in_window(date(2015, 1, 1), date(2015, 12, 31)) == set(range(1, 13))
+
+
+def test_sources_have_titles_and_links():
+    sources = client.get("/api/sources").json()
+    assert sources
+    assert all({"id", "title", "url"} <= source.keys() for source in sources)

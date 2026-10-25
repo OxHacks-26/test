@@ -111,6 +111,11 @@ body::before { content:''; position:fixed; inset:0; z-index:-2; pointer-events:n
 .ocean-map { position:relative; top:0; left:0; width:100%; height:100%; min-width:0; border:0; border-radius:0; background-color:#2ba9c4; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath stroke='%2387f2e5' stroke-opacity='.20' stroke-width='3' d='M-128 96q64-28 128 0t128 0 128 0 128 0 128 0M-128 224q64-28 128 0t128 0 128 0 128 0 128 0M-128 352q64-28 128 0t128 0 128 0 128 0 128 0M-128 480q64-28 128 0t128 0 128 0 128 0 128 0'/%3E%3Cpath stroke='%23c3fff0' stroke-opacity='.13' stroke-width='2' d='M-128 112q64-20 128 0t128 0 128 0 128 0 128 0M-128 240q64-20 128 0t128 0 128 0 128 0 128 0M-128 368q64-20 128 0t128 0 128 0 128 0 128 0'/%3E%3Cpath stroke='%23fff6cf' stroke-opacity='.23' stroke-width='2' d='M44 152q34-17 68 0t68 0M300 300q34-17 68 0t68 0M132 430q34-17 68 0t68 0'/%3E%3C/g%3E%3Cg fill='%23dcffff' fill-opacity='.58'%3E%3Ccircle cx='74' cy='70' r='3'/%3E%3Ccircle cx='80' cy='58' r='2'/%3E%3Ccircle cx='84' cy='45' r='1.5'/%3E%3Ccircle cx='438' cy='336' r='3'/%3E%3Ccircle cx='432' cy='324' r='2'/%3E%3Ccircle cx='428' cy='311' r='1.5'/%3E%3Ccircle cx='264' cy='270' r='2'/%3E%3Ccircle cx='270' cy='258' r='1'/%3E%3C/g%3E%3C/svg%3E"); background-size:512px 512px; background-position:0 0; background-repeat:repeat; cursor:grab; touch-action:none; user-select:none; }
 .ocean-map.is-dragging { cursor:grabbing; }
 .ocean-map:focus-visible { outline:3px solid var(--c-gold); outline-offset:-4px; }
+.crew-card { border-radius:var(--r-sm) !important; background:rgba(255,255,255,.07) !important; color:#e9f8f7; }
+.crew-name { font-size:15px; font-weight:800; line-height:1.2; }
+.crew-latin { font-size:12px; font-style:italic; opacity:.75; }
+.crew-row { font-size:12px; line-height:1.35; opacity:.92; }
+.crew-note { font-size:11px; line-height:1.35; opacity:.7; }
 .map-coordinates { position:absolute; z-index:3; right:12px; bottom:12px; max-width:calc(100% - 24px); padding:6px 10px; border:0; border-radius:var(--r-sm); background:rgba(10,35,65,.88); color:#fff; font-size:15px; pointer-events:none; }
 .map-state-wrap { flex:none; }
 .map-state-panel { width:100%; min-height:48px; box-sizing:border-box; padding:var(--space-1); }

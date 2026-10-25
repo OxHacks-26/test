@@ -37,6 +37,14 @@ def species() -> list[dict]:
     return [_for_panel(item, boxes) for item in records]
 
 
+def sources() -> list[dict]:
+    """Citation records that species textboxes point to through ``source_ids``."""
+    payload = load_json("sources.json")
+    if isinstance(payload, dict):
+        return payload.get("sources", [])
+    return payload
+
+
 def oceans() -> list[dict]:
     payload = load_json("oceans.json")
     if isinstance(payload, dict):
