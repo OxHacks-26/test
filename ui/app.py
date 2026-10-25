@@ -38,6 +38,11 @@ def api_species() -> list[dict]:
     return turtle_data.species()
 
 
+@app.get("/api/sources")
+def api_sources() -> list[dict]:
+    return turtle_data.sources()
+
+
 @app.get("/api/migrations")
 def api_migrations(
     from_: Annotated[date | None, Query(alias="from")] = None,
@@ -78,6 +83,7 @@ MAX_DATE = date(MAX_YEAR, 12, 31)
 # Only these four years have data, so they are the only years the timeline offers.
 FIVE_YEAR_CHECKPOINTS = (MIN_YEAR, MIN_YEAR + 4, MIN_YEAR + 9, MAX_YEAR)
 YEAR_CHECKPOINTS = list(FIVE_YEAR_CHECKPOINTS)
+MONTH_NAMES = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 GRANULARITIES = ("5-Year", "Decades")
 YEAR_TICKS = FIVE_YEAR_CHECKPOINTS
 
@@ -340,10 +346,7 @@ def home() -> None:
         with ui.row().classes("tt-dashboard w-full items-start gap-4"):
             with ui.card().classes("tt-card species-column w-[245px] min-w-[220px] p-4"):
                 ui.label("TURTLE CREW").classes("section-kicker")
-                with ui.column().classes("data-note w-full gap-2 mt-3 p-4"):
-                    svg_icon("turtle", "empty-icon turtle-mark-small")
-                    ui.label("Turtle cards are on their way!").classes("font-black")
-                    ui.label("Migration data will bring this crew to life.").classes("text-sm leading-5")
+                crew_box = ui.column().classes("crew-list w-full gap-2 mt-3")
                 with ui.card().classes("quest-card glass w-full mt-4 p-4"):
                     ui.label("TODAY'S QUEST").classes("section-kicker")
                     ui.label("Choose an ocean, travel through time, and click the map to find field badge depths.").classes("mt-2 text-sm font-bold leading-5")
@@ -652,6 +655,29 @@ def home() -> None:
                 f"color:{'var(--c-navy)' if active else 'white'};"
             )
 
+    def render_crew(year: int) -> None:
+        """One card per species for the chosen year, from the sample positions."""
+        crew_box.clear()
+        positions: dict[str, list[dict]] = {}
+        payload = turtle_data.predictions(year=year)
+        for item in payload.get("predictions", []):
+            positions.setdefault(item["predicted_species_id"], []).append(item)
+        with crew_box:
+            for species in turtle_data.species():
+                rows = sorted(positions.get(species["id"], []), key=lambda item: item.get("month", 0))
+                with ui.column().classes("crew-card w-full gap-1 p-3").style(f"border-left:4px solid {species['colour']}"):
+                    ui.label(species["common_name"]).classes("crew-name")
+                    ui.label(species["scientific_name"]).classes("crew-latin")
+                    if not rows:
+                        ui.label(f"No sample route for {year}").classes("crew-row")
+                    for item in rows:
+                        lng, lat = item["coordinates"]
+                        kind = "Nesting" if "nesting" in item.get("rationale", "").lower() else "Foraging"
+                        month = MONTH_NAMES[item["month"] - 1] if item.get("month") else ""
+                        place = f"{abs(lat):.1f}°{'N' if lat >= 0 else 'S'} {abs(lng):.1f}°{'E' if lng >= 0 else 'W'}"
+                        ui.label(f"{kind} · {month} · {place}").classes("crew-row")
+            ui.label(f"Illustrative sample positions for {year}, not observed tracking.").classes("crew-note")
+
     def set_date(value: date, record: bool = True) -> None:
         nonlocal has_traveled
         value = min(max(value, MIN_DATE), MAX_DATE)
@@ -663,6 +689,7 @@ def home() -> None:
         ui.run_javascript(f"window.ttMapCommand && window.ttMapCommand('year', {{year: {value.year}}})")
         date_slider.value = slider_index
         refresh_header_status()
+        render_crew(value.year)
         if value.year >= MAX_YEAR:
             date_label.text = f"{MAX_YEAR} - Latest data"
         else:

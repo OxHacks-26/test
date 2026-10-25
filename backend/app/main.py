@@ -24,6 +24,11 @@ def list_species() -> list[dict]:
     return data.species()
 
 
+@app.get("/api/sources")
+def list_sources() -> list[dict]:
+    return data.sources()
+
+
 @app.get("/api/oceans")
 def list_oceans() -> list[dict]:
     return data.oceans()

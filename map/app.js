@@ -205,6 +205,7 @@ const seaDepthSource = document.getElementById("sea-depth-source");
 const diveMarks = document.querySelector(".dive-marks");
 const diveWater = document.querySelector(".dive-water");
 const diveFish = document.getElementById("dive-fish");
+const diveFacts = document.getElementById("dive-facts");
 
 // Pelagic light zones, in metres. The seafloor itself comes from GMRT.
 const LIGHT_ZONES = [
@@ -437,7 +438,123 @@ function placeDiveTurtles(depth, request) {
     swimmer.style.setProperty("--delay", "-8s");
     swimmer.innerHTML = `<div class="turtle-swim" style="--stroke:${look.stroke}">${sideTurtleSvg(id)}</div>`;
     diveFish.appendChild(swimmer);
+    placeFacts(id, depth, request);
   });
+}
+
+// Deep-sea notes for the turtle nearest the click (data/textboxes.json via /api/species).
+let factsCache = null;
+let factsObserver = null;
+
+async function loadFacts() {
+  if (factsCache) {
+    return factsCache;
+  }
+  const [speciesResponse, sourcesResponse] = await Promise.all([
+    fetch("/api/species"),
+    fetch("/api/sources").catch(() => null),
+  ]);
+  if (!speciesResponse.ok) {
+    throw new Error(`species ${speciesResponse.status}`);
+  }
+  const species = await speciesResponse.json();
+  const sources = sourcesResponse && sourcesResponse.ok ? await sourcesResponse.json() : [];
+  factsCache = {
+    species: new Map(species.map((item) => [item.id, item])),
+    sources: new Map(sources.map((item) => [item.id, item])),
+  };
+  return factsCache;
+}
+
+function clearFacts() {
+  if (factsObserver) {
+    factsObserver.disconnect();
+  }
+  diveFacts.hidden = true;
+  diveFacts.classList.remove("is-revealed");
+  diveFacts.replaceChildren();
+  diveFacts.style.removeProperty("top");
+}
+
+// The notes sit in the deep sea (1,000 m, where sunlight ends). A seafloor shallower
+// than that has no deep sea, so they sit near its bottom instead.
+function placeFacts(id, depth, request) {
+  loadFacts()
+    .then(({ species, sources }) => {
+      const kind = species.get(id);
+      const boxes = kind && Array.isArray(kind.textboxes) ? kind.textboxes : [];
+      if (request !== depthRequest || !divePlace || boxes.length === 0) {
+        return;
+      }
+      clearFacts();
+      const heading = document.createElement("h3");
+      heading.textContent = kind.common_name;
+      const latin = document.createElement("em");
+      latin.textContent = kind.scientific_name;
+      heading.append(" ", latin);
+      diveFacts.appendChild(heading);
+      const grid = document.createElement("div");
+      grid.className = "dive-facts-grid";
+      for (const box of boxes) {
+        const card = document.createElement("article");
+        const topic = document.createElement("h4");
+        topic.textContent = box.topic;
+        const text = document.createElement("p");
+        text.textContent = box.text;
+        card.append(topic, text);
+        const cited = box.source_ids || [];
+        if (cited.length) {
+          const list = document.createElement("p");
+          list.className = "dive-facts-sources";
+          cited.forEach((sourceId, index) => {
+            if (index > 0) {
+              list.append(" · ");
+            }
+            const source = sources.get(sourceId);
+            if (source) {
+              const link = document.createElement("a");
+              link.textContent = source.title;
+              link.href = source.url;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              list.appendChild(link);
+            } else {
+              // Cited by the data but not listed in sources.json yet: show the id as is.
+              list.append(sourceId);
+            }
+          });
+          card.appendChild(list);
+        }
+        grid.appendChild(card);
+      }
+      diveFacts.appendChild(grid);
+      diveFacts.hidden = false;
+      requestAnimationFrame(() => {
+        if (request !== depthRequest || diveFacts.hidden) {
+          return;
+        }
+        const water = diveWater.clientHeight;
+        const anchor = Math.min(1000, depth * 0.7);
+        const wanted = 240 + (water - 280) * (anchor / depth);
+        const top = Math.max(240, Math.min(wanted, water - diveFacts.offsetHeight - 24));
+        diveFacts.style.top = `${Math.round(top)}px`;
+        if ("IntersectionObserver" in window) {
+          factsObserver = new IntersectionObserver(
+            (entries) => {
+              if (entries.some((entry) => entry.isIntersecting)) {
+                diveFacts.classList.add("is-revealed");
+                factsObserver.disconnect();
+              }
+            },
+            { root: seaVisual, threshold: 0.2 },
+          );
+          factsObserver.observe(diveFacts);
+        } else {
+          diveFacts.classList.add("is-revealed");
+        }
+      });
+    })
+    .catch(() => {});
 }
 
 function applySeafloor(depth) {
@@ -446,6 +563,7 @@ function applySeafloor(depth) {
   const column = Math.round(Math.min(viewHeight * 4, Math.max(viewHeight * 0.9, depth * 0.42)));
   diveWater.style.height = `${column}px`;
   diveWater.style.background = depthGradient(depth);
+  clearFacts();
   placeFish(depth);
   placeDiveTurtles(depth, depthRequest);
   seaDepthSource.textContent = `Seafloor ${formatMeters(depth)} · GMRT`;
@@ -461,6 +579,7 @@ function clearDepthScale() {
   diveWater.style.removeProperty("background");
   diveMarks.replaceChildren();
   diveFish.replaceChildren();
+  clearFacts();
   seaFishList.hidden = true;
   seaCard.style.setProperty("--dive", "0");
 }
